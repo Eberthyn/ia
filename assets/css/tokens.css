@@ -25,11 +25,11 @@
   --cor-borda-escura: #707070;
   --cor-branco: #ffffff;
 
-  /* Tipografia: Segoe UI (Windows) com Open Sans local como reserva */
-  --fonte-texto: "Segoe UI", "Open Sans", system-ui, sans-serif;
-  --fonte-titulo: "Segoe UI", "Open Sans", system-ui, sans-serif;
-  --fonte-apoio: "Roboto", "Segoe UI", system-ui, sans-serif;
-  --peso-titulo: 900;           /* Segoe UI Black / Open Sans ExtraBold */
+  /* Tipografia: o curso todo em Nunito Sans (arquivos locais em vendor/fontes) */
+  --fonte-texto: "Nunito Sans", system-ui, sans-serif;
+  --fonte-titulo: var(--fonte-texto);
+  --fonte-apoio: var(--fonte-texto);
+  --peso-titulo: 900;           /* Nunito Sans Black */
   --texto-tamanho: 1.2rem;
   --texto-altura: 1.7;
 
