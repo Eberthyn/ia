@@ -26,10 +26,6 @@ window.CURSO_CONFIG = {
     { rotulo: 'Glossário', icone: 'book-half' },
   ],
 
-  // Menu lateral com todos os módulos abertos (como no design).
-  // false: só o módulo da página atual começa aberto.
-  menuAberto: true,
-
   // emBreve: true mostra a etiqueta "Em breve" no card do módulo na home.
   modulos: [
     {

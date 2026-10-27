@@ -2,7 +2,7 @@
    Menu lateral gerado de curso.config.js. Marca a página atual, lista os
    links extras (Referências, Créditos…) no fim e vira painel deslizante
    (offcanvas) em telas pequenas.
-   Com "menuAberto: true" no config, todos os módulos começam abertos. */
+   Só o módulo da página atual começa aberto; os demais ficam recolhidos. */
 (function () {
   const { Componente, definir, esc, icone, config, paginas, extras, home, atual } = window.Curso;
 
@@ -20,7 +20,7 @@
   };
 
   const modulo = (m) => {
-    const aberto = Boolean(config.menuAberto || (atual && atual.modulo === m));
+    const aberto = Boolean(atual && atual.modulo === m);
     return `
     <section class="menu__modulo">
       <button class="menu__titulo ${aberto ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse"
