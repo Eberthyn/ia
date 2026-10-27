@@ -408,6 +408,7 @@ curso-menu {
   padding: 0;
   list-style: none;
   font-size: 1rem;
+  font-weight: 800;
   color: var(--pagina-link);
 }
 

@@ -1,0 +1,990 @@
+diff --git a/README.md b/README.md
+index 74f3a99..532d39d 100644
+--- a/README.md
++++ b/README.md
+@@ -87,8 +87,8 @@ Menu, trilha, título da aba e botões de navegação se atualizam em todas as p
+ | `<curso-modulos>` | Cards dos módulos na home. |
+ | `<curso-navegacao>` | Voltar/Avançar; na home vira "Começar". |
+ | `<curso-linha-tempo>` | Linha do tempo vertical com ícone, ano e texto alternando lados. |
+-| `<curso-matriz colunas linhas>` | Matriz clicável (ex.: pensar/agir × humanamente/racionalmente). |
+-| `<curso-circulos>` | Três círculos sobrepostos clicáveis (diagrama de Venn). |
++| `<curso-matriz colunas linhas>` | Matriz clicável; cada quadrante abre um modal (`modal-titulo`). |
++| `<curso-circulos>` | Três círculos sobrepostos (diagrama de Venn); cada um abre um modal. |
+ | `<curso-pontos src>` | Imagem com marcadores numerados que mostram explicações. |
+ | `<curso-caixa tipo="pratica\|refletir\|leitura">` | Caixas "Na prática", "Para refletir" e "Leitura Complementar". |
+ | `<ul class="lista-setas">` | Lista com setas. |
+@@ -178,7 +178,3 @@ HTML5 · CSS3 (custom properties, grid, `clamp()`) · JavaScript (ES2020, Custom
+ 
+ **Eberthyn Marques** — desenvolvedor full stack em Brasília, DF.
+ [GitHub](https://github.com/SEU-USUARIO) · [LinkedIn](https://www.linkedin.com/in/SEU-USUARIO)
+-
+-## Pendências de conteúdo
+-
+-Trechos que não aparecem no PDF do design estão marcados na página com `class="pendente"` (texto em itálico e esmaecido). Procure por `pendente` nos HTML para encontrá-los.
+diff --git a/assets/css/base.css b/assets/css/base.css
+index 2980889..5303ff4 100644
+--- a/assets/css/base.css
++++ b/assets/css/base.css
+@@ -43,7 +43,7 @@ curso-pagina:not([pronto]) {
+   margin: 2.5rem 0 1rem;
+   font-family: var(--fonte-titulo);
+   font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.8rem);
+-  font-weight: 400;
++  font-weight: 800;
+   line-height: 1.2;
+   color: var(--pagina-h2);
+ }
+@@ -52,7 +52,7 @@ curso-pagina:not([pronto]) {
+ .conteudo h3 {
+   margin: 2.25rem 0 0.75rem;
+   font-size: var(--texto-tamanho);
+-  font-weight: 400;
++  font-weight: 800;
+   line-height: 1.4;
+   color: var(--pagina-h3);
+ }
+@@ -61,7 +61,7 @@ curso-pagina:not([pronto]) {
+ .conteudo h4 {
+   margin: 2.25rem 0 0.75rem;
+   font-size: var(--texto-tamanho);
+-  font-weight: 400;
++  font-weight: 700;
+   color: var(--pagina-texto);
+ }
+ 
+diff --git a/assets/css/componentes.css b/assets/css/componentes.css
+index a6bb82d..c023817 100644
+--- a/assets/css/componentes.css
++++ b/assets/css/componentes.css
+@@ -90,7 +90,7 @@
+ .figura__titulo {
+   margin-bottom: 0.5rem;
+   font-size: 1.1rem;
+-  font-weight: 400;
++  font-weight: 800;
+   line-height: 1.4;
+   color: var(--cor-azul);
+ }
+@@ -280,7 +280,7 @@
+ .figura__legenda-titulo {
+   margin: 0 0 0.25rem !important;
+   font-size: 1.1rem;
+-  font-weight: 400;
++  font-weight: 800;
+   color: var(--cor-azul);
+ }
+ 
+@@ -321,7 +321,7 @@
+   border: 0;
+   border-bottom: 1px solid #bcbcbc;
+   background: none;
+-  font-weight: 400;
++  font-weight: 800;
+   text-align: left;
+   color: var(--cor-rosa);
+ }
+@@ -395,7 +395,7 @@
+ 
+ .carrossel__titulo {
+   margin: 0 !important;
+-  font-weight: 400;
++  font-weight: 800;
+   color: var(--cor-rosa);
+ }
+ 
+@@ -450,6 +450,7 @@
+ 
+ .cartao {
+   position: relative;
++  display: grid;
+   min-height: 18.75rem;
+   padding: 0;
+   border: 0;
+@@ -459,8 +460,8 @@
+ }
+ 
+ .cartao__face {
+-  position: absolute;
+-  inset: 0;
++  position: relative;
++  grid-area: 1 / 1;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+@@ -480,7 +481,7 @@
+ }
+ 
+ .cartao__titulo {
+-  font-weight: 400;
++  font-weight: 800;
+ }
+ 
+ .cartao__frente {
+@@ -502,7 +503,7 @@
+   overflow-y: auto;
+   gap: 1rem;
+   font-size: 0.95rem;
+-  font-weight: 400;
++  font-weight: 700;
+   line-height: 1.45;
+   transform: rotateY(180deg);
+ }
+@@ -552,7 +553,7 @@
+   padding: 0.35rem 1.1rem 0.35rem 0.6rem;
+   background: var(--cor-azul);
+   font-size: 1rem;
+-  font-weight: 400;
++  font-weight: 800;
+   color: var(--cor-branco);
+ }
+ 
+@@ -870,7 +871,9 @@
+ }
+ 
+ /* ---- Modal ----------------------------------------------------------- */
+-.conteudo .link-modal {
++.conteudo a.link-modal {
++  font-weight: 800;
++  color: var(--cor-rosa);
+   cursor: pointer;
+ }
+ 
+@@ -1504,6 +1507,7 @@ curso-audiodescricao {
+ .matriz__rotulo {
+   padding: 0.25rem;
+   font-size: 1.05rem;
++  font-weight: 800;
+   text-align: center;
+   color: var(--cor-azul-escuro);
+ }
+@@ -1524,6 +1528,7 @@ curso-audiodescricao {
+   border: 0;
+   background: var(--cor-azul);
+   font-size: 1.05rem;
++  font-weight: 800;
+   line-height: 1.3;
+   color: var(--cor-branco);
+ }
+@@ -1537,29 +1542,11 @@ curso-audiodescricao {
+ }
+ 
+ .matriz__celula:hover,
+-.matriz__celula[aria-expanded="true"] {
++.matriz__celula:focus-visible {
+   filter: brightness(1.12);
+   box-shadow: inset 0 0 0 3px var(--cor-laranja);
+ }
+ 
+-.matriz__painel,
+-.circulos__painel {
+-  width: min(100%, 36rem);
+-  margin: 1.5rem auto 2.5rem;
+-  padding: 1.25rem 1.5rem;
+-  border-left: 4px solid var(--cor-rosa);
+-  background: var(--cor-areia);
+-  font-size: 1.05rem;
+-  line-height: 1.6;
+-}
+-
+-.matriz__painel-titulo,
+-.circulos__painel-titulo {
+-  margin: 0 0 0.5rem !important;
+-  font-weight: 700;
+-  color: var(--cor-azul-escuro);
+-}
+-
+ curso-matriz,
+ curso-circulos {
+   margin-bottom: 2.5rem;
+@@ -1632,12 +1619,13 @@ curso-circulos {
+ 
+ .circulos__numero {
+   font-size: clamp(2.25rem, 1.5rem + 2vw, 3.25rem);
+-  font-weight: 300;
++  font-weight: 800;
+   line-height: 1;
+ }
+ 
+ .circulos__titulo {
+   font-size: 1.05rem;
++  font-weight: 800;
+   text-decoration: underline;
+ }
+ 
+@@ -1645,9 +1633,9 @@ curso-circulos {
+   font-size: 1.3rem;
+ }
+ 
+-.circulos__circulo:hover .circulos__titulo,
+-.circulos__circulo[aria-expanded="true"] .circulos__titulo {
+-  font-weight: 700;
++.circulos__circulo:hover,
++.circulos__circulo:focus-visible {
++  filter: brightness(1.15);
+ }
+ 
+ .circulos__circulo:focus-visible {
+@@ -1731,8 +1719,16 @@ curso-circulos {
+ }
+ 
+ .cartoes--claro .cartao__verso {
++  justify-content: center;
++  padding: 2rem 2.5rem 1.5rem;
+   color: var(--cor-texto);
+   font-size: 1.05rem;
++  font-weight: 400;
++  line-height: 1.55;
++}
++
++.cartoes--claro .cartao__texto p + p {
++  margin-top: 1rem;
+ }
+ 
+ /* ---- Comparativo com foto (ex.: paradoxo de Moravec) ----------------
+@@ -1776,6 +1772,7 @@ curso-circulos {
+ 
+ .conteudo .comparativo__titulo {
+   margin-bottom: 1.25rem;
++  font-weight: 800;
+   color: var(--cor-azul);
+ }
+ 
+@@ -1809,7 +1806,7 @@ curso-circulos {
+ }
+ 
+ .midia--icone .midia__titulo {
+-  font-weight: 400;
++  font-weight: 800;
+   color: var(--cor-azul);
+ }
+ 
+@@ -1895,6 +1892,7 @@ curso-circulos {
+   gap: 1rem;
+   margin: 2rem 0 0.75rem;
+   font-size: 1.1rem;
++  font-weight: 800;
+   color: var(--cor-azul);
+ }
+ 
+diff --git a/assets/css/layout.css b/assets/css/layout.css
+index 1fa017f..e6fc44e 100644
+--- a/assets/css/layout.css
++++ b/assets/css/layout.css
+@@ -408,6 +408,7 @@ curso-menu {
+   padding: 0;
+   list-style: none;
+   font-size: 1rem;
++  font-weight: 800;
+   color: var(--pagina-link);
+ }
+ 
+diff --git a/assets/js/componentes/circulos.js b/assets/js/componentes/circulos.js
+index 25091cc..b1b22e9 100644
+--- a/assets/js/componentes/circulos.js
++++ b/assets/js/componentes/circulos.js
+@@ -1,46 +1,31 @@
+ /* <curso-circulos>
+-     <curso-item titulo="Salto técnico"> …explicação… </curso-item>
++     <curso-item titulo="Salto técnico"> …texto do modal… </curso-item>
+      <curso-item titulo="Salto de acesso"> … </curso-item>
+      <curso-item titulo="Salto institucional"> … </curso-item>
+    </curso-circulos>
+    Três círculos sobrepostos (diagrama de Venn), numerados. Ao clicar num
+-   círculo, a explicação aparece abaixo do diagrama. */
++   círculo, o conteúdo abre num modal com o título do círculo. */
+ (function () {
+-  const { Componente, definir, icone, novoId, lerItens, criar } = window.Curso;
++  const { Componente, definir, icone, lerItens, criar, criarModal, abrirModal } = window.Curso;
+ 
+   definir('curso-circulos', class extends Componente {
+     montar() {
+-      const itens = lerItens(this).slice(0, 3);
+-      const painel = novoId('circulos-painel');
+       const diagrama = criar('div', 'circulos');
+-      const saida = criar('div', 'circulos__painel');
+-      saida.id = painel;
+-      saida.setAttribute('aria-live', 'polite');
+-      saida.hidden = true;
+ 
+-      itens.forEach(({ titulo, conteudo }, i) => {
++      lerItens(this).slice(0, 3).forEach(({ titulo, conteudo }, i) => {
++        const janela = criarModal({ titulo, conteudo });
+         const botao = criar('button', `circulos__circulo circulos__circulo--${i + 1}`);
+         botao.type = 'button';
+-        botao.setAttribute('aria-expanded', 'false');
+-        botao.setAttribute('aria-controls', painel);
++        botao.setAttribute('aria-haspopup', 'dialog');
+         botao.innerHTML = `
+           <span class="circulos__numero">${i + 1}</span>
+           <span class="circulos__titulo">${titulo}</span>
+           ${icone('hand-index-thumb-fill')}`;
+-        botao.addEventListener('click', () => {
+-          const aberto = botao.getAttribute('aria-expanded') === 'true';
+-          diagrama.querySelectorAll('button').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+-          saida.hidden = aberto;
+-          if (aberto) return;
+-          botao.setAttribute('aria-expanded', 'true');
+-          const cabecalho = criar('p', 'circulos__painel-titulo');
+-          cabecalho.innerHTML = `${i + 1}. ${titulo}`;
+-          saida.replaceChildren(cabecalho, ...conteudo.map((n) => n.cloneNode(true)));
+-        });
++        botao.addEventListener('click', () => abrirModal(janela));
+         diagrama.append(botao);
+       });
+ 
+-      this.replaceChildren(diagrama, saida);
++      this.replaceChildren(diagrama);
+     }
+   });
+ })();
+diff --git a/assets/js/componentes/matriz.js b/assets/js/componentes/matriz.js
+index 4623c0c..0649243 100644
+--- a/assets/js/componentes/matriz.js
++++ b/assets/js/componentes/matriz.js
+@@ -1,54 +1,42 @@
+ /* <curso-matriz colunas="Humanamente|Racionalmente" linhas="Pensar|Agir">
+-     <curso-item titulo="Modelar a cognição humana"> …explicação… </curso-item>
+-     <curso-item titulo="Seguir as leis do raciocínio"> … </curso-item>
+-     <curso-item titulo="Imitar o comportamento humano"> … </curso-item>
+-     <curso-item titulo="Atuar como um agente racional"> … </curso-item>
++     <curso-item titulo="Modelar a cognição humana" modal-titulo="Pensar humanamente"> …texto do modal… </curso-item>
++     <curso-item titulo="Seguir as leis do raciocínio" modal-titulo="Pensar racionalmente"> … </curso-item>
++     …
+    </curso-matriz>
+    Matriz 2×2 (ou maior) com rótulos nas linhas e colunas. Os itens entram
+-   linha a linha; ao clicar num quadrante, a explicação aparece abaixo. */
++   linha a linha; ao clicar num quadrante, o conteúdo abre num modal.
++   "modal-titulo" é o título da janela (padrão: o título do quadrante). */
+ (function () {
+-  const { Componente, definir, esc, icone, novoId, lerItens, criar } = window.Curso;
++  const { Componente, definir, esc, icone, lerItens, criar, criarModal, abrirModal } = window.Curso;
+ 
+   definir('curso-matriz', class extends Componente {
+     montar() {
+       const colunas = this.attr('colunas').split('|');
+       const linhas = this.attr('linhas').split('|');
+       const itens = lerItens(this);
+-      const painel = novoId('matriz-painel');
+ 
+       const grade = criar('div', 'matriz');
+       grade.style.setProperty('--colunas', colunas.length);
+       grade.innerHTML = `<span></span>${colunas.map((c) => `<span class="matriz__rotulo">${esc(c)}</span>`).join('')}`;
+ 
+-      const saida = criar('div', 'matriz__painel');
+-      saida.id = painel;
+-      saida.setAttribute('aria-live', 'polite');
+-      saida.hidden = true;
+-
+       linhas.forEach((linha, l) => {
+         grade.insertAdjacentHTML('beforeend', `<span class="matriz__rotulo matriz__rotulo--linha">${esc(linha)}</span>`);
+         colunas.forEach((_, c) => {
+           const dados = itens[l * colunas.length + c];
+           if (!dados) return;
++          const modalTitulo = dados.item.getAttribute('modal-titulo');
++          const janela = criarModal({ titulo: modalTitulo ? esc(modalTitulo) : dados.titulo, conteudo: dados.conteudo });
++
+           const botao = criar('button', 'matriz__celula');
+           botao.type = 'button';
+-          botao.setAttribute('aria-expanded', 'false');
+-          botao.setAttribute('aria-controls', painel);
++          botao.setAttribute('aria-haspopup', 'dialog');
+           botao.innerHTML = `<span>${dados.titulo}</span>${icone('hand-index-thumb-fill')}`;
+-          botao.addEventListener('click', () => {
+-            const aberto = botao.getAttribute('aria-expanded') === 'true';
+-            grade.querySelectorAll('.matriz__celula').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+-            saida.hidden = aberto;
+-            if (aberto) return;
+-            botao.setAttribute('aria-expanded', 'true');
+-            saida.replaceChildren(criar('p', 'matriz__painel-titulo', []), ...dados.conteudo.map((n) => n.cloneNode(true)));
+-            saida.firstChild.innerHTML = dados.titulo;
+-          });
++          botao.addEventListener('click', () => abrirModal(janela));
+           grade.append(botao);
+         });
+       });
+ 
+-      this.replaceChildren(grade, saida);
++      this.replaceChildren(grade);
+     }
+   });
+ })();
+diff --git a/assets/js/componentes/modal.js b/assets/js/componentes/modal.js
+index c7b6ffb..768ebeb 100644
+--- a/assets/js/componentes/modal.js
++++ b/assets/js/componentes/modal.js
+@@ -1,54 +1,39 @@
+-/* <curso-modal id="modal-imitadora" titulo="..." [imagem="..." alt="..."]>
+-     …conteúdo…
+-   </curso-modal>
+-
+-   Janela que abre ao clicar em qualquer link que aponte para o id:
+-     <a href="#modal-imitadora">a grande imitadora</a>
+-
+-   O link pode ficar no meio de um parágrafo; o <curso-modal> fica fora dele
+-   (ex.: logo depois do parágrafo). Com "imagem", ela aparece à esquerda do texto. */
+-(function () {
+-  const { Componente, definir, esc, criar } = window.Curso;
+-
+-  definir('curso-modal', class extends Componente {
+-    montar() {
+-      const id = this.id || `modal-${Math.random().toString(36).slice(2, 8)}`;
+-      this.removeAttribute('id'); // o id passa para a janela
+-      const tituloId = `${id}-titulo`;
+-      const imagem = this.attr('imagem');
+-
+-      const corpo = criar('div', 'modal-curso__texto', [...this.childNodes]);
+-      corpo.insertAdjacentHTML('afterbegin', `<h2 class="modal-curso__titulo" id="${tituloId}">${esc(this.attr('titulo'))}</h2>`);
+-
+-      const janela = criar('div', 'modal fade modal-curso');
+-      Object.assign(janela, { id, tabIndex: -1 });
+-      janela.setAttribute('aria-labelledby', tituloId);
+-      janela.setAttribute('aria-hidden', 'true');
+-      janela.innerHTML = `
+-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ${imagem ? 'modal-lg' : ''}">
+-          <div class="modal-content">
+-            <button type="button" class="btn-close modal-curso__fechar" data-bs-dismiss="modal" aria-label="Fechar"></button>
+-            <div class="modal-body modal-curso__corpo ${imagem ? 'modal-curso__corpo--imagem' : ''}">
+-              ${imagem ? `<img class="modal-curso__imagem" src="${esc(imagem)}" alt="${esc(this.attr('alt'))}">` : ''}
+-            </div>
+-          </div>
+-        </div>`;
+-      janela.querySelector('.modal-body').append(corpo);
+-
+-      // Fica no <body> para não ser afetado pelo layout da página
+-      document.body.append(janela);
+-      this.remove();
+-
+-      // Liga os links que apontam para esta janela
+-      document.querySelectorAll(`a[href="#${id}"]`).forEach((link) => {
+-        link.classList.add('link-modal');
+-        link.setAttribute('role', 'button');
+-        link.setAttribute('aria-haspopup', 'dialog');
+-        link.addEventListener('click', (evento) => {
+-          evento.preventDefault();
+-          bootstrap.Modal.getOrCreateInstance(janela).show();
+-        });
+-      });
+-    }
+-  });
+-})();
++/* <curso-modal id="modal-imitadora" titulo="..." [imagem="..." alt="..."]>
++     …conteúdo…
++   </curso-modal>
++
++   Janela que abre ao clicar em qualquer link que aponte para o id:
++     <a href="#modal-imitadora">a grande imitadora</a>
++
++   O link pode ficar no meio de um parágrafo; o <curso-modal> fica fora dele
++   (ex.: logo depois do parágrafo). Com "imagem", ela aparece à esquerda do texto. */
++(function () {
++  const { Componente, definir, esc, criarModal, abrirModal } = window.Curso;
++
++  definir('curso-modal', class extends Componente {
++    montar() {
++      const id = this.id || `modal-${Math.random().toString(36).slice(2, 8)}`;
++      this.removeAttribute('id'); // o id passa para a janela
++
++      const janela = criarModal({
++        id,
++        titulo: esc(this.attr('titulo')),
++        conteudo: [...this.childNodes],
++        imagem: this.attr('imagem'),
++        alt: this.attr('alt'),
++      });
++      this.remove();
++
++      // Liga os links que apontam para esta janela
++      document.querySelectorAll(`a[href="#${id}"]`).forEach((link) => {
++        link.classList.add('link-modal');
++        link.setAttribute('role', 'button');
++        link.setAttribute('aria-haspopup', 'dialog');
++        link.addEventListener('click', (evento) => {
++          evento.preventDefault();
++          abrirModal(janela);
++        });
++      });
++    }
++  });
++})();
+diff --git a/assets/js/componentes/pontos.js b/assets/js/componentes/pontos.js
+index c3d6d1b..d22a49b 100644
+--- a/assets/js/componentes/pontos.js
++++ b/assets/js/componentes/pontos.js
+@@ -1,5 +1,5 @@
+ /* <curso-pontos src="img/tela.jpg" alt="..." titulo="..." fonte="...">
+-     <curso-item x="30.8" y="70.4" titulo="Campo de mensagem"> …explicação… </curso-item>
++     <curso-item x="30.8" y="70.4" titulo="Campo de mensagem"> …explicação (opcional)… </curso-item>
+      …
+    </curso-pontos>
+    Imagem com marcadores numerados (x e y em % da imagem). Ao clicar, ao
+@@ -30,10 +30,13 @@
+         botao.setAttribute('aria-label', `${i + 1}: ${nome.replace(/<[^>]+>/g, '')}`);
+         area.append(botao);
+ 
++        // Com conteúdo: título no topo do balão e texto embaixo.
++        // Sem conteúdo: o balão mostra só "N. título".
+         const corpo = criar('div', '', conteudo);
++        const temCorpo = corpo.textContent.trim() !== '';
+         new bootstrap.Popover(botao, {
+-          title: `${i + 1}. ${nome}`,
+-          content: corpo.innerHTML,
++          title: temCorpo ? `${i + 1}. ${nome}` : '',
++          content: temCorpo ? corpo.innerHTML : `${i + 1}. ${nome}`,
+           html: true,
+           trigger: 'hover focus',
+           placement: 'auto',
+diff --git a/assets/js/nucleo.js b/assets/js/nucleo.js
+index 33121e9..3967edd 100644
+--- a/assets/js/nucleo.js
++++ b/assets/js/nucleo.js
+@@ -158,6 +158,38 @@
+     return el;
+   };
+ 
++  /**
++   * Cria uma janela modal no <body> e devolve o elemento.
++   * Usada por <curso-modal> e pelos componentes que abrem modal ao clicar
++   * (matriz, círculos). "conteudo" é uma lista de nós; "titulo" aceita HTML.
++   */
++  const criarModal = ({ id = novoId("modal"), titulo = "", conteudo = [], imagem = "", alt = "" }) => {
++    const tituloId = `${id}-titulo`;
++    const corpo = criar("div", "modal-curso__texto", conteudo);
++    corpo.insertAdjacentHTML("afterbegin", `<h2 class="modal-curso__titulo" id="${tituloId}">${titulo}</h2>`);
++
++    const janela = criar("div", "modal fade modal-curso");
++    Object.assign(janela, { id, tabIndex: -1 });
++    janela.setAttribute("aria-labelledby", tituloId);
++    janela.setAttribute("aria-hidden", "true");
++    janela.innerHTML = `
++      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ${imagem ? "modal-lg" : ""}">
++        <div class="modal-content">
++          <button type="button" class="btn-close modal-curso__fechar" data-bs-dismiss="modal" aria-label="Fechar"></button>
++          <div class="modal-body modal-curso__corpo ${imagem ? "modal-curso__corpo--imagem" : ""}">
++            ${imagem ? `<img class="modal-curso__imagem" src="${esc(imagem)}" alt="${esc(alt)}">` : ""}
++          </div>
++        </div>
++      </div>`;
++    janela.querySelector(".modal-body").append(corpo);
++    // Fica no <body> para não ser afetado pelo layout da página
++    document.body.append(janela);
++    return janela;
++  };
++
++  /** Abre a janela criada por criarModal(). */
++  const abrirModal = (janela) => bootstrap.Modal.getOrCreateInstance(janela).show();
++
+   Object.assign(window.Curso, {
+     config,
+     paginas,
+@@ -174,6 +206,8 @@
+     novoId,
+     lerItens,
+     criar,
++    criarModal,
++    abrirModal,
+     fonteHtml,
+   });
+ })();
+diff --git a/modulo1/aula1.html b/modulo1/aula1.html
+index c1c58b4..c0a0d84 100644
+--- a/modulo1/aula1.html
++++ b/modulo1/aula1.html
+@@ -52,10 +52,18 @@
+     <p>Clique nos quadrantes da matriz a seguir e entenda como uma IA cruza esses eixos.</p>
+ 
+     <curso-matriz colunas="Humanamente|Racionalmente" linhas="Pensar|Agir">
+-      <curso-item titulo="Modelar a cognição humana"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Seguir as leis do raciocínio"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Imitar o comportamento humano"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Atuar como um agente racional"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Modelar a cognição humana" modal-titulo="Pensar humanamente">
++        <p>Projetar máquinas que reproduzam os processos mentais dos humanos. Esse é o terreno da modelagem cognitiva, na fronteira com a neurociência.</p>
++      </curso-item>
++      <curso-item titulo="Seguir as leis do raciocínio" modal-titulo="Pensar racionalmente">
++        <p>Projetar máquinas que sigam regras lógicas formais e cheguem a conclusões corretas. É a tradição que vai de Aristóteles aos sistemas especialistas baseados em regras.</p>
++      </curso-item>
++      <curso-item titulo="Imitar o comportamento humano" modal-titulo="Agir humanamente">
++        <p>Projetar máquinas cujo comportamento, em interação, seja indistinguível do humano. É aqui que se situa o famoso Teste de Turing, proposto em 1950, em que uma máquina é considerada “inteligente” se um avaliador humano, conversando com ela por escrito, não conseguir distingui-la de outra pessoa.</p>
++      </curso-item>
++      <curso-item titulo="Atuar como um agente racional" modal-titulo="Agir racionalmente">
++        <p>Projetar agentes racionais: sistemas que percebem o ambiente, têm objetivos e agem de modo a maximizar a chance de atingir esses objetivos. Essa é, hoje, a abordagem dominante no campo.</p>
++      </curso-item>
+     </curso-matriz>
+ 
+     <curso-nota>
+@@ -69,12 +77,25 @@
+       <curso-item titulo="Campo de estudo e construção de sistemas">
+         <p>A Inteligência Artificial é, antes de tudo, um campo do conhecimento, não um produto único. Engloba pesquisa teórica, métodos matemáticos, engenharia de software, ética aplicada e várias subáreas. Quando se diz “uma IA”, em rigor, refere-se a um sistema de IA específico, um modelo, um aplicativo, um serviço.</p>
+       </curso-item>
+-      <curso-item titulo="Ponto 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Ponto 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Ponto 4"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Ponto 5"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Sistemas computacionais">
++        <p>A Inteligência Artificial é necessariamente computacional. Roda em máquinas, sob forma de código, dados e parâmetros. Uma diretriz clínica em papel, por mais sofisticada que seja, não é IA. Um sistema que automatiza essa diretriz, decidindo computacionalmente quando aplicá-la, pode ser.</p>
++      </curso-item>
++      <curso-item titulo="Tarefas que exigiriam capacidade cognitiva humana">
++        <p>Essa cláusula define o escopo das tarefas consideradas de IA. Calcular uma média aritmética não é IA. Classificar imagens de retina como portadoras ou não de retinopatia diabética é. A fronteira é histórica e móvel, ou seja, tarefas que ontem eram consideradas de IA, hoje viraram software comum (uma armadilha conhecida como “<a href="#modal-efeito-ia">efeito IA</a>”).</p>
++      </curso-item>
++      <curso-item titulo="Perceber, raciocinar, aprender, decidir, comunicar-se">
++        <p>Essas cinco capacidades cobrem a maior parte das aplicações atuais de IA em saúde, da visão computacional para imagens diagnósticas ao aprendizado supervisionado em prontuários, passando pelos modelos de linguagem que sustentam os chatbots.</p>
++      </curso-item>
++      <curso-item titulo="Algum tipo de capacidade cognitiva">
++        <p>A expressão “algum tipo” é deliberada. Sistemas de IA não pensam como humanos, mesmo quando produzem saídas que se parecem com o pensamento humano. Tratar essa diferença com seriedade é parte da fluência crítica que este curso quer desenvolver.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
++    <curso-modal id="modal-efeito-ia" titulo="Efeito IA">
++      <p>Há um padrão recorrente na história da IA. Assim que uma técnica se torna confiável e amplamente adotada, ela tende a ser reclassificada como “engenharia” ou “tecnologia comum”, deixando de ser percebida como Inteligência Artificial. Haenlein e Kaplan (2019) ilustram esse fenômeno com casos como o reconhecimento ótico de caracteres (OCR) e o reconhecimento de voz, antes considerados problemas centrais da IA e hoje tratados como soluções de engenharia padrão.</p>
++      <p>McCorduck (2004, p. 204) já havia apontado que, sempre que uma máquina conseguia executar uma tarefa antes considerada inteligente, surgia um coro de críticos afirmando que aquilo “não era pensar”. A formulação ficou consagrada por Hofstadter (2001, p. 601) sob o nome de “teorema de Tesler”: "IA é tudo aquilo que ainda não foi feito" (Tesler <i>apud</i> Hofstadter, 2001, p. 601). Reconhecer esse padrão é útil ao profissional de saúde porque ajuda a calibrar expectativas. Nem tudo o que hoje parece "óbvio" nas soluções digitais em saúde é trivial, muito veio de décadas de pesquisa em IA e nem tudo o que hoje é apresentado como “novidade revolucionária” se manterá com esse status.</p>
++    </curso-modal>
++
+     <h2>O nascimento da IA</h2>
+     <p>A história da IA é frequentemente apresentada como uma sequência linear de êxitos técnicos, especialmente de máquinas x humanos. Porém, essa narrativa é incompleta.</p>
+ 
+@@ -86,7 +107,6 @@
+       <curso-item titulo="Calibrar expectativas">
+         <p>Quando se entende que houve, no passado, anúncios de “revoluções iminentes” que não se concretizaram, fica mais fácil distinguir, hoje, entre promessa e entrega.</p>
+       </curso-item>
+-      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+     </curso-carrossel>
+ 
+     <curso-caixa tipo="refletir">
+@@ -167,7 +187,11 @@
+       </figure>
+     </div>
+ 
+-    <p>Esse paradoxo seria mais tarde batizado de <a>paradoxo de Moravec</a>. O primeiro “inverno” deixou uma lição que, para muitos pesquisadores, definiria o campo dali em diante, em que promessas sem entregas custam caro, não apenas financeiramente, mas para sua própria reputação.</p>
++    <p>Esse paradoxo seria mais tarde batizado de <a href="#modal-moravec">paradoxo de Moravec</a>. O primeiro “inverno” deixou uma lição que, para muitos pesquisadores, definiria o campo dali em diante, em que promessas sem entregas custam caro, não apenas financeiramente, mas para sua própria reputação.</p>
++
++    <curso-modal id="modal-moravec" titulo="Paradoxo de Moravec">
++      <p>O paradoxo de Moravec tem implicações diretas para a saúde. Tarefas clínicas que parecem “simples” para um agente comunitário experiente, como perceber, em uma visita domiciliar, que algo está estranho na casa de um idoso, envolvem percepção, contexto e julgamento que continuam, até hoje, fora do alcance das melhores IAs. Já tarefas que parecem complexas, como identificar um padrão sutil em milhares de mamografias, podem ser bem executadas por sistemas atuais. Não é uma questão de “melhor do que humano” ou “pior do que humano”, são habilidades cognitivas qualitativamente diferentes.</p>
++    </curso-modal>
+ 
+     <h3>1980 - 1987</h3>
+     <p>Por volta de 1980, no início do segundo verão, a IA voltou a aquecer, agora com um produto concreto: os sistemas especialistas. A ideia, herdada do DENDRAL e do MYCIN, era simples e poderosa: codificar o conhecimento de um especialista humano em forma de regras lógicas e disponibilizá-lo para uso amplo.</p>
+@@ -194,7 +218,12 @@
+       <curso-item titulo="Mercado de Lisp machines">
+         <p>O mercado de Lisp machines colapsou, à medida que computadores pessoais (especialmente da plataforma IBM PC) e estações Sun se tornaram baratos e suficientes para a maior parte das aplicações.</p>
+       </curso-item>
+-      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
++      <curso-item titulo="Projeto da Quinta Geração">
++        <p>O Projeto da Quinta Geração japonês terminou em 1992 sem entregar a maior parte do que havia prometido.</p>
++      </curso-item>
++      <curso-item titulo="Gargalo da aquisição de conhecimento">
++        <p>Sistemas especialistas em produção mostraram-se caros para manter, exigindo equipes inteiras de “engenheiros de conhecimento” para extrair regras de especialistas humanos e mantê-las atualizadas, um problema conhecido como gargalo da aquisição de conhecimento.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>A consequência foi um novo período de retração, com financiamentos cortados, laboratórios fechados e pesquisadores migrando para áreas vizinhas (estatística aplicada, processamento de sinais, robótica). Foi o segundo “inverno” da IA.</p>
+@@ -238,7 +267,7 @@
+       <curso-item ano="2020" titulo="GPT-3" imagem="img/icones/linha-2020.webp">
+         <p>Modelo da OpenAI com 175 bilhões de parâmetros (mais detalhes sobre parâmetros a seguir no curso), capaz de produzir textos em linguagem natural com qualidade que assusta a comunidade técnica, mas sem grande visibilidade pública.</p>
+       </curso-item>
+-      <curso-item ano="30 nov" titulo="ChatGPT" imagem="img/icones/linha-2022.webp">
++      <curso-item ano="30 nov 2022" titulo="ChatGPT" imagem="img/icones/linha-2022.webp">
+         <p>A OpenAI lança publicamente uma interface gratuita para conversar com um modelo derivado do GPT-3.5. Em cinco dias, o serviço alcança um milhão de usuários; em dois meses, cem milhões. É a tecnologia digital de adoção mais rápida da história até então.</p>
+       </curso-item>
+       <curso-item ano="2023 - 2025" titulo="A explosão" imagem="img/icones/linha-2023-2025.webp">
+@@ -259,9 +288,15 @@
+     <p>Embora a inteligência artificial exista há décadas, foi apenas nos últimos anos que ela passou a fazer parte da rotina e das discussões dos profissionais de saúde. Para entender essa mudança, é preciso olhar para um conjunto de transformações que ampliaram sua capacidade, seu acesso e sua presença nas instituições. A resposta tem, portanto, três camadas.</p>
+ 
+     <curso-circulos>
+-      <curso-item titulo="Salto técnico"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Salto de acesso"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Salto institucional"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Salto técnico">
++        <p>Em 2017 foi publicado um artigo que apresentou uma nova arquitetura para a IA chamada Transformer, que será aprofundada neste curso. Sobre essa arquitetura foram construídos os Grandes Modelos de Linguagem (LLMs), como GPT, Claude, Gemini e Llama, capazes de gerar texto coerente em linguagem natural com qualidade muito superior à de tudo o que existia antes.</p>
++      </curso-item>
++      <curso-item titulo="Salto de acesso">
++        <p>Em 30 de novembro de 2022, a OpenAI lançou o ChatGPT. Pela primeira vez, qualquer pessoa com um navegador e uma conta gratuita pôde conversar diretamente com um sistema de IA generativa, sem programar nada, sem instalar nada, em linguagem natural. Em cinco dias, o serviço alcançou um milhão de usuários, se tornando a tecnologia digital de adoção mais rápida da história até então.</p>
++      </curso-item>
++      <curso-item titulo="Salto institucional">
++        <p>Em poucos meses, governos, conselhos profissionais, sociedades científicas e gestores de sistemas de saúde foram obrigados a se posicionar. No Brasil, o Conselho Federal de Medicina (CFM), a Agência Nacional de Saúde Suplementar (ANS), o Ministério da Saúde (MS) e a comunidade da Saúde Coletiva passaram a debater regulação, segurança, equidade e LGPD aplicadas à IA em saúde.</p>
++      </curso-item>
+     </curso-circulos>
+ 
+     <p>Até aqui, você percorreu cerca de 80 anos da história da IA. Antes de seguir adiante, vale consolidar três grandes aprendizados.</p>
+@@ -270,8 +305,12 @@
+       <curso-item titulo="A IA tem ciclos, não uma marcha linear.">
+         <p>“Verões e invernos” se alternaram. Em todos os verões, houve promessas que não se cumpriram nos prazos anunciados. Em todos os invernos, a pesquisa subterrânea continuou e preparou o ciclo seguinte. Reconhecer esse padrão é o melhor antídoto tanto contra o entusiasmo ingênuo quanto contra o ceticismo apressado.</p>
+       </curso-item>
+-      <curso-item titulo="Aprendizado 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Aprendizado 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="A IA em saúde é tão antiga quanto o campo.">
++        <p>O MYCIN é de 1972 e já tinha desempenho equivalente ao de especialistas em uma tarefa clínica complexa. Sistemas especialistas em diagnóstico (INTERNIST-I, DXplain) circulam em hospitais-escola norte-americanos desde os anos 1980. O que mudou em 2022 não foi a chegada da IA à saúde, mas o tipo de IA disponível ao profissional de saúde. Agora, qualquer médico, enfermeira, agente comunitário ou gestor pode interagir, em linguagem natural, com sistemas treinados em volumes inéditos de texto.</p>
++      </curso-item>
++      <curso-item titulo="A história ajuda a fazer perguntas melhores.">
++        <p>Diante de uma nova ferramenta, em vez de perguntar apenas “isso é IA de verdade?”, o profissional informado pergunta: “Que tipo de IA é esta? Que dados a treinaram? Para qual população? Que limites já se conhecem? Como ela se integra ao meu fluxo de trabalho?” Essas perguntas só podem ser feitas por quem conhece o terreno.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>Quando alguém te diz que “usou IA” para fazer algo, você sabe qual IA? E qual a diferença entre o sistema que detecta retinopatia diabética, o ChatGPT que escreveu o resumo da consulta e o alerta de interação medicamentosa do prontuário?</p>
+@@ -284,7 +323,12 @@
+       <curso-item>
+         <p>Para entender notícias e propaganda. Reportagens e materiais de marketing misturam os termos como se fossem intercambiáveis. Quem distingue os tipos identifica rápido quando há promessa exagerada.</p>
+       </curso-item>
+-      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
++      <curso-item>
++        <p>Para fazer as perguntas certas no processo de tomada de decisão a respeito da adoção. Ao avaliar uma ferramenta para o seu serviço, perguntas como “qual o tipo de modelo?”, “com que dados ele foi treinado?”, “em que população foi validado?” só fazem sentido se você souber as categorias por trás delas.</p>
++      </curso-item>
++      <curso-item>
++        <p>Para escolher a ferramenta certa para o problema é preciso entender que cada tipo serve melhor a um tipo de tarefa. Usar IA generativa para algo que um sistema de regras simples resolveria bem é, no mínimo, desperdício. Em saúde, pode significar risco.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>Pense em três situações distintas:</p>
+diff --git a/modulo1/aula2.html b/modulo1/aula2.html
+index 1674788..7c03de7 100644
+--- a/modulo1/aula2.html
++++ b/modulo1/aula2.html
+@@ -51,8 +51,8 @@
+     <p>Boa parte do que está hoje em produção nos sistemas de saúde brasileiros, como e-SUS APS, sistemas de regulação, prontuários eletrônicos hospitalares, funciona, em grande medida, com IA clássica. Quando o seu prontuário emite um alerta porque você prescreveu uma dose acima da máxima recomendada para um idoso com clearance de creatinina reduzido, isso é IA. Não é “menos IA” por não ser ChatGPT.</p>
+ 
+     <curso-cartoes>
+-      <curso-item titulo="Vantagens da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Limites da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Vantagens da IA clássica"><p>Transparente (toda regra é legível e auditável), previsível (a mesma entrada produz a mesma saída), não precisa de grandes volumes de dados para funcionar, fácil de validar do ponto de vista regulatório.</p></curso-item>
++      <curso-item titulo="Limites da IA clássica"><p>Depende de alguém escrever as regras e há domínios em que isso é inviável (reconhecer um rosto, interpretar uma radiografia, entender uma frase em linguagem natural). A regra é frágil quando o caso real foge ligeiramente do previsto. Manter as regras atualizadas é caro e exige equipe permanente.</p></curso-item>
+     </curso-cartoes>
+ 
+     <h3>MACHINE LEARNING</h3>
+@@ -117,8 +117,12 @@
+       <curso-item>
+         <p>Dados em escala inédita (a internet, os bancos de imagens médicas digitalizadas, os prontuários eletrônicos).</p>
+       </curso-item>
+-      <curso-item><p class="pendente">Condição 2: conteúdo não consta no PDF do design.</p></curso-item>
+-      <curso-item><p class="pendente">Condição 3: conteúdo não consta no PDF do design.</p></curso-item>
++      <curso-item>
++        <p>Poder computacional barato (GPUs originalmente desenvolvidas para videogames, depois adaptadas para treinar redes neurais).</p>
++      </curso-item>
++      <curso-item>
++        <p>Avanços algorítmicos (técnicas mais novas e, principalmente, melhorias no algoritmo de <i>backpropagation</i> de Rumelhart, Hinton e Williams, de 1986).</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>Clique na seta para visualizar alguns exemplos clássicos em saúde:</p>
+@@ -161,7 +165,7 @@
+     <p>Esse mecanismo aparentemente simples produz, em escala suficiente, capacidades surpreendentes. Exemplos incluem redigir um plano de cuidado coerente, traduzir uma bula para linguagem acessível, sintetizar um artigo científico, gerar um código que filtra um banco de dados.</p>
+ 
+     <curso-nota>
+-      <p>A IA generativa não tem compreensão do sentido humano, não consulta bancos de dados em tempo real (a menos que esteja explicitamente conectada a um) e não tem garantia de veracidade sobre o que produz. Ela pode gerar com fluência uma resposta inteiramente errada sobre uma medicação, uma diretriz clínica ou um dado epidemiológico, fenômeno chamado alucinação, que você verá a seguir. Esse é o ponto em que a IA generativa exige do profissional de saúde uma postura crítica diferente da exigida pelas IAs</p>
++      <p>A IA generativa não tem compreensão do sentido humano, não consulta bancos de dados em tempo real (a menos que esteja explicitamente conectada a um) e não tem garantia de veracidade sobre o que produz. Ela pode gerar com fluência uma resposta inteiramente errada sobre uma medicação, uma diretriz clínica ou um dado epidemiológico, fenômeno chamado alucinação, que você verá a seguir. Esse é o ponto em que a IA generativa exige do profissional de saúde uma postura crítica diferente da exigida pelas IAs anteriores.</p>
+     </curso-nota>
+ 
+     <h3>QUANDO USAR CADA CATEGORIA DE IA</h3>
+@@ -172,8 +176,8 @@
+     <p>Nesse caso, temos um conjunto de regras “se… então…”, baseadas em diretrizes oficiais e tabelas de bulário. Por exemplo: SE o paciente tem mais de 65 anos E clearance de creatinina &lt; 30 mL/min E a dose prescrita &gt; 50% da dose máxima padrão, ENTÃO emitir alerta.</p>
+     <curso-figura src="img/a2-cenario-ia-classica.jpg" alt="Profissional de saúde consultando um tablet" fonte="Magnific, (2026)"></curso-figura>
+     <curso-cartoes>
+-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Vantagens clínica"><p>Transparente, auditável, fácil de justificar para gestores e auditorias.</p></curso-item>
++      <curso-item titulo="Limites"><p>Não cobre casos não previstos pelas regras.</p></curso-item>
+     </curso-cartoes>
+ 
+     <h4>Machine learning</h4>
+@@ -181,8 +185,8 @@
+     <p>Nesse caso, foi treinado em dezenas de milhares de prontuários do próprio hospital, com a variável-alvo “houve readmissão em 30 dias: sim/não”. Aprendeu, a partir dos dados, quais combinações de idade, comorbidades, exames e tempo de internação se associam a maior risco.</p>
+     <curso-figura src="img/a2-cenario-machine-learning.jpg" alt="Médica atendendo uma paciente idosa em cadeira de rodas" fonte="Magnific, (2026)"></curso-figura>
+     <curso-cartoes>
+-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Vantagens clínica"><p>Captura padrões complexos que regras manuais não capturariam.</p></curso-item>
++      <curso-item titulo="Limites"><p>O modelo “sabe” quem provavelmente vai voltar, mas não sabe por que, no sentido causal.</p></curso-item>
+     </curso-cartoes>
+ 
+     <h4>Deep learning</h4>
+@@ -190,8 +194,8 @@
+     <p>Nesse caso, uma rede neural convolucional, treinada em centenas de milhares de imagens rotuladas, aprendeu a reconhecer microaneurismas, hemorragias, exsudatos e outros sinais.</p>
+     <curso-figura src="img/a2-cenario-deep-learning.jpg" alt="Paciente em exame de lâmpada de fenda com profissional de saúde" fonte="Magnific, (2026)"></curso-figura>
+     <curso-cartoes>
+-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Vantagens clínica"><p>Habilita triagem em larga escala, em locais sem oftalmologista, com sensibilidade alta.</p></curso-item>
++      <curso-item titulo="Limites"><p>Funciona como caixa-preta, ou seja, explicar por que classificou um caso específico daquele jeito é tecnicamente difícil.</p></curso-item>
+     </curso-cartoes>
+ 
+     <h4>IA generativa</h4>
+@@ -199,8 +203,8 @@
+     <p>Nesse caso, um LLM gera o texto de saída, baseando-se em padrões aprendidos durante o treinamento.</p>
+     <curso-figura src="img/a2-cenario-ia-generativa.jpg" alt="Profissional de saúde diante de um computador" fonte="Magnific, (2026)"></curso-figura>
+     <curso-cartoes>
+-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Vantagens clínica"><p>Acelera tarefas de redação, comunicação e síntese; reduz tempo de elaboração de orientações personalizadas.</p></curso-item>
++      <curso-item titulo="Limites"><p>Pode alucinar (inventar dose, frequência, princípio ativo). Exige revisão clínica humana obrigatória antes de qualquer entrega ao paciente.</p></curso-item>
+     </curso-cartoes>
+ 
+     <curso-nota>
+@@ -255,7 +259,21 @@
+       <curso-item titulo="Atenção Primária à Saúde">
+         <p>Aplicativos de apoio à decisão clínica instalados em smartphone; sistemas de classificação de risco; uso de mapas em aplicativo de navegação por um ACS; chatbots de orientação de saúde para a população.</p>
+       </curso-item>
+-      <curso-item titulo="Próximo exemplo"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
++      <curso-item titulo="Atenção hospitalar">
++        <p>Sistemas de auxílio à interpretação de imagens (colonoscopia, radiografias, tomografias, mamografias); alertas de sepse em prontuários eletrônicos; sistemas de alerta de interação medicamentosa.</p>
++      </curso-item>
++      <curso-item titulo="Regulação assistencial">
++        <p>Algoritmos de priorização de filas; modelos preditivos de demanda; sistemas de detecção de fraudes em contas hospitalares.</p>
++      </curso-item>
++      <curso-item titulo="Vigilância em saúde">
++        <p>Modelos preditivos de surtos de covid-19; análise de imagens de satélite para identificação de focos do <i>Aedes aegypti</i>.</p>
++      </curso-item>
++      <curso-item titulo="Formação e educação permanente">
++        <p>Plataformas adaptativas de educação a distância que personalizam trilhas de aprendizagem; avaliação automatizada de produções textuais em programas como o Mais Médicos; simuladores clínicos baseados em IA.</p>
++      </curso-item>
++      <curso-item titulo="Gestão e planejamento">
++        <p>Painéis preditivos de produção; ferramentas de classificação de despesas; sistemas de apoio à elaboração de relatórios e pareceres técnicos.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>Algumas dessas aplicações são consolidadas há mais de uma década (como sistemas de alerta em prontuário), outras são experimentais e ainda não chegaram à maioria dos serviços. Compreender o que é IA permite ao profissional reconhecê-la quando ela aparece, formular perguntas críticas (Quem treinou? Com quais dados? Foi validada para a nossa população?) e participar com voz ativa das decisões institucionais sobre a adoção dessas ferramentas.</p>
+diff --git a/modulo1/aula3.html b/modulo1/aula3.html
+index e704713..0285be4 100644
+--- a/modulo1/aula3.html
++++ b/modulo1/aula3.html
+@@ -23,7 +23,12 @@
+       <curso-item>
+         <p>Para distinguir uma resposta correta de uma resposta plausível é preciso conhecer o mecanismo, sabendo que fluência não é sinônimo de veracidade e revê-lo com olhos clínicos.</p>
+       </curso-item>
+-      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
++      <curso-item>
++        <p>Para entender o que o sistema pode e não pode fazer, pois operações que parecem triviais (somar valores em uma tabela, contar quantas vezes uma palavra aparece) podem falhar de modo silencioso, e operações que parecem mágicas (traduzir, parafrasear, sumarizar) tendem a funcionar bem. Conhecer o motivo dessa assimetria evita armadilhas.</p>
++      </curso-item>
++      <curso-item>
++        <p>Participar, hoje, com voz ativa de decisões institucionais que envolvem editais, contratações, comitês de TI e qualquer outro desses espaços, exige profissionais de saúde que saibam o vocabulário técnico mínimo para fazer perguntas críticas e informar decisões.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <h2>Modelo de linguagem</h2>
+@@ -104,14 +109,14 @@
+     <p>Clique nos campos e veja como funciona na prática um chat de IA:</p>
+ 
+     <curso-pontos titulo="Estrutura padrão de um chatbot de IA" src="img/a3-chatbot.jpg" alt="Tela genérica de um chat de IA com histórico de conversas, área de resposta, campo de mensagem e botões Pensar, Anexar, Buscar e Enviar" fonte="Elaborado pelo autor (2026)">
+-      <curso-item x="30.8" y="70.4" titulo="Campo 1"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="88.0" y="89.0" titulo="Campo 2"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="95.6" y="12.7" titulo="Campo 3"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="24.5" y="8.5" titulo="Campo 4"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="1.8" y="22" titulo="Campo 5"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="31" y="89" titulo="Campo 6"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="48.3" y="89" titulo="Campo 7"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+-      <curso-item x="65.6" y="89" titulo="Campo 8"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
++      <curso-item x="30.8" y="70.4" titulo="Campo para digitar o prompt (comando)."></curso-item>
++      <curso-item x="88.0" y="89.0" titulo="Enviar."></curso-item>
++      <curso-item x="95.6" y="12.7" titulo="Conversa atual."></curso-item>
++      <curso-item x="24.5" y="8.5" titulo="Novo chat."></curso-item>
++      <curso-item x="1.8" y="22" titulo="Histórico de conversas."></curso-item>
++      <curso-item x="31" y="89" titulo="Pensar (tarefas complexas)."></curso-item>
++      <curso-item x="48.3" y="89" titulo="Anexar arquivos (fotos/documentos)."></curso-item>
++      <curso-item x="65.6" y="89" titulo="Busca na internet com indicação das fontes."></curso-item>
+     </curso-pontos>
+ 
+     <curso-caixa tipo="leitura">
+@@ -127,7 +132,10 @@
+     <p>Você não precisa decorar isso, mas é útil saber, porque o termo aparecerá em qualquer leitura técnica sobre o tema. Para os fins deste curso, basta saber que essa arquitetura é uma rede de bilhões de pequenos cálculos, que, juntos, transformam a sua entrada em uma distribuição de probabilidades sobre o próximo token. Esses cálculos são governados por números internos chamados parâmetros.</p>
+ 
+     <curso-cartoes claro>
+-      <curso-item titulo="O que são parâmetros?"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="O que são parâmetros?">
++        <p>Pense em uma fórmula clínica que você já usa, como o escore para risco cardiovascular. Cada variável (idade, colesterol, pressão arterial, tabagismo) entra na fórmula com um peso, um número que indica o quanto ela contribui para o resultado. Esses pesos foram ajustados a partir de coortes de milhares de pacientes acompanhados por décadas.</p>
++        <p>Os parâmetros de um LLM seguem a mesma ideia, mas levada à escala extrema. São os pesos internos da rede neural, ajustados automaticamente durante o treinamento a partir da exposição a trilhões de tokens. Um modelo “de 70 bilhões de parâmetros” tem 70 bilhões desses pesos, cada um deles um número aprendido pelo sistema, e não escrito por um humano.</p>
++      </curso-item>
+     </curso-cartoes>
+ 
+     <p>Você sabia que o Chat GPT-3, lançado em 2020, tinha 175 bilhões de parâmetros, o que, à época, era considerado gigantesco? Em 2026, modelos abertos como o DeepSeek V4 chegam a 1,6 trilhão de parâmetros, Llama 4 Maverick opera com 400 bilhões e Qwen 3.5 com cerca de 400 bilhões. No outro extremo, modelos como Gemma 4 (26 bilhões) e GPT-oss 20B já entregam capacidades surpreendentes em hardware acessível, rodando até em laptops.</p>
+@@ -168,9 +176,15 @@
+       <curso-item>
+         <p>Por construção, eles não têm noção de “verdadeiro” ou “falso”. Geram a sequência mais provável, dado o contexto. Se a sequência mais provável é uma referência inventada, o modelo a produz com a mesma fluência de uma referência real.</p>
+       </curso-item>
+-      <curso-item><p class="pendente">Razão 2: conteúdo não consta no PDF do design.</p></curso-item>
+-      <curso-item><p class="pendente">Razão 3: conteúdo não consta no PDF do design.</p></curso-item>
+-      <curso-item><p class="pendente">Razão 4: conteúdo não consta no PDF do design.</p></curso-item>
++      <curso-item>
++        <p>A escala dos dados de treinamento traz inconsistências. Trilhões de tokens incluem informações desatualizadas, contraditórias e simplesmente erradas. O modelo absorve tudo, sem <i>fact-checking</i> embutido.</p>
++      </curso-item>
++      <curso-item>
++        <p>A fase de ajuste fino prioriza utilidade aparente. Um modelo “premiado” por dar respostas confiantes durante o RLHF aprende a soar útil, mesmo quando deveria dizer “não sei” ou “não tenho informação suficiente”.</p>
++      </curso-item>
++      <curso-item>
++        <p>O modelo “se compromete” com escolhas iniciais. Como vimos anteriormente, a geração é token a token. Se o início da resposta tomou uma direção errada, é provável que o resto reforce o erro, em vez de corrigi-lo.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>No contexto do SUS, em contextos clínicos brasileiros, alucinações podem aparecer especialmente em três situações de risco:</p>
+diff --git a/modulo1/aula4.html b/modulo1/aula4.html
+index b408782..8795ea5 100644
+--- a/modulo1/aula4.html
++++ b/modulo1/aula4.html
+@@ -29,7 +29,7 @@
+     <p>ChatGPT não é um modelo. ChatGPT é o produto, o site e o aplicativo onde você digita. Dentro dele roda um modelo, que em julho de 2026 pode ser o GPT-5.5 Instant, o GPT-5.6 Sol ou outro, dependendo do seu plano e do que você selecionar.</p>
+     <p>A mesma lógica vale para os demais. Claude é o produto, e dentro dele rodam modelos como Sonnet 5 ou Opus 4.8. Gemini é o produto, e dentro dele rodam modelos como Gemini 3 Pro, o que confunde mais ainda, porque produto e modelo têm quase o mesmo nome.</p>
+ 
+-    <curso-figura titulo="Tela do ChatGPT exibindo a seleção do modelo destacada" src="img/a4-chatgpt-selecao-modelo.webp" alt="Tela do ChatGPT com o menu de seleção de modelo aberto e a opção GPT-5.6 Sol destacada em vermelho" fonte="Elaborado pelo autor (2026). Print do site https://chatgpt.com/" ampliar></curso-figura>
++    <curso-figura titulo="Tela do ChatGPT exibindo a seleção do modelo" src="img/a4-chatgpt-selecao-modelo.webp" alt="Tela do ChatGPT com o menu de seleção de modelo aberto e a opção GPT-5.6 Sol destacada em vermelho" fonte="Elaborado pelo autor (2026). Print do site https://chatgpt.com/" ampliar></curso-figura>
+ 
+     <curso-caixa tipo="pratica">
+       <p>Uma analogia útil, pensando em nossa realidade, é que <strong>produto</strong> está para <strong>modelo</strong> assim como <strong>nome comercial</strong> está para <strong>princípio ativo</strong>.</p>
+@@ -55,7 +55,7 @@
+     <curso-tabela>
+       <table>
+         <thead>
+-          <tr><td></td><th scope="col">Modelo fechado</th><th scope="col">Modelo de pesos abertos</th></tr>
++          <tr><td></td><th scope="col">Modelo fechado (proprietário)</th><th scope="col">Modelo de pesos abertos</th></tr>
+         </thead>
+         <tbody>
+           <tr><th scope="row">Onde roda</th><td>No servidor da empresa, fora do Brasil.</td><td>No servidor da empresa, fora do Brasil, se acessar via site. OU Onde você quiser, inclusive em servidor da própria instituição.</td></tr>
+@@ -108,7 +108,7 @@
+     <p>O Arena AI também mantém rankings separados por tipo de tarefa, e dois deles interessam à saúde mais do que o de texto. O ranking Document compara a leitura de documentos, ou seja, o PDF que você anexa. O ranking Vision compara a leitura de imagens.</p>
+ 
+     <curso-nota titulo="O ajuste que o próprio Arena AI oferece contra si mesmo.">
+-      <p>Existe no site um botão chamado Style Control. Ele recalcula o ranking descontando o efeito da formatação e do tamanho da resposta sobre o voto. A existência desse botão é um reconhecimento de que resposta comprida e bem diagramada ganha voto por embalagem, não por conteúdo. Ligue esse botão sempre. Há também um recorte de Factuality, que é o mais perto de “acertou” que o Arena consegue</p>
++      <p>Existe no site um botão chamado Style Control. Ele recalcula o ranking descontando o efeito da formatação e do tamanho da resposta sobre o voto. A existência desse botão é um reconhecimento de que resposta comprida e bem diagramada ganha voto por embalagem, não por conteúdo. Ligue esse botão sempre. Há também um recorte de Factuality, que é o mais perto de “acertou” que o Arena consegue chegar.</p>
+     </curso-nota>
+ 
+     <p>O ponto que precisa ficar claro: o Arena AI mede preferência humana. Ele responde à pergunta “de qual resposta as pessoas gostaram mais?”, e não à pergunta “qual resposta estava certa?”</p>
+@@ -138,7 +138,7 @@
+     <p>A característica que o torna interessante é o combate à contaminação. Vale explicar esse conceito, porque ele pode ser responsável por fraudar os rankings de IA.</p>
+ 
+     <curso-nota titulo="O que é contaminação?">
+-      <p>Se a prova está publicada na internet, se o modelo foi treinado com a internet, então o modelo pode ter decorado o gabarito. A nota sobe sem que ele tenha ficado melhor. É o equivalente a uma prova de residência cujas questões vazaram: a nota deixa de medir conhecimento e passa a medir acesso ao</p>
++      <p>Se a prova está publicada na internet, se o modelo foi treinado com a internet, então o modelo pode ter decorado o gabarito. A nota sobe sem que ele tenha ficado melhor. É o equivalente a uma prova de residência cujas questões vazaram: a nota deixa de medir conhecimento e passa a medir acesso ao vazamento.</p>
+     </curso-nota>
+ 
+     <p>Para evitar isso, o LiveBench troca parte das questões todo mês e mantém uma fração delas fechada, nunca publicada. Assim, o modelo não tem como ter estudado o que vai cair.</p>
+@@ -231,9 +231,15 @@
+       <curso-item titulo="Qual modelo você alcança">
+         <p>O plano gratuito costuma dar o modelo intermediário. O pago libera o modelo de ponta e os modos de raciocínio estendido.</p>
+       </curso-item>
+-      <curso-item titulo="Item 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Item 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+-      <curso-item titulo="Item 4"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
++      <curso-item titulo="Quanto você pode usar">
++        <p>Todo plano tem teto, inclusive os pagos. Os limites são contados por janela de tempo, em geral cinco horas corridas, e não por número fixo de mensagens. As empresas não publicam o número exato.</p>
++      </curso-item>
++      <curso-item titulo="Quais recursos você tem">
++        <p>Pesquisa profunda, projetos, memória, upload de arquivos, análise de dados, criação de imagem. É aqui que a diferença mais aparece no dia a dia.</p>
++      </curso-item>
++      <curso-item titulo="Quanto contexto cabe">
++        <p>O tamanho do documento que você consegue colar de uma vez. No ChatGPT de julho de 2026, por exemplo, o plano gratuito comporta cerca de 12 páginas de texto por vez, enquanto os pagos vão de 40 a 250 páginas.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <p>O fato de se utilizar uma IA paga não a deixa mais inteligente. Esta é a crença mais comum e a mais errada. O exemplo mais claro está no Claude. O plano Max, que custa cinco a dez vezes o plano Pro, não libera nenhum recurso que o Pro não tenha, e nenhum modelo que o Pro não alcance. Ele só levanta o teto de uso.</p>
+@@ -302,7 +308,15 @@
+       <curso-item titulo="Abra arena.ai/leaderboard">
+         <p>Olhe o topo, olhe o ± e olhe a categoria da tarefa que você faz.</p>
+       </curso-item>
+-      <curso-item titulo="Próxima consulta"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
++      <curso-item titulo="Abra livebench.ai">
++        <p>Veja se a ordem bate com a do Arena. Onde discordar, lembre-se de que um mede preferência</p>
++      </curso-item>
++      <curso-item titulo="Abra a página oficial de preços da ferramenta que você usa">
++        <p>Confira se o seu plano mudou de nome, de limite ou de política de privacidade. Isso muda mais do que o ranking.</p>
++      </curso-item>
++      <curso-item titulo="Refaça o teste dos cinco prompts">
++        <p>Leva quinze minutos e responde à única pergunta que interessa, que é se a ferramenta serve para o que você faz.</p>
++      </curso-item>
+     </curso-carrossel>
+ 
+     <curso-caixa tipo="refletir">

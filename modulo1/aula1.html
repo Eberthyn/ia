@@ -52,10 +52,18 @@
     <p>Clique nos quadrantes da matriz a seguir e entenda como uma IA cruza esses eixos.</p>
 
     <curso-matriz colunas="Humanamente|Racionalmente" linhas="Pensar|Agir">
-      <curso-item titulo="Modelar a cognição humana"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Seguir as leis do raciocínio"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Imitar o comportamento humano"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Atuar como um agente racional"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Modelar a cognição humana" modal-titulo="Pensar humanamente">
+        <p>Projetar máquinas que reproduzam os processos mentais dos humanos. Esse é o terreno da modelagem cognitiva, na fronteira com a neurociência.</p>
+      </curso-item>
+      <curso-item titulo="Seguir as leis do raciocínio" modal-titulo="Pensar racionalmente">
+        <p>Projetar máquinas que sigam regras lógicas formais e cheguem a conclusões corretas. É a tradição que vai de Aristóteles aos sistemas especialistas baseados em regras.</p>
+      </curso-item>
+      <curso-item titulo="Imitar o comportamento humano" modal-titulo="Agir humanamente">
+        <p>Projetar máquinas cujo comportamento, em interação, seja indistinguível do humano. É aqui que se situa o famoso Teste de Turing, proposto em 1950, em que uma máquina é considerada “inteligente” se um avaliador humano, conversando com ela por escrito, não conseguir distingui-la de outra pessoa.</p>
+      </curso-item>
+      <curso-item titulo="Atuar como um agente racional" modal-titulo="Agir racionalmente">
+        <p>Projetar agentes racionais: sistemas que percebem o ambiente, têm objetivos e agem de modo a maximizar a chance de atingir esses objetivos. Essa é, hoje, a abordagem dominante no campo.</p>
+      </curso-item>
     </curso-matriz>
 
     <curso-nota>
@@ -69,11 +77,24 @@
       <curso-item titulo="Campo de estudo e construção de sistemas">
         <p>A Inteligência Artificial é, antes de tudo, um campo do conhecimento, não um produto único. Engloba pesquisa teórica, métodos matemáticos, engenharia de software, ética aplicada e várias subáreas. Quando se diz “uma IA”, em rigor, refere-se a um sistema de IA específico, um modelo, um aplicativo, um serviço.</p>
       </curso-item>
-      <curso-item titulo="Ponto 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Ponto 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Ponto 4"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Ponto 5"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Sistemas computacionais">
+        <p>A Inteligência Artificial é necessariamente computacional. Roda em máquinas, sob forma de código, dados e parâmetros. Uma diretriz clínica em papel, por mais sofisticada que seja, não é IA. Um sistema que automatiza essa diretriz, decidindo computacionalmente quando aplicá-la, pode ser.</p>
+      </curso-item>
+      <curso-item titulo="Tarefas que exigiriam capacidade cognitiva humana">
+        <p>Essa cláusula define o escopo das tarefas consideradas de IA. Calcular uma média aritmética não é IA. Classificar imagens de retina como portadoras ou não de retinopatia diabética é. A fronteira é histórica e móvel, ou seja, tarefas que ontem eram consideradas de IA, hoje viraram software comum (uma armadilha conhecida como “<a href="#modal-efeito-ia">efeito IA</a>”).</p>
+      </curso-item>
+      <curso-item titulo="Perceber, raciocinar, aprender, decidir, comunicar-se">
+        <p>Essas cinco capacidades cobrem a maior parte das aplicações atuais de IA em saúde, da visão computacional para imagens diagnósticas ao aprendizado supervisionado em prontuários, passando pelos modelos de linguagem que sustentam os chatbots.</p>
+      </curso-item>
+      <curso-item titulo="Algum tipo de capacidade cognitiva">
+        <p>A expressão “algum tipo” é deliberada. Sistemas de IA não pensam como humanos, mesmo quando produzem saídas que se parecem com o pensamento humano. Tratar essa diferença com seriedade é parte da fluência crítica que este curso quer desenvolver.</p>
+      </curso-item>
     </curso-carrossel>
+
+    <curso-modal id="modal-efeito-ia" titulo="Efeito IA">
+      <p>Há um padrão recorrente na história da IA. Assim que uma técnica se torna confiável e amplamente adotada, ela tende a ser reclassificada como “engenharia” ou “tecnologia comum”, deixando de ser percebida como Inteligência Artificial. Haenlein e Kaplan (2019) ilustram esse fenômeno com casos como o reconhecimento ótico de caracteres (OCR) e o reconhecimento de voz, antes considerados problemas centrais da IA e hoje tratados como soluções de engenharia padrão.</p>
+      <p>McCorduck (2004, p. 204) já havia apontado que, sempre que uma máquina conseguia executar uma tarefa antes considerada inteligente, surgia um coro de críticos afirmando que aquilo “não era pensar”. A formulação ficou consagrada por Hofstadter (2001, p. 601) sob o nome de “teorema de Tesler”: "IA é tudo aquilo que ainda não foi feito" (Tesler <i>apud</i> Hofstadter, 2001, p. 601). Reconhecer esse padrão é útil ao profissional de saúde porque ajuda a calibrar expectativas. Nem tudo o que hoje parece "óbvio" nas soluções digitais em saúde é trivial, muito veio de décadas de pesquisa em IA e nem tudo o que hoje é apresentado como “novidade revolucionária” se manterá com esse status.</p>
+    </curso-modal>
 
     <h2>O nascimento da IA</h2>
     <p>A história da IA é frequentemente apresentada como uma sequência linear de êxitos técnicos, especialmente de máquinas x humanos. Porém, essa narrativa é incompleta.</p>
@@ -86,7 +107,6 @@
       <curso-item titulo="Calibrar expectativas">
         <p>Quando se entende que houve, no passado, anúncios de “revoluções iminentes” que não se concretizaram, fica mais fácil distinguir, hoje, entre promessa e entrega.</p>
       </curso-item>
-      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
     </curso-carrossel>
 
     <curso-caixa tipo="refletir">
@@ -167,7 +187,11 @@
       </figure>
     </div>
 
-    <p>Esse paradoxo seria mais tarde batizado de <a>paradoxo de Moravec</a>. O primeiro “inverno” deixou uma lição que, para muitos pesquisadores, definiria o campo dali em diante, em que promessas sem entregas custam caro, não apenas financeiramente, mas para sua própria reputação.</p>
+    <p>Esse paradoxo seria mais tarde batizado de <a href="#modal-moravec">paradoxo de Moravec</a>. O primeiro “inverno” deixou uma lição que, para muitos pesquisadores, definiria o campo dali em diante, em que promessas sem entregas custam caro, não apenas financeiramente, mas para sua própria reputação.</p>
+
+    <curso-modal id="modal-moravec" titulo="Paradoxo de Moravec">
+      <p>O paradoxo de Moravec tem implicações diretas para a saúde. Tarefas clínicas que parecem “simples” para um agente comunitário experiente, como perceber, em uma visita domiciliar, que algo está estranho na casa de um idoso, envolvem percepção, contexto e julgamento que continuam, até hoje, fora do alcance das melhores IAs. Já tarefas que parecem complexas, como identificar um padrão sutil em milhares de mamografias, podem ser bem executadas por sistemas atuais. Não é uma questão de “melhor do que humano” ou “pior do que humano”, são habilidades cognitivas qualitativamente diferentes.</p>
+    </curso-modal>
 
     <h3>1980 - 1987</h3>
     <p>Por volta de 1980, no início do segundo verão, a IA voltou a aquecer, agora com um produto concreto: os sistemas especialistas. A ideia, herdada do DENDRAL e do MYCIN, era simples e poderosa: codificar o conhecimento de um especialista humano em forma de regras lógicas e disponibilizá-lo para uso amplo.</p>
@@ -194,7 +218,12 @@
       <curso-item titulo="Mercado de Lisp machines">
         <p>O mercado de Lisp machines colapsou, à medida que computadores pessoais (especialmente da plataforma IBM PC) e estações Sun se tornaram baratos e suficientes para a maior parte das aplicações.</p>
       </curso-item>
-      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+      <curso-item titulo="Projeto da Quinta Geração">
+        <p>O Projeto da Quinta Geração japonês terminou em 1992 sem entregar a maior parte do que havia prometido.</p>
+      </curso-item>
+      <curso-item titulo="Gargalo da aquisição de conhecimento">
+        <p>Sistemas especialistas em produção mostraram-se caros para manter, exigindo equipes inteiras de “engenheiros de conhecimento” para extrair regras de especialistas humanos e mantê-las atualizadas, um problema conhecido como gargalo da aquisição de conhecimento.</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>A consequência foi um novo período de retração, com financiamentos cortados, laboratórios fechados e pesquisadores migrando para áreas vizinhas (estatística aplicada, processamento de sinais, robótica). Foi o segundo “inverno” da IA.</p>
@@ -238,7 +267,7 @@
       <curso-item ano="2020" titulo="GPT-3" imagem="img/icones/linha-2020.webp">
         <p>Modelo da OpenAI com 175 bilhões de parâmetros (mais detalhes sobre parâmetros a seguir no curso), capaz de produzir textos em linguagem natural com qualidade que assusta a comunidade técnica, mas sem grande visibilidade pública.</p>
       </curso-item>
-      <curso-item ano="30 nov" titulo="ChatGPT" imagem="img/icones/linha-2022.webp">
+      <curso-item ano="30 nov 2022" titulo="ChatGPT" imagem="img/icones/linha-2022.webp">
         <p>A OpenAI lança publicamente uma interface gratuita para conversar com um modelo derivado do GPT-3.5. Em cinco dias, o serviço alcança um milhão de usuários; em dois meses, cem milhões. É a tecnologia digital de adoção mais rápida da história até então.</p>
       </curso-item>
       <curso-item ano="2023 - 2025" titulo="A explosão" imagem="img/icones/linha-2023-2025.webp">
@@ -259,9 +288,15 @@
     <p>Embora a inteligência artificial exista há décadas, foi apenas nos últimos anos que ela passou a fazer parte da rotina e das discussões dos profissionais de saúde. Para entender essa mudança, é preciso olhar para um conjunto de transformações que ampliaram sua capacidade, seu acesso e sua presença nas instituições. A resposta tem, portanto, três camadas.</p>
 
     <curso-circulos>
-      <curso-item titulo="Salto técnico"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Salto de acesso"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Salto institucional"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Salto técnico">
+        <p>Em 2017 foi publicado um artigo que apresentou uma nova arquitetura para a IA chamada Transformer, que será aprofundada neste curso. Sobre essa arquitetura foram construídos os Grandes Modelos de Linguagem (LLMs), como GPT, Claude, Gemini e Llama, capazes de gerar texto coerente em linguagem natural com qualidade muito superior à de tudo o que existia antes.</p>
+      </curso-item>
+      <curso-item titulo="Salto de acesso">
+        <p>Em 30 de novembro de 2022, a OpenAI lançou o ChatGPT. Pela primeira vez, qualquer pessoa com um navegador e uma conta gratuita pôde conversar diretamente com um sistema de IA generativa, sem programar nada, sem instalar nada, em linguagem natural. Em cinco dias, o serviço alcançou um milhão de usuários, se tornando a tecnologia digital de adoção mais rápida da história até então.</p>
+      </curso-item>
+      <curso-item titulo="Salto institucional">
+        <p>Em poucos meses, governos, conselhos profissionais, sociedades científicas e gestores de sistemas de saúde foram obrigados a se posicionar. No Brasil, o Conselho Federal de Medicina (CFM), a Agência Nacional de Saúde Suplementar (ANS), o Ministério da Saúde (MS) e a comunidade da Saúde Coletiva passaram a debater regulação, segurança, equidade e LGPD aplicadas à IA em saúde.</p>
+      </curso-item>
     </curso-circulos>
 
     <p>Até aqui, você percorreu cerca de 80 anos da história da IA. Antes de seguir adiante, vale consolidar três grandes aprendizados.</p>
@@ -270,8 +305,12 @@
       <curso-item titulo="A IA tem ciclos, não uma marcha linear.">
         <p>“Verões e invernos” se alternaram. Em todos os verões, houve promessas que não se cumpriram nos prazos anunciados. Em todos os invernos, a pesquisa subterrânea continuou e preparou o ciclo seguinte. Reconhecer esse padrão é o melhor antídoto tanto contra o entusiasmo ingênuo quanto contra o ceticismo apressado.</p>
       </curso-item>
-      <curso-item titulo="Aprendizado 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Aprendizado 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="A IA em saúde é tão antiga quanto o campo.">
+        <p>O MYCIN é de 1972 e já tinha desempenho equivalente ao de especialistas em uma tarefa clínica complexa. Sistemas especialistas em diagnóstico (INTERNIST-I, DXplain) circulam em hospitais-escola norte-americanos desde os anos 1980. O que mudou em 2022 não foi a chegada da IA à saúde, mas o tipo de IA disponível ao profissional de saúde. Agora, qualquer médico, enfermeira, agente comunitário ou gestor pode interagir, em linguagem natural, com sistemas treinados em volumes inéditos de texto.</p>
+      </curso-item>
+      <curso-item titulo="A história ajuda a fazer perguntas melhores.">
+        <p>Diante de uma nova ferramenta, em vez de perguntar apenas “isso é IA de verdade?”, o profissional informado pergunta: “Que tipo de IA é esta? Que dados a treinaram? Para qual população? Que limites já se conhecem? Como ela se integra ao meu fluxo de trabalho?” Essas perguntas só podem ser feitas por quem conhece o terreno.</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>Quando alguém te diz que “usou IA” para fazer algo, você sabe qual IA? E qual a diferença entre o sistema que detecta retinopatia diabética, o ChatGPT que escreveu o resumo da consulta e o alerta de interação medicamentosa do prontuário?</p>
@@ -284,7 +323,12 @@
       <curso-item>
         <p>Para entender notícias e propaganda. Reportagens e materiais de marketing misturam os termos como se fossem intercambiáveis. Quem distingue os tipos identifica rápido quando há promessa exagerada.</p>
       </curso-item>
-      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+      <curso-item>
+        <p>Para fazer as perguntas certas no processo de tomada de decisão a respeito da adoção. Ao avaliar uma ferramenta para o seu serviço, perguntas como “qual o tipo de modelo?”, “com que dados ele foi treinado?”, “em que população foi validado?” só fazem sentido se você souber as categorias por trás delas.</p>
+      </curso-item>
+      <curso-item>
+        <p>Para escolher a ferramenta certa para o problema é preciso entender que cada tipo serve melhor a um tipo de tarefa. Usar IA generativa para algo que um sistema de regras simples resolveria bem é, no mínimo, desperdício. Em saúde, pode significar risco.</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>Pense em três situações distintas:</p>

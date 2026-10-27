@@ -51,8 +51,8 @@
     <p>Boa parte do que está hoje em produção nos sistemas de saúde brasileiros, como e-SUS APS, sistemas de regulação, prontuários eletrônicos hospitalares, funciona, em grande medida, com IA clássica. Quando o seu prontuário emite um alerta porque você prescreveu uma dose acima da máxima recomendada para um idoso com clearance de creatinina reduzido, isso é IA. Não é “menos IA” por não ser ChatGPT.</p>
 
     <curso-cartoes>
-      <curso-item titulo="Vantagens da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Limites da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Vantagens da IA clássica"><p>Transparente (toda regra é legível e auditável), previsível (a mesma entrada produz a mesma saída), não precisa de grandes volumes de dados para funcionar, fácil de validar do ponto de vista regulatório.</p></curso-item>
+      <curso-item titulo="Limites da IA clássica"><p>Depende de alguém escrever as regras e há domínios em que isso é inviável (reconhecer um rosto, interpretar uma radiografia, entender uma frase em linguagem natural). A regra é frágil quando o caso real foge ligeiramente do previsto. Manter as regras atualizadas é caro e exige equipe permanente.</p></curso-item>
     </curso-cartoes>
 
     <h3>MACHINE LEARNING</h3>
@@ -117,8 +117,12 @@
       <curso-item>
         <p>Dados em escala inédita (a internet, os bancos de imagens médicas digitalizadas, os prontuários eletrônicos).</p>
       </curso-item>
-      <curso-item><p class="pendente">Condição 2: conteúdo não consta no PDF do design.</p></curso-item>
-      <curso-item><p class="pendente">Condição 3: conteúdo não consta no PDF do design.</p></curso-item>
+      <curso-item>
+        <p>Poder computacional barato (GPUs originalmente desenvolvidas para videogames, depois adaptadas para treinar redes neurais).</p>
+      </curso-item>
+      <curso-item>
+        <p>Avanços algorítmicos (técnicas mais novas e, principalmente, melhorias no algoritmo de <i>backpropagation</i> de Rumelhart, Hinton e Williams, de 1986).</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>Clique na seta para visualizar alguns exemplos clássicos em saúde:</p>
@@ -161,7 +165,7 @@
     <p>Esse mecanismo aparentemente simples produz, em escala suficiente, capacidades surpreendentes. Exemplos incluem redigir um plano de cuidado coerente, traduzir uma bula para linguagem acessível, sintetizar um artigo científico, gerar um código que filtra um banco de dados.</p>
 
     <curso-nota>
-      <p>A IA generativa não tem compreensão do sentido humano, não consulta bancos de dados em tempo real (a menos que esteja explicitamente conectada a um) e não tem garantia de veracidade sobre o que produz. Ela pode gerar com fluência uma resposta inteiramente errada sobre uma medicação, uma diretriz clínica ou um dado epidemiológico, fenômeno chamado alucinação, que você verá a seguir. Esse é o ponto em que a IA generativa exige do profissional de saúde uma postura crítica diferente da exigida pelas IAs</p>
+      <p>A IA generativa não tem compreensão do sentido humano, não consulta bancos de dados em tempo real (a menos que esteja explicitamente conectada a um) e não tem garantia de veracidade sobre o que produz. Ela pode gerar com fluência uma resposta inteiramente errada sobre uma medicação, uma diretriz clínica ou um dado epidemiológico, fenômeno chamado alucinação, que você verá a seguir. Esse é o ponto em que a IA generativa exige do profissional de saúde uma postura crítica diferente da exigida pelas IAs anteriores.</p>
     </curso-nota>
 
     <h3>QUANDO USAR CADA CATEGORIA DE IA</h3>
@@ -172,8 +176,8 @@
     <p>Nesse caso, temos um conjunto de regras “se… então…”, baseadas em diretrizes oficiais e tabelas de bulário. Por exemplo: SE o paciente tem mais de 65 anos E clearance de creatinina &lt; 30 mL/min E a dose prescrita &gt; 50% da dose máxima padrão, ENTÃO emitir alerta.</p>
     <curso-figura src="img/a2-cenario-ia-classica.jpg" alt="Profissional de saúde consultando um tablet" fonte="Magnific, (2026)"></curso-figura>
     <curso-cartoes>
-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Vantagens clínica"><p>Transparente, auditável, fácil de justificar para gestores e auditorias.</p></curso-item>
+      <curso-item titulo="Limites"><p>Não cobre casos não previstos pelas regras.</p></curso-item>
     </curso-cartoes>
 
     <h4>Machine learning</h4>
@@ -181,8 +185,8 @@
     <p>Nesse caso, foi treinado em dezenas de milhares de prontuários do próprio hospital, com a variável-alvo “houve readmissão em 30 dias: sim/não”. Aprendeu, a partir dos dados, quais combinações de idade, comorbidades, exames e tempo de internação se associam a maior risco.</p>
     <curso-figura src="img/a2-cenario-machine-learning.jpg" alt="Médica atendendo uma paciente idosa em cadeira de rodas" fonte="Magnific, (2026)"></curso-figura>
     <curso-cartoes>
-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Vantagens clínica"><p>Captura padrões complexos que regras manuais não capturariam.</p></curso-item>
+      <curso-item titulo="Limites"><p>O modelo “sabe” quem provavelmente vai voltar, mas não sabe por que, no sentido causal.</p></curso-item>
     </curso-cartoes>
 
     <h4>Deep learning</h4>
@@ -190,8 +194,8 @@
     <p>Nesse caso, uma rede neural convolucional, treinada em centenas de milhares de imagens rotuladas, aprendeu a reconhecer microaneurismas, hemorragias, exsudatos e outros sinais.</p>
     <curso-figura src="img/a2-cenario-deep-learning.jpg" alt="Paciente em exame de lâmpada de fenda com profissional de saúde" fonte="Magnific, (2026)"></curso-figura>
     <curso-cartoes>
-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Vantagens clínica"><p>Habilita triagem em larga escala, em locais sem oftalmologista, com sensibilidade alta.</p></curso-item>
+      <curso-item titulo="Limites"><p>Funciona como caixa-preta, ou seja, explicar por que classificou um caso específico daquele jeito é tecnicamente difícil.</p></curso-item>
     </curso-cartoes>
 
     <h4>IA generativa</h4>
@@ -199,8 +203,8 @@
     <p>Nesse caso, um LLM gera o texto de saída, baseando-se em padrões aprendidos durante o treinamento.</p>
     <curso-figura src="img/a2-cenario-ia-generativa.jpg" alt="Profissional de saúde diante de um computador" fonte="Magnific, (2026)"></curso-figura>
     <curso-cartoes>
-      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
-      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Vantagens clínica"><p>Acelera tarefas de redação, comunicação e síntese; reduz tempo de elaboração de orientações personalizadas.</p></curso-item>
+      <curso-item titulo="Limites"><p>Pode alucinar (inventar dose, frequência, princípio ativo). Exige revisão clínica humana obrigatória antes de qualquer entrega ao paciente.</p></curso-item>
     </curso-cartoes>
 
     <curso-nota>
@@ -255,7 +259,21 @@
       <curso-item titulo="Atenção Primária à Saúde">
         <p>Aplicativos de apoio à decisão clínica instalados em smartphone; sistemas de classificação de risco; uso de mapas em aplicativo de navegação por um ACS; chatbots de orientação de saúde para a população.</p>
       </curso-item>
-      <curso-item titulo="Próximo exemplo"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+      <curso-item titulo="Atenção hospitalar">
+        <p>Sistemas de auxílio à interpretação de imagens (colonoscopia, radiografias, tomografias, mamografias); alertas de sepse em prontuários eletrônicos; sistemas de alerta de interação medicamentosa.</p>
+      </curso-item>
+      <curso-item titulo="Regulação assistencial">
+        <p>Algoritmos de priorização de filas; modelos preditivos de demanda; sistemas de detecção de fraudes em contas hospitalares.</p>
+      </curso-item>
+      <curso-item titulo="Vigilância em saúde">
+        <p>Modelos preditivos de surtos de covid-19; análise de imagens de satélite para identificação de focos do <i>Aedes aegypti</i>.</p>
+      </curso-item>
+      <curso-item titulo="Formação e educação permanente">
+        <p>Plataformas adaptativas de educação a distância que personalizam trilhas de aprendizagem; avaliação automatizada de produções textuais em programas como o Mais Médicos; simuladores clínicos baseados em IA.</p>
+      </curso-item>
+      <curso-item titulo="Gestão e planejamento">
+        <p>Painéis preditivos de produção; ferramentas de classificação de despesas; sistemas de apoio à elaboração de relatórios e pareceres técnicos.</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>Algumas dessas aplicações são consolidadas há mais de uma década (como sistemas de alerta em prontuário), outras são experimentais e ainda não chegaram à maioria dos serviços. Compreender o que é IA permite ao profissional reconhecê-la quando ela aparece, formular perguntas críticas (Quem treinou? Com quais dados? Foi validada para a nossa população?) e participar com voz ativa das decisões institucionais sobre a adoção dessas ferramentas.</p>

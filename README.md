@@ -87,8 +87,8 @@ Menu, trilha, título da aba e botões de navegação se atualizam em todas as p
 | `<curso-modulos>` | Cards dos módulos na home. |
 | `<curso-navegacao>` | Voltar/Avançar; na home vira "Começar". |
 | `<curso-linha-tempo>` | Linha do tempo vertical com ícone, ano e texto alternando lados. |
-| `<curso-matriz colunas linhas>` | Matriz clicável (ex.: pensar/agir × humanamente/racionalmente). |
-| `<curso-circulos>` | Três círculos sobrepostos clicáveis (diagrama de Venn). |
+| `<curso-matriz colunas linhas>` | Matriz clicável; cada quadrante abre um modal (`modal-titulo`). |
+| `<curso-circulos>` | Três círculos sobrepostos (diagrama de Venn); cada um abre um modal. |
 | `<curso-pontos src>` | Imagem com marcadores numerados que mostram explicações. |
 | `<curso-caixa tipo="pratica\|refletir\|leitura">` | Caixas "Na prática", "Para refletir" e "Leitura Complementar". |
 | `<ul class="lista-setas">` | Lista com setas. |
@@ -178,7 +178,3 @@ HTML5 · CSS3 (custom properties, grid, `clamp()`) · JavaScript (ES2020, Custom
 
 **Eberthyn Marques** — desenvolvedor full stack em Brasília, DF.
 [GitHub](https://github.com/SEU-USUARIO) · [LinkedIn](https://www.linkedin.com/in/SEU-USUARIO)
-
-## Pendências de conteúdo
-
-Trechos que não aparecem no PDF do design estão marcados na página com `class="pendente"` (texto em itálico e esmaecido). Procure por `pendente` nos HTML para encontrá-los.

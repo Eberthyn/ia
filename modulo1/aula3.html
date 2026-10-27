@@ -23,7 +23,12 @@
       <curso-item>
         <p>Para distinguir uma resposta correta de uma resposta plausível é preciso conhecer o mecanismo, sabendo que fluência não é sinônimo de veracidade e revê-lo com olhos clínicos.</p>
       </curso-item>
-      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+      <curso-item>
+        <p>Para entender o que o sistema pode e não pode fazer, pois operações que parecem triviais (somar valores em uma tabela, contar quantas vezes uma palavra aparece) podem falhar de modo silencioso, e operações que parecem mágicas (traduzir, parafrasear, sumarizar) tendem a funcionar bem. Conhecer o motivo dessa assimetria evita armadilhas.</p>
+      </curso-item>
+      <curso-item>
+        <p>Participar, hoje, com voz ativa de decisões institucionais que envolvem editais, contratações, comitês de TI e qualquer outro desses espaços, exige profissionais de saúde que saibam o vocabulário técnico mínimo para fazer perguntas críticas e informar decisões.</p>
+      </curso-item>
     </curso-carrossel>
 
     <h2>Modelo de linguagem</h2>
@@ -104,14 +109,14 @@
     <p>Clique nos campos e veja como funciona na prática um chat de IA:</p>
 
     <curso-pontos titulo="Estrutura padrão de um chatbot de IA" src="img/a3-chatbot.jpg" alt="Tela genérica de um chat de IA com histórico de conversas, área de resposta, campo de mensagem e botões Pensar, Anexar, Buscar e Enviar" fonte="Elaborado pelo autor (2026)">
-      <curso-item x="30.8" y="70.4" titulo="Campo 1"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="88.0" y="89.0" titulo="Campo 2"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="95.6" y="12.7" titulo="Campo 3"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="24.5" y="8.5" titulo="Campo 4"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="1.8" y="22" titulo="Campo 5"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="31" y="89" titulo="Campo 6"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="48.3" y="89" titulo="Campo 7"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
-      <curso-item x="65.6" y="89" titulo="Campo 8"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="30.8" y="70.4" titulo="Campo para digitar o prompt (comando)."></curso-item>
+      <curso-item x="88.0" y="89.0" titulo="Enviar."></curso-item>
+      <curso-item x="95.6" y="12.7" titulo="Conversa atual."></curso-item>
+      <curso-item x="24.5" y="8.5" titulo="Novo chat."></curso-item>
+      <curso-item x="1.8" y="22" titulo="Histórico de conversas."></curso-item>
+      <curso-item x="31" y="89" titulo="Pensar (tarefas complexas)."></curso-item>
+      <curso-item x="48.3" y="89" titulo="Anexar arquivos (fotos/documentos)."></curso-item>
+      <curso-item x="65.6" y="89" titulo="Busca na internet com indicação das fontes."></curso-item>
     </curso-pontos>
 
     <curso-caixa tipo="leitura">
@@ -127,7 +132,10 @@
     <p>Você não precisa decorar isso, mas é útil saber, porque o termo aparecerá em qualquer leitura técnica sobre o tema. Para os fins deste curso, basta saber que essa arquitetura é uma rede de bilhões de pequenos cálculos, que, juntos, transformam a sua entrada em uma distribuição de probabilidades sobre o próximo token. Esses cálculos são governados por números internos chamados parâmetros.</p>
 
     <curso-cartoes claro>
-      <curso-item titulo="O que são parâmetros?"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="O que são parâmetros?">
+        <p>Pense em uma fórmula clínica que você já usa, como o escore para risco cardiovascular. Cada variável (idade, colesterol, pressão arterial, tabagismo) entra na fórmula com um peso, um número que indica o quanto ela contribui para o resultado. Esses pesos foram ajustados a partir de coortes de milhares de pacientes acompanhados por décadas.</p>
+        <p>Os parâmetros de um LLM seguem a mesma ideia, mas levada à escala extrema. São os pesos internos da rede neural, ajustados automaticamente durante o treinamento a partir da exposição a trilhões de tokens. Um modelo “de 70 bilhões de parâmetros” tem 70 bilhões desses pesos, cada um deles um número aprendido pelo sistema, e não escrito por um humano.</p>
+      </curso-item>
     </curso-cartoes>
 
     <p>Você sabia que o Chat GPT-3, lançado em 2020, tinha 175 bilhões de parâmetros, o que, à época, era considerado gigantesco? Em 2026, modelos abertos como o DeepSeek V4 chegam a 1,6 trilhão de parâmetros, Llama 4 Maverick opera com 400 bilhões e Qwen 3.5 com cerca de 400 bilhões. No outro extremo, modelos como Gemma 4 (26 bilhões) e GPT-oss 20B já entregam capacidades surpreendentes em hardware acessível, rodando até em laptops.</p>
@@ -168,9 +176,15 @@
       <curso-item>
         <p>Por construção, eles não têm noção de “verdadeiro” ou “falso”. Geram a sequência mais provável, dado o contexto. Se a sequência mais provável é uma referência inventada, o modelo a produz com a mesma fluência de uma referência real.</p>
       </curso-item>
-      <curso-item><p class="pendente">Razão 2: conteúdo não consta no PDF do design.</p></curso-item>
-      <curso-item><p class="pendente">Razão 3: conteúdo não consta no PDF do design.</p></curso-item>
-      <curso-item><p class="pendente">Razão 4: conteúdo não consta no PDF do design.</p></curso-item>
+      <curso-item>
+        <p>A escala dos dados de treinamento traz inconsistências. Trilhões de tokens incluem informações desatualizadas, contraditórias e simplesmente erradas. O modelo absorve tudo, sem <i>fact-checking</i> embutido.</p>
+      </curso-item>
+      <curso-item>
+        <p>A fase de ajuste fino prioriza utilidade aparente. Um modelo “premiado” por dar respostas confiantes durante o RLHF aprende a soar útil, mesmo quando deveria dizer “não sei” ou “não tenho informação suficiente”.</p>
+      </curso-item>
+      <curso-item>
+        <p>O modelo “se compromete” com escolhas iniciais. Como vimos anteriormente, a geração é token a token. Se o início da resposta tomou uma direção errada, é provável que o resto reforce o erro, em vez de corrigi-lo.</p>
+      </curso-item>
     </curso-carrossel>
 
     <p>No contexto do SUS, em contextos clínicos brasileiros, alucinações podem aparecer especialmente em três situações de risco:</p>

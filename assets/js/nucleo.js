@@ -158,6 +158,38 @@
     return el;
   };
 
+  /**
+   * Cria uma janela modal no <body> e devolve o elemento.
+   * Usada por <curso-modal> e pelos componentes que abrem modal ao clicar
+   * (matriz, círculos). "conteudo" é uma lista de nós; "titulo" aceita HTML.
+   */
+  const criarModal = ({ id = novoId("modal"), titulo = "", conteudo = [], imagem = "", alt = "" }) => {
+    const tituloId = `${id}-titulo`;
+    const corpo = criar("div", "modal-curso__texto", conteudo);
+    corpo.insertAdjacentHTML("afterbegin", `<h2 class="modal-curso__titulo" id="${tituloId}">${titulo}</h2>`);
+
+    const janela = criar("div", "modal fade modal-curso");
+    Object.assign(janela, { id, tabIndex: -1 });
+    janela.setAttribute("aria-labelledby", tituloId);
+    janela.setAttribute("aria-hidden", "true");
+    janela.innerHTML = `
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ${imagem ? "modal-lg" : ""}">
+        <div class="modal-content">
+          <button type="button" class="btn-close modal-curso__fechar" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          <div class="modal-body modal-curso__corpo ${imagem ? "modal-curso__corpo--imagem" : ""}">
+            ${imagem ? `<img class="modal-curso__imagem" src="${esc(imagem)}" alt="${esc(alt)}">` : ""}
+          </div>
+        </div>
+      </div>`;
+    janela.querySelector(".modal-body").append(corpo);
+    // Fica no <body> para não ser afetado pelo layout da página
+    document.body.append(janela);
+    return janela;
+  };
+
+  /** Abre a janela criada por criarModal(). */
+  const abrirModal = (janela) => bootstrap.Modal.getOrCreateInstance(janela).show();
+
   Object.assign(window.Curso, {
     config,
     paginas,
@@ -174,6 +206,8 @@
     novoId,
     lerItens,
     criar,
+    criarModal,
+    abrirModal,
     fonteHtml,
   });
 })();

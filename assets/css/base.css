@@ -43,7 +43,7 @@ curso-pagina:not([pronto]) {
   margin: 2.5rem 0 1rem;
   font-family: var(--fonte-titulo);
   font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.8rem);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.2;
   color: var(--pagina-h2);
 }
@@ -52,7 +52,7 @@ curso-pagina:not([pronto]) {
 .conteudo h3 {
   margin: 2.25rem 0 0.75rem;
   font-size: var(--texto-tamanho);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.4;
   color: var(--pagina-h3);
 }
@@ -61,7 +61,7 @@ curso-pagina:not([pronto]) {
 .conteudo h4 {
   margin: 2.25rem 0 0.75rem;
   font-size: var(--texto-tamanho);
-  font-weight: 400;
+  font-weight: 700;
   color: var(--pagina-texto);
 }
 

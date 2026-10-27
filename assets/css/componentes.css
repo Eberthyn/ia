@@ -90,7 +90,7 @@
 .figura__titulo {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.4;
   color: var(--cor-azul);
 }
@@ -280,7 +280,7 @@
 .figura__legenda-titulo {
   margin: 0 0 0.25rem !important;
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 800;
   color: var(--cor-azul);
 }
 
@@ -321,7 +321,7 @@
   border: 0;
   border-bottom: 1px solid #bcbcbc;
   background: none;
-  font-weight: 400;
+  font-weight: 800;
   text-align: left;
   color: var(--cor-rosa);
 }
@@ -395,7 +395,7 @@
 
 .carrossel__titulo {
   margin: 0 !important;
-  font-weight: 400;
+  font-weight: 800;
   color: var(--cor-rosa);
 }
 
@@ -450,6 +450,7 @@
 
 .cartao {
   position: relative;
+  display: grid;
   min-height: 18.75rem;
   padding: 0;
   border: 0;
@@ -459,8 +460,8 @@
 }
 
 .cartao__face {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -480,7 +481,7 @@
 }
 
 .cartao__titulo {
-  font-weight: 400;
+  font-weight: 800;
 }
 
 .cartao__frente {
@@ -502,7 +503,7 @@
   overflow-y: auto;
   gap: 1rem;
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.45;
   transform: rotateY(180deg);
 }
@@ -552,7 +553,7 @@
   padding: 0.35rem 1.1rem 0.35rem 0.6rem;
   background: var(--cor-azul);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 800;
   color: var(--cor-branco);
 }
 
@@ -870,7 +871,9 @@
 }
 
 /* ---- Modal ----------------------------------------------------------- */
-.conteudo .link-modal {
+.conteudo a.link-modal {
+  font-weight: 800;
+  color: var(--cor-rosa);
   cursor: pointer;
 }
 
@@ -1504,6 +1507,7 @@ curso-audiodescricao {
 .matriz__rotulo {
   padding: 0.25rem;
   font-size: 1.05rem;
+  font-weight: 800;
   text-align: center;
   color: var(--cor-azul-escuro);
 }
@@ -1524,6 +1528,7 @@ curso-audiodescricao {
   border: 0;
   background: var(--cor-azul);
   font-size: 1.05rem;
+  font-weight: 800;
   line-height: 1.3;
   color: var(--cor-branco);
 }
@@ -1537,27 +1542,9 @@ curso-audiodescricao {
 }
 
 .matriz__celula:hover,
-.matriz__celula[aria-expanded="true"] {
+.matriz__celula:focus-visible {
   filter: brightness(1.12);
   box-shadow: inset 0 0 0 3px var(--cor-laranja);
-}
-
-.matriz__painel,
-.circulos__painel {
-  width: min(100%, 36rem);
-  margin: 1.5rem auto 2.5rem;
-  padding: 1.25rem 1.5rem;
-  border-left: 4px solid var(--cor-rosa);
-  background: var(--cor-areia);
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-.matriz__painel-titulo,
-.circulos__painel-titulo {
-  margin: 0 0 0.5rem !important;
-  font-weight: 700;
-  color: var(--cor-azul-escuro);
 }
 
 curso-matriz,
@@ -1632,12 +1619,13 @@ curso-circulos {
 
 .circulos__numero {
   font-size: clamp(2.25rem, 1.5rem + 2vw, 3.25rem);
-  font-weight: 300;
+  font-weight: 800;
   line-height: 1;
 }
 
 .circulos__titulo {
   font-size: 1.05rem;
+  font-weight: 800;
   text-decoration: underline;
 }
 
@@ -1645,9 +1633,9 @@ curso-circulos {
   font-size: 1.3rem;
 }
 
-.circulos__circulo:hover .circulos__titulo,
-.circulos__circulo[aria-expanded="true"] .circulos__titulo {
-  font-weight: 700;
+.circulos__circulo:hover,
+.circulos__circulo:focus-visible {
+  filter: brightness(1.15);
 }
 
 .circulos__circulo:focus-visible {
@@ -1731,8 +1719,16 @@ curso-circulos {
 }
 
 .cartoes--claro .cartao__verso {
+  justify-content: center;
+  padding: 2rem 2.5rem 1.5rem;
   color: var(--cor-texto);
   font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.cartoes--claro .cartao__texto p + p {
+  margin-top: 1rem;
 }
 
 /* ---- Comparativo com foto (ex.: paradoxo de Moravec) ----------------
@@ -1776,6 +1772,7 @@ curso-circulos {
 
 .conteudo .comparativo__titulo {
   margin-bottom: 1.25rem;
+  font-weight: 800;
   color: var(--cor-azul);
 }
 
@@ -1809,7 +1806,7 @@ curso-circulos {
 }
 
 .midia--icone .midia__titulo {
-  font-weight: 400;
+  font-weight: 800;
   color: var(--cor-azul);
 }
 
@@ -1895,6 +1892,7 @@ curso-circulos {
   gap: 1rem;
   margin: 2rem 0 0.75rem;
   font-size: 1.1rem;
+  font-weight: 800;
   color: var(--cor-azul);
 }
 

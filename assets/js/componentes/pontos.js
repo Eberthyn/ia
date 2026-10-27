@@ -1,5 +1,5 @@
 /* <curso-pontos src="img/tela.jpg" alt="..." titulo="..." fonte="...">
-     <curso-item x="30.8" y="70.4" titulo="Campo de mensagem"> …explicação… </curso-item>
+     <curso-item x="30.8" y="70.4" titulo="Campo de mensagem"> …explicação (opcional)… </curso-item>
      …
    </curso-pontos>
    Imagem com marcadores numerados (x e y em % da imagem). Ao clicar, ao
@@ -30,10 +30,13 @@
         botao.setAttribute('aria-label', `${i + 1}: ${nome.replace(/<[^>]+>/g, '')}`);
         area.append(botao);
 
+        // Com conteúdo: título no topo do balão e texto embaixo.
+        // Sem conteúdo: o balão mostra só "N. título".
         const corpo = criar('div', '', conteudo);
+        const temCorpo = corpo.textContent.trim() !== '';
         new bootstrap.Popover(botao, {
-          title: `${i + 1}. ${nome}`,
-          content: corpo.innerHTML,
+          title: temCorpo ? `${i + 1}. ${nome}` : '',
+          content: temCorpo ? corpo.innerHTML : `${i + 1}. ${nome}`,
           html: true,
           trigger: 'hover focus',
           placement: 'auto',
