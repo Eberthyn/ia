@@ -1,0 +1,433 @@
+/* =====================================================================
+   LAYOUT — topo (celular), banner, menu, área de conteúdo, faixas e rodapé
+   ===================================================================== */
+
+/* ---- Topo (só no celular/tablet: abre o menu do curso) -------------- */
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--topo-altura);
+  padding: 0 1rem;
+  background: var(--cor-azul-escuro);
+  color: var(--cor-branco);
+}
+
+.topo__menu,
+.topo__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+
+.topo__menu .bi,
+.topo__home .bi {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* ---- Banner ------------------------------------------------------- */
+.banner {
+  background: var(--banner-fundo, var(--cor-azul-escuro));
+  color: var(--cor-branco);
+}
+
+.banner__miolo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 17rem;
+  padding: 1rem 4rem 1rem 4.75rem;
+}
+
+.banner__titulo {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  line-height: 1.15;
+}
+
+.banner__chamada {
+  font-size: clamp(1.6rem, 1rem + 2.2vw, 3rem);
+  font-weight: 300;
+}
+
+.banner__destaque {
+  font-size: clamp(1.4rem, 0.8rem + 2vw, 2.65rem);
+  font-weight: var(--peso-titulo);
+  text-transform: uppercase;
+  color: var(--cor-laranja);
+}
+
+.banner__arte {
+  flex: 0 1 27rem;
+  width: 27rem;
+  min-width: 0;
+  max-height: 14rem;
+  object-fit: contain;
+  object-position: right center;
+}
+
+/* Tarja "MÓDULO 1 | AULA 1" */
+.banner__modulo {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  background: var(--cor-verde-claro);
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.6rem);
+  font-weight: var(--peso-titulo);
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--cor-azul-escuro);
+}
+
+/* Versão da home */
+.banner--grande {
+  background: var(--cor-azul-escuro);
+}
+
+.banner--grande .banner__miolo {
+  min-height: 30rem;
+  padding: 3rem 4rem 1rem 2.75rem;
+}
+
+.banner--grande .banner__titulo {
+  max-width: 22rem;
+}
+
+.banner--grande .banner__chamada {
+  font-size: clamp(1.75rem, 1rem + 2.4vw, 2.6rem);
+}
+
+.banner--grande .banner__destaque {
+  font-size: clamp(2rem, 1.1rem + 3vw, 3.25rem);
+  line-height: 1.05;
+  color: var(--cor-branco);
+}
+
+.banner--grande .banner__arte {
+  flex-basis: 44rem;
+  width: 44rem;
+  max-height: 23rem;
+}
+
+.banner__selo {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: var(--peso-titulo);
+  text-transform: uppercase;
+  color: var(--cor-laranja);
+}
+
+.banner__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.banner__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--fonte-apoio);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.banner__link:hover,
+.banner__link[aria-current="page"] {
+  text-decoration: underline;
+}
+
+span.banner__link {
+  opacity: 0.8;
+}
+
+/* Pixels no pé do banner da home */
+.banner__pixels {
+  height: 10.5rem;
+  background: url("../img/faixa-pixels.png") repeat-x left bottom / auto 100%;
+}
+
+@media (max-width: 991.98px) {
+  .banner__miolo,
+  .banner--grande .banner__miolo {
+    min-height: 0;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .banner__arte {
+    flex-basis: 40%;
+    max-height: 9rem;
+  }
+
+  .banner__pixels {
+    height: 6rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .banner__arte {
+    display: none;
+  }
+
+  .banner--grande .banner__arte {
+    display: block;
+    order: -1;
+    width: 100%;
+    max-height: 11rem;
+    object-position: center;
+  }
+
+  .banner--grande .banner__miolo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---- Estrutura menu + conteúdo ------------------------------------ */
+.pagina {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 992px) {
+  .pagina {
+    grid-template-columns: var(--menu-largura) minmax(0, 1fr);
+  }
+}
+
+.pagina__principal {
+  display: flex;
+  flex-direction: column;
+  background: var(--pagina-fundo);
+}
+
+.conteudo {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--conteudo-largura) + 2.5rem);
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2.5rem;
+}
+
+/* Faixas de pixels no início e no fim do conteúdo */
+.faixa {
+  height: 7.5rem;
+  background: url("../img/faixa-pixels.png") repeat-x left top / auto 100%;
+}
+
+.faixa--base {
+  background-position: left bottom;
+}
+
+@media (max-width: 575.98px) {
+  .faixa {
+    height: 4.5rem;
+  }
+}
+
+/* ---- Menu lateral -------------------------------------------------- */
+curso-menu {
+  background: var(--menu-fundo);
+}
+
+.menu {
+  --bs-offcanvas-width: 17rem;
+  --bs-offcanvas-bg: var(--menu-fundo);
+  --bs-offcanvas-color: var(--menu-texto);
+  color: var(--menu-texto);
+  font-family: var(--fonte-apoio);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+/* No tema "aula" o botão de fechar do painel precisa ser branco */
+[data-tema="aula"] .menu .btn-close {
+  filter: invert(1);
+}
+
+.menu__corpo {
+  padding: 1rem 1rem 2.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+  .menu__corpo { padding-top: 1.75rem; }
+}
+
+.menu a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.menu__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.menu__titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.menu__titulo .bi {
+  font-size: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.menu__titulo[aria-expanded="false"] .bi {
+  transform: rotate(180deg);
+}
+
+.menu__titulo--link {
+  display: inline-block;
+}
+
+.menu__modulo {
+  margin-bottom: 1.75rem;
+}
+
+/* Lista com a linha do tempo (bolinhas ligadas) */
+.menu__lista {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__lista li {
+  position: relative;
+  padding: 0 0 0.2rem 1.1rem;
+}
+
+.menu__lista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.menu__lista li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(0.25rem - 0.75px);
+  top: 0.75rem;
+  bottom: -0.25rem;
+  border-left: 1.5px solid currentColor;
+}
+
+.menu__item {
+  display: block;
+  font-weight: 700;
+}
+
+.menu__subtitulo {
+  display: block;
+  font-weight: 400;
+}
+
+/* Página atual: bolinha preenchida e texto sublinhado */
+.menu__lista li:has([aria-current="page"])::before {
+  background: currentColor;
+}
+
+.menu__item[aria-current="page"] {
+  text-decoration: underline;
+}
+
+/* Páginas ainda não publicadas */
+.menu span.menu__item,
+.menu span.menu__titulo--link,
+.menu span.menu__extra {
+  opacity: 0.8;
+}
+
+/* Referências, Créditos, Glossário */
+.menu__extras {
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__extras li + li {
+  margin-top: 0.6rem;
+}
+
+.menu__extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.menu__extra .bi {
+  font-size: 1rem;
+}
+
+/* ---- Trilha (breadcrumb) ------------------------------------------ */
+.trilha ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  color: var(--pagina-link);
+}
+
+.trilha a {
+  color: inherit;
+}
+
+.trilha li + li::before {
+  content: ">";
+  margin: 0 0.45rem;
+}
+
+/* ---- Rodapé -------------------------------------------------------- */
+.rodape {
+  padding: 1.5rem 1.25rem;
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-branco);
+  text-align: center;
+}
+
+.rodape img {
+  width: min(100%, 60rem);
+}

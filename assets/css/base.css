@@ -1,0 +1,129 @@
+/* =====================================================================
+   BASE — tipografia e elementos HTML dentro da área de conteúdo
+   ===================================================================== */
+body {
+  margin: 0;
+  background: var(--cor-branco);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Componentes são blocos */
+curso-pagina, curso-topo, curso-banner, curso-menu, curso-trilha, curso-navegacao,
+curso-rodape, curso-figura, curso-destaque, curso-video, curso-modulos,
+curso-acordeao, curso-abas, curso-carrossel, curso-cartoes, curso-caixa, curso-nota,
+curso-saiba-mais, curso-tabela, curso-colunas, curso-etapas, curso-fases,
+curso-linha-tempo, curso-matriz, curso-circulos, curso-pontos {
+  display: block;
+}
+
+/* Evita o "pisca" do conteúdo antes de o layout ser montado */
+curso-pagina:not([pronto]) {
+  visibility: hidden;
+}
+
+.conteudo {
+  color: var(--pagina-texto);
+}
+
+.conteudo h1 {
+  margin: 0 0 1.5rem;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.2rem);
+  font-weight: var(--peso-titulo);
+  line-height: 1.15;
+  color: var(--pagina-h1);
+}
+
+/* Subtítulo da aula: "O que é inteligência?" */
+.conteudo h2 {
+  margin: 2.5rem 0 1rem;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--pagina-h2);
+}
+
+/* Seção menor: "1943 - 1955", "IA CLÁSSICA (OU SIMBÓLICA)", "Token: a unidade mínima" */
+.conteudo h3 {
+  margin: 2.25rem 0 0.75rem;
+  font-size: var(--texto-tamanho);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--pagina-h3);
+}
+
+/* Rótulo de bloco em cinza: "IA clássica", "Machine learning" (cenários) */
+.conteudo h4 {
+  margin: 2.25rem 0 0.75rem;
+  font-size: var(--texto-tamanho);
+  font-weight: 400;
+  color: var(--pagina-texto);
+}
+
+/* Na capa (introdução e resumo) o subtítulo também é laranja e pesado */
+[data-tema="capa"] .conteudo h2 {
+  margin-top: 3rem;
+  font-weight: var(--peso-titulo);
+}
+
+.conteudo p {
+  margin: 0 0 1.5rem;
+}
+
+.conteudo a:not(.btn) {
+  color: inherit;
+}
+
+/* Link ainda sem endereço: aparece como link, mas não navega */
+.conteudo a:not([href]) {
+  text-decoration: underline;
+}
+
+.conteudo ul,
+.conteudo ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.conteudo ul ul {
+  margin: 0.25rem 0 0.5rem;
+  list-style-type: circle;
+}
+
+.conteudo li + li {
+  margin-top: 0.15rem;
+}
+
+/* Pergunta em destaque no meio do texto */
+.conteudo .pergunta {
+  margin: 2rem 0 1.5rem;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  color: var(--cor-azul);
+}
+
+/* Parágrafos e listas dentro de componentes ficam mais compactos */
+.conteudo :is(.acordeao__corpo, .carousel-item, .caixa__corpo, .colunas__corpo, .figura__legenda,
+  .tab-pane, .saiba-mais__corpo, .cartao__verso, .nota, .matriz__painel, .circulos__painel,
+  .linha-tempo__texto) > :last-child {
+  margin-bottom: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-laranja);
+  outline-offset: 2px;
+}
+
+.pular {
+  position: absolute;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  background: var(--cor-branco);
+  color: var(--cor-azul-escuro);
+}

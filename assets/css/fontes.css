@@ -1,0 +1,11 @@
+/* Fontes locais (funcionam sem internet e dentro do AVA).
+   O design usa Segoe UI, que já vem no Windows e não pode ser distribuída;
+   Open Sans (licença OFL) é a reserva para macOS, Linux e celular. */
+@font-face { font-family: "Open Sans"; font-weight: 300; font-display: swap; src: url("../vendor/fontes/open-sans-latin-300-normal.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-weight: 400; font-display: swap; src: url("../vendor/fontes/open-sans-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-weight: 400; font-style: italic; font-display: swap; src: url("../vendor/fontes/open-sans-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-weight: 600; font-display: swap; src: url("../vendor/fontes/open-sans-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-weight: 700; font-display: swap; src: url("../vendor/fontes/open-sans-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-weight: 800 900; font-display: swap; src: url("../vendor/fontes/open-sans-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-weight: 400; font-display: swap; src: url("../vendor/fontes/roboto-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-weight: 700; font-display: swap; src: url("../vendor/fontes/roboto-latin-700-normal.woff2") format("woff2"); }

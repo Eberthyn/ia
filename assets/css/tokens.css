@@ -1,0 +1,76 @@
+/* =====================================================================
+   TOKENS DE DESIGN — Curso de Introdução à IA aplicada à saúde
+   Para adaptar a base a outro curso, comece (e quase sempre termine) aqui.
+   Os nomes das variáveis são os mesmos da base (curso IST); só os valores
+   mudam, então os componentes funcionam sem alteração.
+   ===================================================================== */
+:root {
+  /* Paleta */
+  --cor-azul: #026d84;          /* caixas, cabeçalho de tabela, aba "Na prática" */
+  --cor-azul-escuro: #074866;   /* banner, menu da aula, cartões */
+  --cor-verde: #079c98;         /* faixa "Objetivos do curso", terceiro círculo */
+  --cor-verde-escuro: #0a665c;  /* subtítulos (h2), linha do tempo */
+  --cor-verde-claro: #64c3c4;   /* tarja do módulo no banner */
+  --cor-verde-agua: #5ec5ad;
+  --cor-rosa: #d97a5e;          /* título da aula, setas, botão Avançar */
+  --cor-rosa-forte: #c4644a;
+  --cor-salmao: #f58c73;        /* cards de módulo da home */
+  --cor-laranja: #fbaa6d;       /* "INTELIGÊNCIA ARTIFICIAL" no banner */
+  --cor-amarelo: #fbc475;       /* ícones da home */
+  --cor-areia: #fff9ec;         /* menu da capa, carrossel, 1ª coluna de tabelas */
+  --cor-cinza: #cecece;
+  --cor-texto: #444444;
+  --cor-vermelho: #f73636;
+  --cor-borda: #d9d9d9;
+  --cor-borda-escura: #707070;
+  --cor-branco: #ffffff;
+
+  /* Tipografia: Segoe UI (Windows) com Open Sans local como reserva */
+  --fonte-texto: "Segoe UI", "Open Sans", system-ui, sans-serif;
+  --fonte-titulo: "Segoe UI", "Open Sans", system-ui, sans-serif;
+  --fonte-apoio: "Roboto", "Segoe UI", system-ui, sans-serif;
+  --peso-titulo: 900;           /* Segoe UI Black / Open Sans ExtraBold */
+  --texto-tamanho: 1.2rem;
+  --texto-altura: 1.7;
+
+  /* Medidas */
+  --topo-altura: 3.25rem;
+  --menu-largura: 15rem;
+  --conteudo-largura: 50rem;
+
+  /* Bootstrap segue o tema */
+  --bs-body-font-family: var(--fonte-texto);
+  --bs-body-font-size: var(--texto-tamanho);
+  --bs-body-line-height: var(--texto-altura);
+  --bs-body-color: var(--cor-texto);
+}
+
+/* ---------------------------------------------------------------------
+   Temas de página (definidos por <curso-pagina tema="...">)
+   Os componentes usam só estas variáveis, então funcionam nos dois.
+   --------------------------------------------------------------------- */
+[data-tema="aula"] {
+  --banner-fundo: var(--cor-azul-escuro);
+  --pagina-fundo: var(--cor-branco);
+  --pagina-texto: var(--cor-texto);
+  --pagina-h1: var(--cor-rosa);
+  --pagina-h2: var(--cor-verde-escuro);
+  --pagina-h3: var(--cor-rosa);
+  --pagina-link: var(--cor-azul-escuro);
+  --pagina-borda: var(--cor-azul-escuro);
+  --menu-fundo: var(--cor-azul-escuro);
+  --menu-texto: var(--cor-branco);
+}
+
+[data-tema="capa"] {
+  --banner-fundo: var(--cor-azul);
+  --pagina-fundo: var(--cor-azul-escuro);
+  --pagina-texto: var(--cor-branco);
+  --pagina-h1: var(--cor-laranja);
+  --pagina-h2: var(--cor-laranja);
+  --pagina-h3: var(--cor-laranja);
+  --pagina-link: var(--cor-branco);
+  --pagina-borda: var(--cor-branco);
+  --menu-fundo: var(--cor-areia);
+  --menu-texto: var(--cor-texto);
+}

@@ -1,0 +1,12 @@
+/* =====================================================================
+   FOLHA DE ESTILO DO CURSO
+   Única tag <link> que cada página precisa. A ordem importa.
+   ===================================================================== */
+@import url("../vendor/bootstrap/bootstrap.min.css");
+@import url("../vendor/bootstrap-icons/bootstrap-icons.min.css");
+@import url("fontes.css");
+@import url("tokens.css");      /* cores, fontes e medidas: mude o tema aqui */
+@import url("base.css");        /* tipografia e elementos HTML */
+@import url("layout.css");      /* topo, banner, menu, área de conteúdo, rodapé */
+@import url("componentes.css"); /* figura, destaque, vídeo, botões, listas */
+@import url("home.css");        /* página inicial */

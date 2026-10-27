@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+<body>
+  <curso-pagina>
+    <h1>Categorias de IA e modelos de linguagem</h1>
+
+    <p>As diferentes categorias citadas (IA, machine learning, deep learning e IA generativa) são aninhadas, ou seja, uma está dentro da outra, como bonecas russas. Veja a seguir como esses conceitos se conectam. No infográfico temos um diagrama de conjuntos aninhados mostrando que IA generativa é um subconjunto do Deep Learning, que é um subconjunto do Machine Learning, que é um subconjunto da Inteligência Artificial. Os LLMs são um subconjunto da IA generativa.</p>
+
+    <curso-figura larga src="img/a2-categorias-aninhadas.webp" alt="Círculos aninhados: Inteligência Artificial, Machine Learning, Deep Learning, IA generativa e LLMs, com exemplos ChatGPT, Gemini e Claude">
+      <curso-audiodescricao>
+        <p>Diagrama de cinco círculos concêntricos. Do mais externo para o centro: Inteligência Artificial, Machine Learning, Deep Learning, IA generativa e LLMs. Do centro sai uma linha até os exemplos de LLMs: ChatGPT, Gemini e Claude.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Olhando o infográfico podemos concluir que:</p>
+    <ul class="lista-setas">
+      <li>Toda IA generativa é deep learning.</li>
+      <li>Todo deep learning é machine learning.</li>
+      <li>Todo machine learning é inteligência artificial.</li>
+      <li>Porém, existe muita IA que não é machine learning; e isso é especialmente importante na saúde.</li>
+    </ul>
+    <p>A IA que não é machine learning é o que chamamos de IA clássica ou IA simbólica. São sistemas baseados em regras explícitas escritas por humanos, sem aprendizado automático a partir de dados. Você vai ver a seguir que essa IA “antiga” segue absolutamente viva e que muitos sistemas chamados hoje de “IA” no SUS são, em rigor, IA clássica.</p>
+    <p>Em palestras, posts de LinkedIn e até em editais públicos, é comum ver frases do tipo “Vamos usar IA ou machine learning”. Essa formulação está errada do ponto de vista técnico, pois machine learning é um tipo de IA, não uma alternativa a ela. Outra confusão frequente é apresentar “ChatGPT” e “IA” como sinônimos. ChatGPT é um produto específico, baseado em um tipo específico (LLM), de um subconjunto (IA generativa), de um subconjunto (deep learning), de um subconjunto (machine learning), de um campo enorme (IA).</p>
+
+    <h3>IA CLÁSSICA (OU SIMBÓLICA)</h3>
+    <p>A IA clássica, também chamada de IA simbólica ou <i>Good Old-Fashioned AI</i> (GOFAI), foi a forma dominante de IA por aproximadamente as três primeiras décadas do campo, dos anos 1950 aos 1980.</p>
+    <p>A ideia central é simples e elegante. O conhecimento de um especialista humano pode ser representado como um conjunto de símbolos e regras lógicas, e o computador pode aplicar essas regras a casos concretos para chegar a conclusões.</p>
+
+    <curso-figura larga titulo="Exemplo de sistema de IA clássica" src="img/a2-sistema-ia-classica.webp" alt="Fluxo de um sistema de IA clássica: especialista humano, mecanismo de inferência e resposta, com exemplo de regra" fonte="Elaborada pelo autor (2026). Imagem gerada com auxílio de IA">
+      <curso-audiodescricao>
+        <p>Fluxo em três etapas: o especialista humano cria a base de regras; o mecanismo de inferência processa os dados; a resposta traz a conclusão ou diagnóstico. Exemplo de regra: SE o paciente apresenta febre E rigidez de nuca E alteração do nível de consciência, ENTÃO considerar meningite bacteriana e iniciar antibioticoterapia empírica imediata. Abaixo, os dois componentes principais: base de conhecimento, um conjunto de fatos, conceitos e regras lógicas do tipo “se… então…” escritas por um humano; e mecanismo de inferência, o motor que aplica as regras à entrada apresentada e produz a conclusão.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Clique na seta para visualizar alguns exemplos clássicos em saúde:</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="MYCIN:"><p>apoio à decisão para antibioticoterapia em infecções bacterianas, com mais de 600 regras.</p></curso-item>
+      <curso-item titulo="INTERNIST-I e DXplain:"><p>sistemas de apoio ao diagnóstico em medicina interna.</p></curso-item>
+      <curso-item titulo="Sistemas de alerta em prontuário eletrônico:"><p>interações medicamentosas, alergias, doses fora da faixa terapêutica.</p></curso-item>
+      <curso-item titulo="Calculadoras clínicas automatizadas:"><p>escore de Framingham, CHADS-VASc, qSOFA, escala de Glasgow integrada ao prontuário.</p></curso-item>
+      <curso-item titulo="Algoritmos de classificação de risco:"><p>como o Protocolo de Manchester nas portas de pronto-socorro.</p></curso-item>
+    </curso-acordeao>
+
+    <p>Boa parte do que está hoje em produção nos sistemas de saúde brasileiros, como e-SUS APS, sistemas de regulação, prontuários eletrônicos hospitalares, funciona, em grande medida, com IA clássica. Quando o seu prontuário emite um alerta porque você prescreveu uma dose acima da máxima recomendada para um idoso com clearance de creatinina reduzido, isso é IA. Não é “menos IA” por não ser ChatGPT.</p>
+
+    <curso-cartoes>
+      <curso-item titulo="Vantagens da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Limites da IA clássica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <h3>MACHINE LEARNING</h3>
+    <p>Por volta dos anos 1980 e, com força, a partir dos 1990, ganhou espaço uma abordagem radicalmente diferente da IA clássica. Em vez de o humano escrever as regras, o sistema aprende as regras a partir dos dados. Isso é Machine Learning (ML); em português “aprendizado de máquina”.</p>
+
+    <curso-nota>
+      <p>Machine learning é o subcampo da IA dedicado a sistemas que melhoram seu desempenho em uma tarefa à medida que são expostos a mais dados, sem que as regras precisem ser escritas explicitamente por um humano.</p>
+    </curso-nota>
+
+    <p>A definição clássica de Mitchell (1997), diz que:</p>
+    <blockquote class="citacao">
+      <p>Um sistema aprende quando, com a <strong>experiência (E)</strong> em uma <strong>tarefa (T)</strong>, seu <strong>desempenho</strong> medido por <strong>(P)</strong> melhora com <strong>(E)</strong>.</p>
+    </blockquote>
+    <p>Em termos práticos, você dá ao sistema muitos exemplos rotulados (por exemplo, dez mil mamografias classificadas como “com lesão suspeita” ou “sem lesão suspeita”) e o sistema descobre os padrões que distinguem as duas classes.</p>
+
+    <curso-figura larga titulo="Esquema comparativo entre IA Clássica e Machine Learning" src="img/a2-classica-vs-ml.webp" alt="Comparação em duas colunas entre o fluxo da IA clássica e o do machine learning" fonte="Elaborada pelo autor (2026). Imagem gerada com auxílio de IA">
+      <p>Comparação visual entre IA clássica, em que um humano escreve as regras, e o aprendizado de máquina (Machine Learning), em que o computador descobre os padrões a partir de dados rotulados.</p>
+      <curso-audiodescricao>
+        <p>Duas colunas. IA clássica: especialista humano, regras escritas, computador aplica regras, resposta. Machine Learning: muitos dados rotulados, computador descobre padrões, modelo treinado, resposta para novos casos.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Existem três grandes famílias de aprendizado de máquina. Clique nas setas para conhecer cada uma delas.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Aprendizado supervisionado">
+        <p>O sistema aprende a partir de dados rotulados (cada exemplo vem com a resposta certa). É o mais comum em saúde. Exemplos em saúde: mamografias rotuladas como benignas ou malignas, prontuários rotulados conforme houve ou não readmissão em 30 dias.</p>
+      </curso-item>
+      <curso-item titulo="Aprendizado não supervisionado">
+        <p>O sistema busca estruturas nos dados sem rótulos prévios (agrupamentos, padrões inesperados). Exemplos em saúde: útil em pesquisa epidemiológica para identificar subgrupos de pacientes.</p>
+      </curso-item>
+      <curso-item titulo="Aprendizado por reforço">
+        <p>O sistema aprende por tentativa e erro, recebendo recompensas por boas decisões. É a abordagem por trás de sistemas como AlphaGo e tem sido explorada em otimização de protocolos terapêuticos. Exemplos em saúde:</p>
+        <ul class="lista-setas">
+          <li>Modelos preditivos de readmissão hospitalar treinados em dezenas de milhares de prontuários.</li>
+          <li>Modelos de risco para sepse, como o uso clínico de alguma calculadora de risco automatizada em prontuário, com componentes de aprendizado estatístico.</li>
+          <li>Estratificação de risco cardiovascular ajustada à população atendida, treinada em dados locais.</li>
+          <li>Predição de surtos de dengue a partir de séries históricas, dados climáticos e geográficos.</li>
+        </ul>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Algoritmos clássicos de estatística, como regressão logística, análise de sobrevivência, árvores de decisão simples são, formalmente, modelos de machine learning supervisionado. Significa que o profissional de saúde com formação em Epidemiologia e Bioestatística já tem boa parte das ferramentas conceituais para entender criticamente o que está por trás de muitos sistemas vendidos hoje como "IA".</p>
+
+    <h3>DEEP LEARNING</h3>
+    <p>Entre os anos 1990 e 2010, o ML produziu sistemas excelentes para dados estruturados (linhas e colunas de prontuários, exames laboratoriais, registros administrativos), mas apresentava dificuldades em problemas que envolviam dados brutos, complexos e de alta dimensão, como imagens, áudio, texto livre. A virada veio com o Deep Learning (DL), em português “aprendizado profundo”.</p>
+
+    <curso-nota>
+      <p>DL é o subcampo do ML baseado em redes neurais artificiais com múltiplas camadas (“profundas”) capazes de aprender, diretamente dos dados brutos, representações cada vez mais abstratas sem que um humano precise definir manualmente quais características olhar.</p>
+    </curso-nota>
+
+    <curso-figura larga titulo="Exemplo esquemático de uma rede neural artificial" src="img/a2-rede-neural.webp" alt="Rede neural artificial classificando um raio-X de tórax entre pneumonia detectada (94%) e normal (6%)" fonte="Elaborada pelo autor (2026). Imagem gerada com auxílio de IA">
+      <curso-audiodescricao>
+        <p>Esquema de uma rede neural artificial. À esquerda, um raio-X de tórax como entrada. A camada de entrada processa e normaliza os dados vindos dos pixels. Duas camadas ocultas processam padrões: a primeira extrai características básicas, como bordas e texturas; a segunda reconhece padrões, como opacidades e nódulos. As conexões entre as camadas têm pesos aprendidos durante o treinamento. À direita, a classificação do resultado: pneumonia detectada, 94%; normal, 6%.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>A grande mudança trazida pelo DL é que, antes, o pesquisador precisava decidir manualmente quais características da imagem o modelo deveria olhar (esse trabalho era chamado <i>feature engineering</i>). No DL, a própria rede aprende quais características são relevantes a partir da exposição a milhões de exemplos.</p>
+    <p>Como você pode ver na linha do tempo da IA, o DL só “decolou” a partir de 2012. Por que isso aconteceu tão “tardiamente”? Três condições precisaram convergir para que isso ocorresse:</p>
+
+    <curso-carrossel>
+      <curso-item>
+        <p>Dados em escala inédita (a internet, os bancos de imagens médicas digitalizadas, os prontuários eletrônicos).</p>
+      </curso-item>
+      <curso-item><p class="pendente">Condição 2: conteúdo não consta no PDF do design.</p></curso-item>
+      <curso-item><p class="pendente">Condição 3: conteúdo não consta no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>Clique na seta para visualizar alguns exemplos clássicos em saúde:</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="IDx-DR:"><p>primeiro sistema autônomo de IA aprovado pelo FDA para detectar retinopatia diabética em atenção primária, baseado em redes neurais convolucionais (Abràmoff <i>et al.</i>, 2018).</p></curso-item>
+      <curso-item titulo="Modelos de detecção de câncer de mama:"><p>em mamografia digital com desempenho equivalente ou superior ao de radiologistas em ensaios controlados (McKinney <i>et al.</i>, 2020).</p></curso-item>
+      <curso-item titulo="Análise automatizada de eletrocardiogramas:"><p>para detecção de fibrilação atrial, infarto e outras condições, área em que instituições brasileiras já têm publicações (Ribeiro <i>et al.</i>, 2020).</p></curso-item>
+      <curso-item titulo="Detecção de tuberculose pulmonar em radiografias de tórax:"><p>sistema recomendado pela OMS em contextos de triagem em larga escala (Tavaziva <i>et al.</i>, 2022).</p></curso-item>
+      <curso-item titulo="AlphaFold2 e estrutura de proteínas:"><p>rede neural que prediz a estrutura tridimensional de proteínas com precisão de nível atômico. O sistema acelerou de forma significativa a fase de identificação de alvos moleculares no desenvolvimento de novos medicamentos (Jumper <i>et al.</i>, 2021).</p></curso-item>
+    </curso-acordeao>
+
+    <p>A maior parte dos modelos de DL aplicados em saúde foi treinada em populações dos Estados Unidos, Europa e China. Quando esses modelos chegam ao SUS, é fundamental perguntar se foram validados em população brasileira, se funcionam igualmente bem na nossa população e se há variações importantes de prevalência, fenótipo e estrutura de cuidado entre o contexto do treinamento e o nosso. Essa é uma das frentes mais importantes da agenda de equidade em IA no Brasil, tema que retornará em módulos posteriores.</p>
+
+    <h3>IA GENERATIVA</h3>
+    <p>Até aqui, todos os exemplos que vimos de IA clássica, ML, DL têm algo em comum. O sistema recebe uma entrada e produz uma decisão ou classificação. “Esta imagem mostra retinopatia? Sim ou não.” “Este paciente vai ser readmitido em 30 dias? Probabilidade de 23%.” “Esta dose excede o máximo recomendado? Alerta.”</p>
+    <p>A IA generativa muda isso. Em vez de classificar, ela gera conteúdo novo, como textos, imagens, áudios, vídeos, código de programação, moléculas candidatas a fármaco.</p>
+
+    <curso-nota>
+      <p>A IA generativa é o subcampo do DL dedicado a sistemas capazes de produzir conteúdo novo (texto, imagem, áudio, vídeo, código) a partir de padrões aprendidos em grandes volumes de dados.</p>
+    </curso-nota>
+
+    <curso-figura larga titulo="Esquema comparativo entre IA Discriminativa e IA Generativa" src="img/a2-discriminativa-generativa.webp" alt="Comparação entre IA discriminativa, que devolve um rótulo, e IA generativa, que redige um texto novo" fonte="Elaborada pelo autor (2026). Imagem gerada com auxílio de IA">
+      <curso-audiodescricao>
+        <p>Dois fluxos. IA discriminativa (classificadora): a entrada é uma imagem de fundo de olho; o modelo classificador devolve como saída o rótulo “Retinopatia SIM”. IA generativa: a entrada é o prompt “Explique retinopatia diabética para paciente com baixa escolaridade”; o modelo gerador devolve um texto novo: “A retinopatia diabética é uma complicação do diabetes que afeta os olhos. Ela acontece quando o excesso de açúcar no sangue machuca os pequenos vasinhos que ficam no fundo do olho, podendo prejudicar a visão.”</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>A IA generativa é uma família ampla, que inclui:</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Modelos de imagem"><p>DALL-E, Midjourney, Stable Diffusion. Geram imagens a partir de descrições textuais.</p></curso-item>
+      <curso-item titulo="Modelos de áudio"><p>Geração de voz sintética, música, transcrição com características inéditas.</p></curso-item>
+      <curso-item titulo="Modelos de vídeo"><p>Sora, Veo, Runway. Geram clipes a partir de descrições.</p></curso-item>
+      <curso-item titulo="Modelos de linguagem"><p>(LLMs) - ChatGPT, Claude, Gemini, Llama. Geram texto a partir de prompts. É essa subcategoria que mais tem impactado a saúde.</p></curso-item>
+    </curso-acordeao>
+
+    <p>Você deve estar se perguntando, como uma IA generativa "aprende"? Ela é exposta a volumes imensos de exemplos do tipo de conteúdo que vai gerar (no caso dos LLMs, bilhões de páginas de texto).</p>
+    <p>Aprende, durante o treinamento, a estimar a probabilidade do próximo elemento (palavra, pixel, nota musical) dado o contexto anterior. Quando você pede algo a ela, o sistema gera o conteúdo um pedacinho de cada vez, escolhendo cada próximo elemento com base no que foi gerado até então e no que foi pedido.</p>
+    <p>Esse mecanismo aparentemente simples produz, em escala suficiente, capacidades surpreendentes. Exemplos incluem redigir um plano de cuidado coerente, traduzir uma bula para linguagem acessível, sintetizar um artigo científico, gerar um código que filtra um banco de dados.</p>
+
+    <curso-nota>
+      <p>A IA generativa não tem compreensão do sentido humano, não consulta bancos de dados em tempo real (a menos que esteja explicitamente conectada a um) e não tem garantia de veracidade sobre o que produz. Ela pode gerar com fluência uma resposta inteiramente errada sobre uma medicação, uma diretriz clínica ou um dado epidemiológico, fenômeno chamado alucinação, que você verá a seguir. Esse é o ponto em que a IA generativa exige do profissional de saúde uma postura crítica diferente da exigida pelas IAs</p>
+    </curso-nota>
+
+    <h3>QUANDO USAR CADA CATEGORIA DE IA</h3>
+    <p>Para compreender melhor as diferenças entre as categorias de IA, acompanhe exemplos de situações clínicas que demonstram como cada uma delas pode ser utilizada na prática.</p>
+
+    <h4>IA clássica</h4>
+    <p>Considere o seguinte cenário: o sistema do prontuário verifica, a cada nova prescrição, se a dose ultrapassa a faixa terapêutica recomendada para a faixa etária e a função renal do paciente.</p>
+    <p>Nesse caso, temos um conjunto de regras “se… então…”, baseadas em diretrizes oficiais e tabelas de bulário. Por exemplo: SE o paciente tem mais de 65 anos E clearance de creatinina &lt; 30 mL/min E a dose prescrita &gt; 50% da dose máxima padrão, ENTÃO emitir alerta.</p>
+    <curso-figura src="img/a2-cenario-ia-classica.jpg" alt="Profissional de saúde consultando um tablet" fonte="Magnific, (2026)"></curso-figura>
+    <curso-cartoes>
+      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <h4>Machine learning</h4>
+    <p>Considere agora o seguinte cenário: um modelo prediz a probabilidade de readmissão hospitalar em 30 dias para cada paciente que recebe alta da clínica médica.</p>
+    <p>Nesse caso, foi treinado em dezenas de milhares de prontuários do próprio hospital, com a variável-alvo “houve readmissão em 30 dias: sim/não”. Aprendeu, a partir dos dados, quais combinações de idade, comorbidades, exames e tempo de internação se associam a maior risco.</p>
+    <curso-figura src="img/a2-cenario-machine-learning.jpg" alt="Médica atendendo uma paciente idosa em cadeira de rodas" fonte="Magnific, (2026)"></curso-figura>
+    <curso-cartoes>
+      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <h4>Deep learning</h4>
+    <p>Suponha o seguinte cenário: em uma UBS, uma fotografia de fundo de olho tirada por um técnico é analisada automaticamente, classificando o paciente como “encaminhar ao oftalmologista” ou “seguir acompanhamento de rotina”.</p>
+    <p>Nesse caso, uma rede neural convolucional, treinada em centenas de milhares de imagens rotuladas, aprendeu a reconhecer microaneurismas, hemorragias, exsudatos e outros sinais.</p>
+    <curso-figura src="img/a2-cenario-deep-learning.jpg" alt="Paciente em exame de lâmpada de fenda com profissional de saúde" fonte="Magnific, (2026)"></curso-figura>
+    <curso-cartoes>
+      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <h4>IA generativa</h4>
+    <p>Considere o seguinte cenário: após uma consulta, a profissional cola uma nota técnica e pede a um chatbot: “Reescreva esta nota em linguagem acessível, em português brasileiro, para uma paciente de 72 anos com baixa escolaridade. Inclua orientações claras sobre como tomar a medicação.”</p>
+    <p>Nesse caso, um LLM gera o texto de saída, baseando-se em padrões aprendidos durante o treinamento.</p>
+    <curso-figura src="img/a2-cenario-ia-generativa.jpg" alt="Profissional de saúde diante de um computador" fonte="Magnific, (2026)"></curso-figura>
+    <curso-cartoes>
+      <curso-item titulo="Vantagens clínica"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Limites"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <curso-nota>
+      <p>No contexto SUS, esses quatro cenários são realistas e versões deles já existem ou estão em piloto em diferentes pontos da rede pública brasileira. Nesse sentido, diante dessas soluções de IA o profissional de saúde deve refletir criticamente: “Para esta tarefa específica, qual tipo de IA faz sentido, com quais salvaguardas, e quem é responsável pela decisão final?”</p>
+    </curso-nota>
+
+    <p>Para facilitar a consulta, reunimos as principais características das quatro categorias de IA em uma única tabela. Você pode baixá-la em PDF e utilizá-la como material de apoio sempre que precisar.</p>
+
+    <p class="link-download">Resumo das quatro categorias de IAs
+      <span aria-disabled="true" title="PDF ainda não disponível"><i class="bi bi-download" aria-hidden="true"></i><span class="visually-hidden">Baixar a tabela em PDF</span></span>
+    </p>
+    <curso-tabela>
+      <table>
+        <thead>
+          <tr><th scope="col">Característica</th><th scope="col">IA clássica</th><th scope="col">Machine Learning</th><th scope="col">Deep Learning</th><th scope="col">IA Generativa</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">De onde vem o “conhecimento”</th><td>Regras escritas por humanos.</td><td>Aprendido a partir de dados estruturados.</td><td>Aprendido a partir de dados brutos (imagem, texto, áudio).</td><td>Aprendido a partir de volumes massivos de dados.</td></tr>
+          <tr><th scope="row">O que o sistema produz</th><td>Decisão baseada em regras.</td><td>Classificação ou predição.</td><td>Classificação ou predição.</td><td>Conteúdo novo (texto, imagem, código).</td></tr>
+          <tr><th scope="row">Volume de dados necessário</th><td>Baixo (pode funcionar com nenhum dado de treinamento).</td><td>Médio a alto.</td><td>Alto a muito alto.</td><td>Muito alto.</td></tr>
+          <tr><th scope="row">Transparência (explicabilidade)</th><td>Alta - Toda regra é legível.</td><td>Média - Depende do algoritmo.</td><td>Baixa - Caixa-preta.</td><td>Baixa – Caixa-preta.</td></tr>
+          <tr><th scope="row">Robustez a casos imprevistos</th><td>Frágil.</td><td>Razoável.</td><td>Boa.</td><td>Boa, mas pode alucinar.</td></tr>
+          <tr><th scope="row">Exemplos típicos em saúde</th><td>Alertas em prontuário, calculadoras clínicas, MYCIN.</td><td>Predição de readmissão, estratificação de risco.</td><td>Detecção de retinopatia, análise de ECG e mamografia.</td><td>Redação assistida, sumarização, tradução, geração de orientação.</td></tr>
+          <tr><th scope="row">Quando preferir</th><td>Tarefas bem-definidas, com regras claras e necessidade de auditabilidade.</td><td>Padrões em dados tabulares, predição de eventos.</td><td>Imagens, sinais e dados não estruturados.</td><td>Geração de texto, comunicação, síntese.</td></tr>
+        </tbody>
+      </table>
+    </curso-tabela>
+
+    <p>Vamos relembrar as três situações distintas que exemplificamos anteriormente:</p>
+    <ul class="lista-setas">
+      <li><span class="lista-setas__num">1.</span> Um software que calcula automaticamente o risco cardiovascular de um paciente a partir dos dados do prontuário, seguindo o escore PREVENT.</li>
+      <li><span class="lista-setas__num">2.</span> Um sistema que aprendeu a detectar retinopatia diabética a partir de milhares de fotos de fundo de olho rotuladas.</li>
+      <li><span class="lista-setas__num">3.</span> Um chatbot que redige um plano terapêutico inicial para um paciente hipertenso.</li>
+    </ul>
+    <p><strong>Agora você consegue nomear cada um?</strong> Tente responder antes de clicar na seta para conferir a resposta.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Calculador automático de risco cardiovascular pelo escore PREVENT">
+        <p><strong>Categoria: IA clássica.</strong> É uma fórmula determinística com regras explícitas. Não há aprendizado a partir de dados, pois as regras estão fixadas em diretrizes. Mesmo automatizado e integrado ao prontuário, segue sendo IA clássica.</p>
+      </curso-item>
+      <curso-item titulo="Detector de retinopatia diabética treinado em milhares de fotos">
+        <p><strong>Categoria: Deep learning</strong> (subconjunto do machine learning, subconjunto da IA). É uma rede neural convolucional treinada em imagens rotuladas. Discrimina entre classes (“encaminhar/não encaminhar”), portanto não é IA generativa.</p>
+      </curso-item>
+      <curso-item titulo="Chatbot que redige um plano terapêutico inicial">
+        <p><strong>Categoria: IA generativa, mais especificamente um LLM.</strong> Gera conteúdo novo (texto), com base em padrões aprendidos no treinamento.</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>A IA já está presente no cotidiano do SUS e muitas vezes pode passar desapercebido, porque ela pode não se apresentar com esse nome. Veja os exemplos:</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Atenção Primária à Saúde">
+        <p>Aplicativos de apoio à decisão clínica instalados em smartphone; sistemas de classificação de risco; uso de mapas em aplicativo de navegação por um ACS; chatbots de orientação de saúde para a população.</p>
+      </curso-item>
+      <curso-item titulo="Próximo exemplo"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>Algumas dessas aplicações são consolidadas há mais de uma década (como sistemas de alerta em prontuário), outras são experimentais e ainda não chegaram à maioria dos serviços. Compreender o que é IA permite ao profissional reconhecê-la quando ela aparece, formular perguntas críticas (Quem treinou? Com quais dados? Foi validada para a nossa população?) e participar com voz ativa das decisões institucionais sobre a adoção dessas ferramentas.</p>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+<body>
+  <curso-pagina>
+    <h1>LLMs e os principais chatbots</h1>
+
+    <p>Você usa o Google, provavelmente há vinte anos sem saber exatamente como o algoritmo de busca funciona. Então deve estar se perguntando: “por que é preciso entender o que é um LLM?”</p>
+    <ul class="lista-setas">
+      <li>A saída de um LLM se parece com uma conversa humana, e isso ativa em nós um conjunto de expectativas, como confiança, compreensão, intenção, que não correspondem ao que o sistema de fato é.</li>
+      <li>Os erros típicos de um LLM são diferentes dos erros típicos de outros softwares. Eles aparecem com fluência, autoridade e estrutura impecável, o que os torna especialmente perigosos quando aplicados sem revisão de decisões clínicas.</li>
+      <li>O LLM é, hoje, a porta de entrada da IA generativa para a maioria dos profissionais do SUS. Saber do que se trata é pré-requisito para usá-lo com segurança.</li>
+    </ul>
+
+    <p>Um profissional da saúde deve saber que:</p>
+
+    <curso-carrossel>
+      <curso-item>
+        <p>Para distinguir uma resposta correta de uma resposta plausível é preciso conhecer o mecanismo, sabendo que fluência não é sinônimo de veracidade e revê-lo com olhos clínicos.</p>
+      </curso-item>
+      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <h2>Modelo de linguagem</h2>
+    <p>Para chegar ao L de LLM (de "<i>Large</i>", grande), você precisa primeiro entender o que é um modelo de linguagem (sem o "grande"). Esse conceito tem mais de oitenta anos.</p>
+
+    <curso-nota>
+      <p>Um modelo de linguagem é um sistema computacional que estima a probabilidade de uma sequência de palavras (ou pedaços de palavras) aparecer em um texto.</p>
+    </curso-nota>
+
+    <p>Veja alguns exemplos:</p>
+
+    <div class="midia midia--icone">
+      <img class="midia__imagem" src="img/icones/autocompletar.webp" alt="">
+      <div>
+        <p class="midia__titulo">Autocompletar do celular</p>
+        <p>Você digita “Vou levar o paciente para…” e o teclado sugere “casa”, “consulta”, “exame”. O sistema estimou, com base em milhões de mensagens, quais palavras costumam aparecer depois dessa sequência.</p>
+      </div>
+    </div>
+    <div class="midia midia--icone">
+      <img class="midia__imagem" src="img/icones/corretor.webp" alt="">
+      <div>
+        <p class="midia__titulo">Corretor ortográfico</p>
+        <p>Você digita “anteibiótico” e o sistema sublinha, porque calculou que essa sequência de letras é muito improvável em português, e que “antibiótico” é a sequência semelhante mais provável.</p>
+      </div>
+    </div>
+    <div class="midia midia--icone">
+      <img class="midia__imagem" src="img/icones/tradutor.webp" alt="">
+      <div>
+        <p class="midia__titulo">Tradutor automático</p>
+        <p>Você cola uma frase em inglês e o sistema produz, em português, a sequência mais provável correspondente. Não a “tradução correta” em sentido absoluto, mas a sequência de palavras que tem mais chance de ser a tradução, dado tudo o que o sistema viu antes.</p>
+      </div>
+    </div>
+
+    <p>A diferença entre esses sistemas e um LLM é de escala. Um autocompletar do celular trabalha com algumas centenas de milhares de exemplos. Um LLM trabalha com trilhões de palavras de treinamento e bilhões de parâmetros internos. No entanto, o princípio fundamental de prever o próximo pedacinho de texto, dado o que veio antes, é o mesmo.</p>
+    <p>Um LLM, por construção, é uma máquina de prever a próxima palavra. Quando você pergunta algo, ele não consulta um banco de dados de fatos. Ele não verifica fontes antes de responder (a menos que esteja explicitamente conectado a uma fonte externa ou ferramenta de busca, mesmo nesse caso, com limites). Ele gera, token a token, a sequência mais plausível dado o que você escreveu, usando padrões aprendidos no treinamento. Toda a “competência clínica aparente” de um LLM emerge desse mecanismo simples, levado à escala extrema.</p>
+
+    <h3>Token: a unidade mínima</h3>
+    <p>Para começar a entender o funcionamento pormenorizado dos LLMs, é fundamental conhecer o token.</p>
+    <p>Um token é a unidade mínima de texto com que um LLM trabalha. Pode ser uma palavra inteira, parte de uma palavra, um caractere de pontuação ou um espaço, depende do sistema de “tokenização” do modelo.</p>
+    <p>Em português, como aproximação útil para o profissional de saúde, separamos alguns exemplos práticos:</p>
+    <ul class="lista-setas">
+      <li>Uma palavra curta e comum (o, casa, dor, com) tende a ser um token.</li>
+      <li>Uma palavra longa e menos frequente (hipotireoidismo, eletrocardiograma, cetoacidose) costuma ser dividida em vários tokens.</li>
+      <li>1.000 tokens equivalem, em média, a 750 palavras em português. Um pouco menos do que isso, na verdade, porque palavras em saúde costumam consumir mais tokens.</li>
+    </ul>
+    <p>Veja o exemplo a seguir. A frase é decomposta em nove tokens, com palavras menos frequentes divididas em subpalavras.</p>
+
+    <div class="tokenizacao">
+      <p class="tokenizacao__frase">“Paciente com cetoacidose diabética grave.”</p>
+      <p class="tokenizacao__seta">↓ tokenização ↓</p>
+      <ol class="tokenizacao__tokens" aria-label="Nove tokens">
+        <li>Paciente</li><li>com</li><li>ceto</li><li>acid</li><li>ose</li><li>diab</li><li>ética</li><li>grave</li><li>.</li>
+      </ol>
+    </div>
+
+    <p>Quando falamos de IA, tudo é cobrado e medido em tokens. Quando o material institucional do seu serviço ou de algum sistema particular que você está contratando fala em “limite de 200 mil tokens de contexto”, está dizendo, na prática, “aproximadamente 150 mil palavras de texto que o modelo consegue ‘ver’ de uma vez”.</p>
+    <p>Uma resposta longa custa mais tempo, mais energia e mais dinheiro. Cada token gerado é uma operação computacional.</p>
+    <p>O modelo “raciocina” um token por vez. Mesmo que a resposta pareça, ao final, uma frase pensada como um todo, cada token foi escolhido individualmente, na ordem em que aparece, sem que o modelo possa “voltar atrás” para revisar uma escolha anterior. Esse é um detalhe técnico com implicações reais sobre quando confiar e quando desconfiar das saídas.</p>
+
+    <h2>Como um LLM funciona</h2>
+    <p>Depois de reunir os conceitos apresentados até aqui, você já será capaz de compreender como um chatbot gera respostas e o que acontece desde o momento em que uma pergunta é digitada até a geração da resposta pelo chatbot. Clique nas setas e conheça os 4 passos.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Passo 1 - Você escreve um prompt">
+        <p>O prompt é tudo que você digita no campo específico do chatbot (prompt), incluindo a sua pergunta, qualquer documento que tenha colado. Assim, instruções anteriores e o histórico da conversa é convertido em tokens. Esse conjunto de tokens é o que o modelo “vê” como entrada.</p>
+      </curso-item>
+      <curso-item titulo="Passo 2 - O modelo calcula probabilidades para o próximo token">
+        <p>A rede neural, com seus bilhões de parâmetros aprendidos no treinamento, produz uma distribuição de probabilidades sobre todos os tokens possíveis (em geral, dezenas de milhares). Por exemplo: dado o que você escreveu, qual a chance de o próximo token ser “para”, “que”, “considere”, “atenção” e assim por diante.</p>
+      </curso-item>
+      <curso-item titulo="Passo 3 - Um token é escolhido e juntado à saída">
+        <p>Conforme um parâmetro denominado “temperatura” (que será detalhado na próxima seção), o sistema pode escolher sempre o token de maior probabilidade (saída mais “fria” e determinística) ou amostrar entre os mais prováveis (saída mais “quente” e variada). O token escolhido é acrescentado ao texto.</p>
+      </curso-item>
+      <curso-item titulo="Passo 4 - O processo se repete, token a token, até parar">
+        <p>Agora a entrada do modelo é o seu prompt mais o token recém-gerado. O modelo recalcula as probabilidades, escolhe o próximo, junta na saída e segue, até atingir uma condição de parada (limite de tokens, marca de fim de resposta, instrução de pausa).</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Clique nos campos e veja como funciona na prática um chat de IA:</p>
+
+    <curso-pontos titulo="Estrutura padrão de um chatbot de IA" src="img/a3-chatbot.jpg" alt="Tela genérica de um chat de IA com histórico de conversas, área de resposta, campo de mensagem e botões Pensar, Anexar, Buscar e Enviar" fonte="Elaborado pelo autor (2026)">
+      <curso-item x="30.8" y="70.4" titulo="Campo 1"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="88.0" y="89.0" titulo="Campo 2"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="95.6" y="12.7" titulo="Campo 3"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="24.5" y="8.5" titulo="Campo 4"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="1.8" y="22" titulo="Campo 5"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="31" y="89" titulo="Campo 6"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="48.3" y="89" titulo="Campo 7"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+      <curso-item x="65.6" y="89" titulo="Campo 8"><p class="pendente">Explicação não consta no PDF do design.</p></curso-item>
+    </curso-pontos>
+
+    <curso-caixa tipo="leitura">
+      <p>Veja no link a seguir, na prática, como são os quatro passos do funcionamento do LLM.<br>
+        <a href="https://alisson-mfc.github.io/llm_token_ex/" target="_blank" rel="noopener">Link: https://alisson-mfc.github.io/llm_token_ex/</a></p>
+      <p>Repare na consequência mais importante desse mecanismo. O modelo não tem um plano completo da resposta antes de começar a respondê-la. Ele decide o início e essa decisão condiciona o que vem depois. É por isso que pequenas mudanças no prompt, ou mesmo a mesma pergunta repetida em outro momento, podem produzir respostas completamente diferentes.</p>
+      <p>Igualmente por isso, o modelo eventualmente "se compromete" com uma direção errada nas primeiras palavras e segue confiante naquela direção, mesmo que esteja produzindo uma resposta sem fundamento.</p>
+    </curso-caixa>
+
+    <h3>“Rede neural” do meio</h3>
+    <p>Você não precisa entender, em detalhe matemático, como uma rede neural funciona para usar bem um LLM. Porém, precisa de uma intuição mínima sobre o que está dentro do Passo 2 (o modelo calcula probabilidades para o próximo token) que você acabou de ver.</p>
+    <p>Os LLMs atuais são todos baseados em uma arquitetura de rede neural chamada Transformer, apresentada em 2017 por pesquisadores do Google em um artigo cujo título virou famoso na comunidade técnica, “<i>Attention Is All You Need</i>” (Vaswani, 2017).</p>
+    <p>Você não precisa decorar isso, mas é útil saber, porque o termo aparecerá em qualquer leitura técnica sobre o tema. Para os fins deste curso, basta saber que essa arquitetura é uma rede de bilhões de pequenos cálculos, que, juntos, transformam a sua entrada em uma distribuição de probabilidades sobre o próximo token. Esses cálculos são governados por números internos chamados parâmetros.</p>
+
+    <curso-cartoes claro>
+      <curso-item titulo="O que são parâmetros?"><p class="pendente">Verso do cartão não consta no PDF do design.</p></curso-item>
+    </curso-cartoes>
+
+    <p>Você sabia que o Chat GPT-3, lançado em 2020, tinha 175 bilhões de parâmetros, o que, à época, era considerado gigantesco? Em 2026, modelos abertos como o DeepSeek V4 chegam a 1,6 trilhão de parâmetros, Llama 4 Maverick opera com 400 bilhões e Qwen 3.5 com cerca de 400 bilhões. No outro extremo, modelos como Gemma 4 (26 bilhões) e GPT-oss 20B já entregam capacidades surpreendentes em hardware acessível, rodando até em laptops.</p>
+    <p>Há uma sutileza importante a partir de 2025. A maior parte dos modelos atuais usa uma arquitetura chamada <i>Mixture of Experts</i> (MoE), na qual apenas uma fração dos parâmetros é “ativada” para cada token gerado. Por isso, modelos atuais costumam ser descritos com dois números. Por exemplo, DeepSeek V4 Pro: 1,6 trilhão de parâmetros totais, 49 bilhões ativos por token. O total define de quanta memória o modelo precisa; o ativo, quanto custa cada resposta.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Para algumas tarefas em saúde, modelos menores e especializados podem apresentar melhor desempenho do que modelos enormes e genéricos, particularmente em tarefas com vocabulário próprio (CIAP, CID, terminologia farmacêutica brasileira) ou quando há restrições de soberania de dados, exigindo execução local na infraestrutura do próprio serviço.</p>
+    </curso-caixa>
+
+    <h3>Como o modelo aprende?</h3>
+    <p>Tudo o que vimos até agora descreve o que acontece quando você usa o modelo. No jargão técnico isso é chamado de inferência. E como o modelo chegou ao ponto de produzir saídas úteis? Essa é a fase do treinamento, e ela ocorre em três grandes etapas. Clique nas setas para conhecê-las.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Etapa 1 - Pré-treinamento: exposição massiva a texto bruto">
+        <p>O modelo é exposto a um volume gigantesco de texto (livros, sites públicos, artigos científicos, código de programação, conversas em fóruns), da ordem de trilhões de tokens. Durante essa fase, a única tarefa do modelo é, repetidamente, prever a próxima palavra. Ao errar, ajusta levemente seus parâmetros internos; ao acertar, mantém o ajuste. Após meses de treinamento, o modelo se torna capaz de produzir texto fluente em dezenas de línguas e domínios. No entanto, ao fim dessa fase, ele ainda não é um chatbot útil. Produz texto plausível, mas não necessariamente seguro, prestativo ou honesto.</p>
+      </curso-item>
+      <curso-item titulo="Etapa 2 - Ajuste fino supervisionado (supervised fine-tuning)">
+        <p>O modelo recebe exemplos curados de boas respostas, escritos por humanos especialistas, para diversos tipos de pergunta. Aprende, com isso, o formato e o tom esperados de um assistente que responde a usuários com clareza, estrutura, recusa apropriada de pedidos perigosos e segue instruções.</p>
+      </curso-item>
+      <curso-item titulo="Etapa 3 - Aprendizado por reforço com feedback humano (RLHF)">
+        <p>O modelo gera várias respostas para a mesma pergunta. Avaliadores humanos (em geral, terceirizados em escala global) classificam quais respostas são melhores, segundo critérios definidos pela empresa: utilidade, honestidade, segurança. Um segundo modelo aprende a imitar essas preferências humanas, e o LLM principal é treinado para maximizar essa “pontuação de preferência”. É essa fase que faz o modelo soar útil e prestativo quando você conversa com ele.</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Esse processo tem implicações éticas e clínicas importantes que ainda serão aprofundados, como:</p>
+    <ul class="lista-setas">
+      <li><span class="lista-setas__num">1.</span> Os dados de pré-treinamento raramente são totalmente públicos; você não sabe exatamente em que textos o modelo foi treinado.</li>
+      <li><span class="lista-setas__num">2.</span> Os avaliadores humanos podem inserir vieses sistemáticos (culturais, políticos, profissionais).</li>
+      <li><span class="lista-setas__num">3.</span> Os critérios de boa resposta definidos pela empresa não são os critérios de boa decisão clínica, pois um modelo pode ter sido otimizado para parecer útil e não para ser tecnicamente correto em saúde. Isso não invalida o uso, mas exige que o profissional de saúde mantenha o juízo clínico como filtro final.</li>
+    </ul>
+
+    <h3>Por que LLMs alucinam?</h3>
+    <p>Você ouvirá com frequência o termo alucinação em discussões sobre LLMs. Vale fechá-lo agora, porque é o conceito que mais mal-entendidos produz no uso clínico. Alucinação é o fenômeno em que um LLM produz uma saída fluente, gramaticalmente correta e aparentemente confiante, mas factualmente errada. Por exemplo, uma referência bibliográfica que não existe, uma dose que está fora da bula, um efeito colateral atribuído à medicação errada, entre outras.</p>
+    <p>A palavra “alucinação” é controversa. Alguns pesquisadores preferem “confabulação” ou simplesmente “erro”. Isso porque “alucinação” sugere uma percepção falsa, quando, em rigor, o modelo não percebe nada. Para os fins deste curso, mantemos o termo já consagrado, mas com a clareza de seu mecanismo.</p>
+    <p>Por que LLMs alucinam? Clique nas setas e conheça as quatro razões, em ordem de importância:</p>
+
+    <curso-carrossel>
+      <curso-item>
+        <p>Por construção, eles não têm noção de “verdadeiro” ou “falso”. Geram a sequência mais provável, dado o contexto. Se a sequência mais provável é uma referência inventada, o modelo a produz com a mesma fluência de uma referência real.</p>
+      </curso-item>
+      <curso-item><p class="pendente">Razão 2: conteúdo não consta no PDF do design.</p></curso-item>
+      <curso-item><p class="pendente">Razão 3: conteúdo não consta no PDF do design.</p></curso-item>
+      <curso-item><p class="pendente">Razão 4: conteúdo não consta no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>No contexto do SUS, em contextos clínicos brasileiros, alucinações podem aparecer especialmente em três situações de risco:</p>
+    <ul class="lista-setas">
+      <li><span class="lista-setas__num">1.</span> Referências a protocolos do Ministério da Saúde (PCDTs, notas técnicas), quando o modelo pode inventar números de portaria, datas e conteúdos com fluência convincente.</li>
+      <li><span class="lista-setas__num">2.</span> Doses de medicamentos da RENAME, podendo trocar concentrações ou intervalos posológicos.</li>
+      <li><span class="lista-setas__num">3.</span> Citações a normas profissionais (CFM, COFEN), nas quais o modelo pode atribuir resoluções inexistentes a conselhos profissionais.</li>
+    </ul>
+    <p>Toda saída de LLM em contexto clínico exige verificação humana, especialmente em informação numérica e em referências formais. Essa é uma regra de uso, não uma recomendação.</p>
+    <p>Vale separar, com clareza, o que LLMs costumam fazer bem do que costumam fazer mal. Essa não é uma lista absoluta, considerando que modelos evoluem e tarefas migram entre as duas colunas com o tempo.</p>
+
+    <curso-tabela titulo="Resumo das quatro categorias de IAs" fonte="Elaborado pelos autores (2026)" listrada class="tabela-estreita">
+      <table>
+        <thead>
+          <tr><th scope="col">Costuma fazer bem</th><th scope="col">Costuma fazer mal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reescrever um texto em outro registro (técnico → leigo, formal → informal).</td><td>Citar referências bibliográficas com precisão (autor, ano, página).</td></tr>
+          <tr><td>Sumarizar um artigo ou documento longo já fornecido no prompt.</td><td>Fornecer dados numéricos exatos sem fonte verificável (estatísticas, doses, datas).</td></tr>
+          <tr><td>Traduzir entre idiomas próximos (português ↔ espanhol, inglês ↔ português).</td><td>Realizar contas e operações aritméticas confiáveis sem ferramenta acoplada.</td></tr>
+          <tr><td>Estruturar texto em listas, tabelas, esquemas a partir de informações já dadas.</td><td>Interpretar imagens médicas (sem ser um modelo multimodal específico).</td></tr>
+          <tr><td>Gerar exemplos didáticos, casos clínicos, casos para discussão.</td><td>Manter coerência factual em respostas muito longas.</td></tr>
+          <tr><td>Reformular perguntas, sugerir alternativas, fazer chuva de ideias.</td><td>Reconhecer o que não sabe (costuma "alucinar" em vez de admitir desconhecimento).</td></tr>
+          <tr><td>Apoiar redação de cartas, e-mails, relatórios, declarações.</td><td>Aplicar diretrizes brasileiras específicas (PCDTs, RENAME) com fidedignidade, a não ser que explicitadas no contexto.</td></tr>
+          <tr><td>Corrigir português, padronizar terminologia, ajustar tom.</td><td>Dar conselho clínico definitivo em casos individuais.</td></tr>
+        </tbody>
+      </table>
+    </curso-tabela>
+
+    <p>Quanto mais o trabalho do LLM for sobre texto que você já forneceu, mais confiável tende a ser a saída. Quanto mais o LLM precisa “trazer informação de fora” (fatos, números, referências), mais o profissional precisa verificar. Pedir a um modelo que “resuma este artigo” (com o artigo colado no prompt) é radicalmente diferente de pedir que “me explique o que diz o artigo de Fulano sobre X” (sem o artigo).</p>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+</html>

@@ -1,0 +1,1952 @@
+/* =====================================================================
+   COMPONENTES DE CONTEÚDO
+   ===================================================================== */
+
+/* ---- Botões Voltar / Avançar / Começar ----------------------------- */
+.navegacao {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+.btn-voltar,
+.btn-avancar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-width: 12.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btn-voltar {
+  --bs-btn-color: var(--pagina-link);
+  --bs-btn-border-color: var(--pagina-borda);
+  --bs-btn-hover-color: var(--cor-azul);
+  --bs-btn-hover-bg: var(--cor-areia);
+  --bs-btn-hover-border-color: var(--pagina-borda);
+  --bs-btn-disabled-color: var(--pagina-link);
+  --bs-btn-disabled-border-color: var(--pagina-borda);
+}
+
+.btn-avancar {
+  --bs-btn-color: var(--cor-branco);
+  --bs-btn-bg: var(--cor-rosa);
+  --bs-btn-border-color: var(--cor-rosa);
+  --bs-btn-hover-color: var(--cor-branco);
+  --bs-btn-hover-bg: var(--cor-rosa-forte);
+  --bs-btn-hover-border-color: var(--cor-rosa-forte);
+  --bs-btn-disabled-color: var(--cor-branco);
+  --bs-btn-disabled-bg: var(--cor-rosa);
+  --bs-btn-disabled-border-color: var(--cor-rosa);
+}
+
+/* ---- Lista com setas ------------------------------------------------
+   <ul class="lista-setas"> <li>…</li> </ul>                              */
+.lista-setas {
+  margin: 0 0 1.5rem;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.lista-setas ul {
+  padding-left: 1.25rem;
+}
+
+.lista-setas>li {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.lista-setas>li::before {
+  content: "\F138";
+  /* bi-arrow-right */
+  position: absolute;
+  left: 0;
+  font-family: "bootstrap-icons";
+  font-weight: 700;
+  color: var(--cor-rosa);
+}
+
+/* ---- Figura --------------------------------------------------------- */
+.figura {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 32.5rem);
+  margin: 2.5rem auto;
+}
+
+/* Foto sem título: a linha "Fonte" fica acima da imagem, à direita (como no design) */
+.figura:not(:has(> .figura__titulo)) > .figura__fonte {
+  order: -1;
+  margin: 0 0 0.25rem !important;
+}
+
+.figura__titulo {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--cor-azul);
+}
+
+.figura__imagem {
+  display: block;
+  width: 100%;
+}
+
+/* Lupa: botão que envolve a imagem ampliável.
+   O ícone fica abaixo da imagem, à esquerda, sem cobrir o conteúdo. */
+.figura__ampliar {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.figura__lupa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-azul);
+}
+
+.figura__lupa .bi {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--cor-azul);
+  font-size: 0.9rem;
+  color: var(--cor-branco);
+}
+
+.figura__ampliar:hover .figura__lupa,
+.figura__ampliar:focus-visible .figura__lupa {
+  text-decoration: underline;
+}
+
+/* Na capa (fundo azul) o texto da lupa fica branco */
+[data-tema="capa"] .figura__lupa {
+  color: var(--cor-branco);
+}
+
+/* A linha "Fonte" sobe para ficar na mesma altura da lupa */
+.figura__ampliar+.figura__fonte {
+  margin-top: -1.5rem !important;
+}
+
+/* Janela de ampliação: tela cheia, fundo branco */
+.ampliacao .modal-content {
+  border: 0;
+  border-radius: 0;
+  background: var(--cor-branco);
+}
+
+.ampliacao__corpo {
+  overflow: auto;
+  padding: 3.5rem 1.5rem 1.5rem;
+}
+
+.ampliacao__imagem {
+  display: block;
+  width: min(100%, 1640px);
+  max-width: none;
+  margin: 0 auto;
+}
+
+/* No celular a imagem fica maior que a tela e pode ser arrastada para os lados */
+@media (max-width: 991.98px) {
+  .ampliacao__imagem {
+    width: 40rem;
+  }
+}
+
+.ampliacao__fechar {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cor-azul);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+  font-size: 1.25rem;
+  color: var(--cor-branco);
+}
+
+.ampliacao__fechar:hover {
+  background: var(--cor-azul-escuro);
+}
+
+.figura__imagem--vazia {
+  aspect-ratio: 5 / 3;
+  background: var(--cor-cinza);
+}
+
+.figura__fonte {
+  margin: 0.35rem 0 0 !important;
+  font-family: var(--fonte-apoio);
+  font-size: 0.7rem;
+  text-align: right;
+}
+
+/* ---- Destaque (leitura complementar, saiba mais…) ------------------- */
+.destaque {
+  width: min(100%, 36rem);
+  margin: 2.5rem auto;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.destaque__titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 !important;
+  padding: 0.5rem 1.25rem;
+  background: var(--cor-rosa);
+  font-weight: 700;
+  color: var(--cor-branco);
+}
+
+.destaque__titulo .bi {
+  font-size: 1.4rem;
+}
+
+.destaque__corpo {
+  margin: 0 0.25rem;
+  padding: 1.25rem 1rem 0.25rem;
+  border: 2px dashed var(--pagina-borda, var(--cor-branco));
+  border-top: 0;
+}
+
+/* ---- Vídeo ---------------------------------------------------------- */
+.video {
+  width: min(100%, 36.5rem);
+  margin: 2.5rem auto;
+  background: var(--cor-branco);
+}
+
+.video__vazio {
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+  color: var(--cor-cinza);
+}
+
+/* =====================================================================
+   COMPONENTES INTERATIVOS
+   ===================================================================== */
+
+/* Larguras de leitura usadas pelos blocos centralizados */
+.figura--larga {
+  width: 100%;
+}
+
+.figura--estreita {
+  width: min(100%, 15rem);
+}
+
+.figura__legenda {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.figura__nota {
+  margin: 0.5rem 0 0 !important;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.figura__legenda-titulo {
+  margin: 0 0 0.25rem !important;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--cor-azul);
+}
+
+/* Legenda em itálico abaixo da foto (ex.: Dartmouth, 1956) */
+.figura__legenda--italico {
+  font-style: italic;
+}
+
+/* Texto provisório (conteúdo ainda não enviado) */
+.pendente {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+/* ---- Acordeão -------------------------------------------------------- */
+.acordeao {
+  width: min(100%, 41rem);
+  margin: 2rem auto 2.5rem;
+}
+
+.acordeao__item+.acordeao__item {
+  margin-top: 0.5rem;
+}
+
+.acordeao__cabecalho {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  text-transform: none !important;
+}
+
+.acordeao__botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.6rem 0;
+  border: 0;
+  border-bottom: 1px solid #bcbcbc;
+  background: none;
+  font-weight: 400;
+  text-align: left;
+  color: var(--cor-rosa);
+}
+
+.acordeao__botao .bi {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.acordeao__botao:not(.collapsed) .bi {
+  transform: rotate(180deg);
+}
+
+.acordeao__corpo {
+  padding: 1rem 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ---- Abas ------------------------------------------------------------ */
+.abas {
+  margin: 2rem 0 2.5rem;
+}
+
+.abas__lista {
+  flex-wrap: nowrap;
+}
+
+.abas__aba {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--cor-verde-escuro);
+  border-radius: 0;
+  background: var(--cor-branco);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cor-verde-escuro);
+}
+
+.abas__aba:hover {
+  color: var(--cor-azul);
+}
+
+.abas__aba.active {
+  background: var(--cor-verde-escuro);
+  color: var(--cor-branco);
+}
+
+.abas__paineis {
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--cor-verde-escuro);
+  border-top: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ---- Carrossel ------------------------------------------------------- */
+.carrossel {
+  width: min(100%, 36rem);
+  margin: 2rem auto 2.5rem;
+  padding: 0 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.carrossel .carousel-inner {
+  padding: 1.5rem 2.25rem;
+  background: var(--cor-areia);
+  color: var(--cor-texto);
+}
+
+.carrossel__titulo {
+  margin: 0 !important;
+  font-weight: 400;
+  color: var(--cor-rosa);
+}
+
+.carrossel .figura {
+  margin: 0 0 1rem;
+}
+
+.carrossel__seta {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cor-rosa);
+  color: var(--cor-branco);
+  transform: translateY(-50%);
+}
+
+.carrossel__seta:hover {
+  background: var(--cor-rosa-forte);
+}
+
+.carrossel__seta--esq {
+  left: 0;
+}
+
+.carrossel__seta--dir {
+  right: 0;
+}
+
+@media (max-width: 575.98px) {
+  .carrossel .carousel-inner {
+    padding: 1.25rem 1.75rem;
+  }
+}
+
+/* ---- Cartões que viram ----------------------------------------------- */
+.cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 15rem));
+  justify-content: center;
+  gap: 1rem;
+  max-width: 32rem;
+  /* no máximo dois por linha, como no design */
+  margin: 2rem auto 2.5rem;
+}
+
+.cartao {
+  position: relative;
+  min-height: 18.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 60rem;
+  text-align: center;
+}
+
+.cartao__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 0.375rem;
+  backface-visibility: hidden;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.2);
+  transition: transform 0.5s;
+}
+
+.cartao__frente,
+.cartao__verso {
+  background: var(--cor-azul-escuro);
+  color: var(--cor-branco);
+}
+
+.cartao__titulo {
+  font-weight: 400;
+}
+
+.cartao__frente {
+  justify-content: flex-end;
+  padding-bottom: 2.5rem;
+}
+
+.cartao__frente .cartao__titulo {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.cartao__face .bi {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+}
+
+.cartao__verso {
+  overflow-y: auto;
+  gap: 1rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.45;
+  transform: rotateY(180deg);
+}
+
+.cartao__texto p {
+  margin: 0;
+}
+
+.cartao--virado .cartao__frente {
+  transform: rotateY(-180deg);
+}
+
+.cartao--virado .cartao__verso {
+  transform: rotateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cartao__face {
+    transition: none;
+  }
+}
+
+/* ---- Caixa (Na prática / Para refletir / Leitura Complementar) ---- */
+.caixa {
+  width: min(100%, 34rem);
+  margin: 2.5rem auto;
+  border: 1px solid var(--cor-borda-escura);
+  background: var(--cor-branco);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--cor-texto);
+}
+
+/* Aba com o título sobre a faixa de pixels */
+.caixa__cabecalho {
+  height: 4.75rem;
+  padding-top: 1.2rem;
+  background: url("../img/faixa-pixels.png") repeat-x 4rem 0 / auto 100%;
+}
+
+.caixa__titulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 !important;
+  padding: 0.35rem 1.1rem 0.35rem 0.6rem;
+  background: var(--cor-azul);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cor-branco);
+}
+
+.caixa__titulo .bi {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.caixa__corpo {
+  padding: 1.5rem 1.75rem 1.75rem 2.1rem;
+}
+
+.caixa__corpo .lista-setas>li {
+  padding-left: 1.75rem;
+}
+
+/* ---- Nota (faixa azul) ----------------------------------------------- */
+.nota {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--cor-azul);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--cor-branco);
+}
+
+.nota__titulo {
+  margin: 0 !important;
+  font-weight: var(--peso-titulo);
+}
+
+.nota__titulo:last-child {
+  margin: 0 !important;
+}
+
+.nota p {
+  margin-bottom: 0.75rem;
+}
+
+/* ---- Saiba mais ------------------------------------------------------ */
+.saiba-mais {
+  margin: 1.5rem 0;
+}
+
+.saiba-mais__botao {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.375rem;
+  background: var(--cor-branco);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+  font-size: 1rem;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--cor-azul);
+}
+
+.saiba-mais__botao .bi {
+  font-size: 1.25rem;
+}
+
+.saiba-mais__botao:not(.collapsed),
+.saiba-mais__botao:hover {
+  border-color: var(--cor-azul);
+  background: var(--cor-azul);
+  color: var(--cor-branco);
+}
+
+.saiba-mais__assunto {
+  display: block;
+}
+
+.saiba-mais__corpo {
+  padding: 1.25rem 1.25rem 0.5rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--pagina-texto);
+}
+
+/* ---- Tabela ---------------------------------------------------------- */
+.tabela-bloco {
+  margin: 2.5rem 0;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.tabela th {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--cor-branco);
+  background: var(--cor-azul);
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  color: var(--cor-branco);
+}
+
+/* Subcabeçalho (segunda linha do cabeçalho) */
+.tabela thead tr+tr th,
+.tabela th.tabela__sub {
+  background: var(--cor-verde-escuro);
+}
+
+.tabela td,
+.tabela tbody th {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid #8c8c8c;
+  vertical-align: top;
+}
+
+.tabela td+td {
+  border-left: 1px solid #5c5c5c;
+}
+
+/* Primeira coluna como cabeçalho da linha: fundo creme, negrito */
+.tabela tbody th {
+  border-left: 0;
+  border-right: 0;
+  background: var(--cor-areia);
+  font-weight: 700;
+  text-align: left;
+  color: var(--cor-texto);
+}
+
+.tabela td ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+/* Linha que separa grupos dentro do corpo */
+.tabela tr.tabela__grupo td {
+  background: #e8f3f5;
+  font-weight: 700;
+}
+
+.tabela .centro {
+  text-align: center;
+}
+
+/* ---- Colunas lado a lado --------------------------------------------- */
+.colunas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin: 2rem 0 2.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.colunas__coluna {
+  display: flex;
+  flex-direction: column;
+}
+
+.colunas__coluna+.colunas__coluna .colunas__corpo {
+  border-left: 1px solid var(--cor-borda);
+}
+
+.colunas__titulo {
+  margin: 0 !important;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid var(--cor-branco);
+  background: var(--cor-azul);
+  font-size: 1rem !important;
+  text-align: center;
+  text-transform: none !important;
+  color: var(--cor-branco) !important;
+}
+
+.colunas__corpo {
+  flex: 1;
+  padding: 1.5rem 1.25rem;
+}
+
+/* ---- Termo com definição --------------------------------------------- */
+.termo {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  color: inherit;
+  cursor: help;
+}
+
+.termo__definicao {
+  --bs-popover-max-width: 24rem;
+  --bs-popover-bg: #e4e4e4;
+  --bs-popover-border-color: #e4e4e4;
+  --bs-popover-border-radius: 0;
+  --bs-popover-body-padding-x: 1.25rem;
+  --bs-popover-body-padding-y: 1rem;
+  --bs-popover-body-color: var(--cor-texto);
+  --bs-popover-font-size: 0.95rem;
+  line-height: 1.5;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.termo__titulo {
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* Definições com parágrafos e listas */
+.termo__definicao .popover-body :is(p, ul, ol) {
+  margin: 0 0 0.5rem;
+}
+
+.termo__definicao .popover-body :is(ul, ol) {
+  padding-left: 1.25rem;
+}
+
+.termo__definicao .popover-body> :last-child {
+  margin-bottom: 0;
+}
+
+/* Carrossel com texto centralizado */
+.carrossel--centralizado .carousel-item {
+  text-align: center;
+}
+
+.carrossel--centralizado .carrossel__titulo {
+  text-transform: uppercase;
+}
+
+/* Tabela com linhas alternadas */
+.tabela--listrada tbody tr:nth-child(odd) :is(td, th) {
+  background: var(--cor-areia);
+}
+
+.tabela--listrada tbody tr:nth-child(even) th {
+  background: transparent;
+}
+
+.tabela--listrada :is(td, tbody th) {
+  border-bottom: 0;
+}
+
+.tabela--listrada tbody tr:last-child :is(td, th) {
+  border-bottom: 1px solid #5c5c5c;
+}
+
+/* ---- Etapas (passo a passo com setas) -------------------------------- */
+.etapas {
+  display: flex;
+  align-items: stretch;
+  gap: 2.5rem;
+  margin: 2rem 0 2.5rem;
+  padding: 0 !important;
+  list-style: none;
+  counter-reset: none;
+}
+
+.etapas__item {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 6rem;
+  margin: 0 !important;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  background: var(--cor-verde-escuro);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--cor-branco);
+}
+
+/* Seta entre as etapas */
+.etapas__item+.etapas__item::before {
+  content: "\F138";
+  /* bi-arrow-right */
+  position: absolute;
+  top: 50%;
+  left: -2.1rem;
+  font-family: "bootstrap-icons";
+  font-size: 1.6rem;
+  color: var(--cor-rosa);
+  transform: translateY(-50%);
+}
+
+.etapas__texto {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+@media (max-width: 767.98px) {
+  .etapas {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .etapas__item {
+    min-height: 0;
+  }
+
+  .etapas__item+.etapas__item::before {
+    top: -1.75rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+/* ---- Modal ----------------------------------------------------------- */
+.conteudo .link-modal {
+  cursor: pointer;
+}
+
+.modal-curso .modal-content {
+  border: 0;
+  border-radius: 0;
+  background: #e4e4e4;
+  color: var(--cor-texto);
+}
+
+.modal-curso__fechar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+}
+
+.modal-curso__corpo {
+  padding: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.modal-curso__corpo--imagem {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.modal-curso__imagem {
+  width: 100%;
+  height: auto;
+}
+
+.modal-curso__titulo {
+  margin: 0 2rem 0.25rem 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.modal-curso__texto p {
+  margin-bottom: 0.75rem;
+}
+
+.modal-curso__texto p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 575.98px) {
+  .modal-curso__corpo--imagem {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-curso__imagem {
+    max-width: 12rem;
+    margin: 0 auto;
+  }
+}
+
+/* =====================================================================
+   PÁGINAS EXTRAS (Referências e Créditos)
+   ===================================================================== */
+
+/* Título no mesmo estilo do H1 das aulas (ex.: "Módulo 2: …" nas Referências) */
+.conteudo .estilo-h1 {
+  margin: 3rem 0 1.5rem;
+  font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.25rem);
+  color: var(--pagina-h1);
+}
+
+.referencias p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  /* endereços longos não estouram a coluna */
+}
+
+.conteudo .referencias a {
+  font-weight: 400;
+}
+
+/* Créditos: tudo em Roboto, respeitando negrito, regular e itálico */
+.creditos {
+  font-family: var(--fonte-texto);
+}
+
+.creditos h2,
+.creditos h3 {
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+}
+
+.creditos h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.25rem;
+  color: var(--pagina-h1);
+}
+
+.creditos h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1rem;
+  text-transform: none;
+  color: var(--pagina-texto);
+}
+
+.creditos p {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.creditos small {
+  font-size: 0.875em;
+}
+
+/* ---- Audiodescrição: só para leitores de tela (mesmo efeito do
+   .visually-hidden do Bootstrap; vale antes mesmo de o JS carregar) ---- */
+curso-audiodescricao {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* =====================================================================
+   MÓDULO 3 — blocos novos (reutilizáveis em qualquer aula)
+   ===================================================================== */
+
+/* ---- Saiba mais fixo (sem botão: caixa azul sempre visível) ---------- */
+.saiba-mais--fixo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.85rem;
+  width: min(100%, 36rem);
+  margin: 2.5rem auto;
+  padding: 1rem 1.5rem 1.1rem 1.25rem;
+  border-radius: 0.375rem;
+  background: var(--cor-azul);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--cor-branco);
+}
+
+.saiba-mais--fixo>.bi {
+  grid-row: span 2;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.saiba-mais__rotulo {
+  margin: 0 !important;
+  font-weight: 700;
+}
+
+.saiba-mais__texto> :last-child {
+  margin-bottom: 0;
+}
+
+.conteudo .saiba-mais--fixo a {
+  color: inherit;
+}
+
+/* ---- Imagem (ícone ou foto) ao lado do texto ---------------------------
+   <div class="midia"> <img class="midia__imagem" src="…" alt=""> <div>…</div> </div>
+   "midia--redonda": imagem em círculo (ex.: fase aguda / fase crônica).
+   Empilha no celular.                                                    */
+.midia {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.midia__imagem {
+  flex: 0 0 auto;
+  width: 5.5rem;
+  height: auto;
+}
+
+.midia> :last-child> :last-child {
+  margin-bottom: 0;
+}
+
+.midia--redonda {
+  align-items: flex-start;
+  margin: 2rem 0;
+}
+
+.midia--redonda .midia__imagem {
+  width: 7rem;
+}
+
+.midia__titulo {
+  margin: 0 !important;
+  font-weight: 700;
+}
+
+@media (max-width: 575.98px) {
+  .midia {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+/* ---- Frase em destaque (azul, negrito, itálico, centralizada) ------- */
+.conteudo .frase-destaque {
+  margin: 2rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  color: var(--cor-azul);
+}
+
+/* ---- Subtítulo em caixa alta (ELISA, ECLIA, COINFECÇÃO…) ------------- */
+.conteudo .subtitulo {
+  margin: 2rem 0 1rem;
+  font-family: var(--fonte-texto);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cor-azul);
+}
+
+/* ---- Fases (linha do tempo vertical com imagens) -------------------- */
+.fases-bloco {
+  width: min(100%, 36rem);
+  margin: 2.5rem auto;
+}
+
+.fases {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fases__item {
+  --fase-cor: #1aa3b4;
+  position: relative;
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.fases__item:nth-child(4n + 2) {
+  --fase-cor: #f39c12;
+}
+
+.fases__item:nth-child(4n + 3) {
+  --fase-cor: #ef5b45;
+}
+
+.fases__item:nth-child(4n + 4) {
+  --fase-cor: #3b9b62;
+}
+
+/* traço até a próxima fase */
+.fases__item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 5.5rem;
+  bottom: 0;
+  left: calc(3.25rem - 2px);
+  width: 4px;
+  background: var(--fase-cor);
+}
+
+.fases__imagem {
+  position: relative;
+  width: 6.5rem;
+  height: auto;
+}
+
+.fases__titulo {
+  margin: 0 0 0.25rem !important;
+  font-weight: 700;
+}
+
+.fases__texto {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.fases__texto ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.fases-bloco .figura__fonte {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 575.98px) {
+  .fases__item {
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1rem;
+  }
+
+  .fases__imagem {
+    width: 4.5rem;
+  }
+
+  .fases__item:not(:last-child)::before {
+    top: 4rem;
+    left: calc(2.25rem - 2px);
+  }
+}
+
+/* ---- Grade de cartões com ícone (prevenção, resultados…) ------------
+   <ul class="grade-icones"> <li> <img src="…" alt=""> <p>…</p> </li> </ul> */
+.grade-icones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 13rem));
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grade-icones>li {
+  padding: 1.75rem 1.25rem 1.5rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.375rem;
+  background: var(--cor-branco);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
+  font-size: 1rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.grade-icones img {
+  display: block;
+  width: 7rem;
+  height: auto;
+  margin: 0 auto 1.25rem;
+}
+
+.grade-icones>li> :last-child {
+  margin-bottom: 0;
+}
+
+/* Variante sem caixa, alinhada à esquerda (ex.: resultados do teste rápido) */
+.grade-icones--simples>li {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  text-align: left;
+}
+
+.grade-icones--simples img {
+  width: 9rem;
+  margin: 0 0 1rem;
+}
+
+.grade-icones__titulo {
+  margin: 0 0 0.5rem !important;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cor-azul);
+}
+
+.grade-icones--simples ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+/* ---- Sequência com setas para baixo (etapas da PCR) ----------------- */
+.fluxo-passos {
+  margin: 2rem 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--cor-verde-escuro);
+}
+
+.fluxo-passos>li+li::before {
+  content: "\F128";
+  /* bi-arrow-down */
+  display: block;
+  margin: 0.25rem 0;
+  font-family: "bootstrap-icons";
+  font-weight: 400;
+}
+
+/* ---- Slide de etapa (imagem + texto lado a lado no carrossel) ------- */
+.passo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 10rem;
+}
+
+.passo__imagem {
+  flex: 0 0 auto;
+  width: 6rem;
+  height: auto;
+}
+
+.passo__titulo {
+  margin: 0 !important;
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--cor-rosa);
+}
+
+.passo__titulo+p {
+  margin: 0.25rem 0 0 !important;
+}
+
+@media (max-width: 575.98px) {
+  .passo {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+/* =====================================================================
+   CURSO IA — blocos novos (reutilizáveis em qualquer aula)
+   ===================================================================== */
+
+/* Na capa (fundo azul) as setas das listas ficam laranja-claro */
+[data-tema="capa"] .lista-setas>li::before {
+  color: var(--cor-laranja);
+}
+
+/* ---- Linha do tempo (<curso-linha-tempo>) --------------------------- */
+.linha-tempo {
+  position: relative;
+  width: min(100%, 44rem);
+  margin: 3rem auto 3.5rem;
+  padding: 0 !important;
+  list-style: none;
+}
+
+/* Linha vertical e bolinha no fim */
+.linha-tempo::before,
+.linha-tempo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  background: var(--cor-verde-escuro);
+  transform: translateX(-50%);
+}
+
+.linha-tempo::before {
+  top: 2.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+}
+
+.linha-tempo::after {
+  bottom: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.linha-tempo__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 5.25rem 1fr;
+  column-gap: 2rem;
+  min-height: 14rem;
+  margin: 0 !important;
+}
+
+/* Os itens se encaixam: o da esquerda começa ao lado do texto do anterior */
+.linha-tempo__item + .linha-tempo__item {
+  margin-top: -5.5rem !important;
+}
+
+.linha-tempo__marco {
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linha-tempo__icone {
+  display: grid;
+  place-items: center;
+  width: 5.25rem;
+  height: 5.25rem;
+  border: 3px solid var(--cor-verde-escuro);
+  border-radius: 50%;
+  background: var(--cor-branco);
+}
+
+.linha-tempo__icone img {
+  width: 3.4rem;
+  height: 3.4rem;
+  object-fit: contain;
+}
+
+.linha-tempo__ano {
+  position: relative;
+  min-width: 5.25rem;
+  margin-top: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  background: var(--cor-verde-escuro);
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-weight: var(--peso-titulo);
+  line-height: 1.2;
+  text-align: center;
+  color: var(--cor-branco);
+}
+
+/* Seta do ano apontando para o texto */
+.linha-tempo__ano::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border: 0.4rem solid transparent;
+  transform: translateY(-50%);
+}
+
+.linha-tempo__item:nth-child(odd) .linha-tempo__ano::after {
+  left: calc(100% + 0.35rem);
+  border-left-color: var(--cor-verde-escuro);
+}
+
+.linha-tempo__item:nth-child(even) .linha-tempo__ano::after {
+  right: calc(100% + 0.35rem);
+  border-right-color: var(--cor-verde-escuro);
+}
+
+.linha-tempo__texto {
+  grid-row: 1;
+  padding-top: 5.85rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.linha-tempo__item:nth-child(odd) .linha-tempo__texto {
+  grid-column: 3;
+}
+
+.linha-tempo__item:nth-child(even) .linha-tempo__texto {
+  grid-column: 1;
+  text-align: right;
+}
+
+.linha-tempo__titulo {
+  margin: 0 !important;
+  font-family: var(--fonte-titulo);
+  font-weight: var(--peso-titulo);
+  color: var(--cor-verde-escuro);
+}
+
+.linha-tempo__texto p {
+  margin-bottom: 0.75rem;
+}
+
+/* Celular: linha à esquerda e todos os textos à direita */
+@media (max-width: 767.98px) {
+  .linha-tempo::before,
+  .linha-tempo::after {
+    left: 2.1rem;
+  }
+
+  .linha-tempo__item {
+    grid-template-columns: 4.25rem 1fr;
+    column-gap: 1.25rem;
+    min-height: 0;
+    padding-bottom: 2rem;
+  }
+
+  .linha-tempo__item + .linha-tempo__item {
+    margin-top: 0 !important;
+  }
+
+  .linha-tempo__marco {
+    grid-column: 1;
+  }
+
+  .linha-tempo__icone {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+
+  .linha-tempo__icone img {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .linha-tempo__ano {
+    min-width: 4.25rem;
+    font-size: 0.85rem;
+  }
+
+  .linha-tempo__ano::after {
+    display: none;
+  }
+
+  .linha-tempo__item:nth-child(n) .linha-tempo__texto {
+    grid-column: 2;
+    padding-top: 0.25rem;
+    text-align: left;
+  }
+}
+
+/* ---- Matriz clicável (<curso-matriz>) ------------------------------- */
+.matriz {
+  display: grid;
+  grid-template-columns: auto repeat(var(--colunas, 2), minmax(0, 16rem));
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 2.5rem auto 0;
+}
+
+.matriz__rotulo {
+  padding: 0.25rem;
+  font-size: 1.05rem;
+  text-align: center;
+  color: var(--cor-azul-escuro);
+}
+
+.matriz__rotulo--linha {
+  align-self: center;
+  padding-right: 1.25rem;
+}
+
+.matriz__celula {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 8rem;
+  padding: 1rem;
+  border: 0;
+  background: var(--cor-azul);
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--cor-branco);
+}
+
+.matriz__celula:nth-of-type(2) { background: var(--cor-azul-escuro); }
+.matriz__celula:nth-of-type(3) { background: var(--cor-verde); }
+.matriz__celula:nth-of-type(4) { background: var(--cor-verde-agua); }
+
+.matriz__celula .bi {
+  font-size: 1.4rem;
+}
+
+.matriz__celula:hover,
+.matriz__celula[aria-expanded="true"] {
+  filter: brightness(1.12);
+  box-shadow: inset 0 0 0 3px var(--cor-laranja);
+}
+
+.matriz__painel,
+.circulos__painel {
+  width: min(100%, 36rem);
+  margin: 1.5rem auto 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--cor-rosa);
+  background: var(--cor-areia);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.matriz__painel-titulo,
+.circulos__painel-titulo {
+  margin: 0 0 0.5rem !important;
+  font-weight: 700;
+  color: var(--cor-azul-escuro);
+}
+
+curso-matriz,
+curso-circulos {
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 575.98px) {
+  .matriz {
+    grid-template-columns: auto repeat(var(--colunas, 2), minmax(0, 1fr));
+  }
+
+  .matriz__rotulo--linha {
+    padding-right: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .matriz__celula {
+    min-height: 7rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---- Três círculos sobrepostos (<curso-circulos>) ------------------- */
+.circulos {
+  position: relative;
+  width: min(100%, 27rem);
+  aspect-ratio: 1 / 0.97;
+  margin: 2.5rem auto 0;
+}
+
+.circulos__circulo {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 57%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  color: var(--cor-branco);
+}
+
+.circulos__circulo--1 {
+  top: 0;
+  left: 50%;
+  justify-content: flex-start;
+  padding-top: 12%;
+  background: var(--cor-azul-escuro);
+  transform: translateX(-50%);
+}
+
+.circulos__circulo--2 {
+  bottom: 0;
+  left: 0;
+  justify-content: flex-end;
+  padding: 0 18% 14% 0;
+  background: var(--cor-azul);
+}
+
+.circulos__circulo--3 {
+  right: 0;
+  bottom: 0;
+  justify-content: flex-end;
+  padding: 0 0 14% 18%;
+  background: var(--cor-verde);
+}
+
+.circulos__numero {
+  font-size: clamp(2.25rem, 1.5rem + 2vw, 3.25rem);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.circulos__titulo {
+  font-size: 1.05rem;
+  text-decoration: underline;
+}
+
+.circulos__circulo .bi {
+  font-size: 1.3rem;
+}
+
+.circulos__circulo:hover .circulos__titulo,
+.circulos__circulo[aria-expanded="true"] .circulos__titulo {
+  font-weight: 700;
+}
+
+.circulos__circulo:focus-visible {
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+@media (max-width: 575.98px) {
+  .circulos__titulo {
+    font-size: 0.85rem;
+  }
+}
+
+/* ---- Imagem com marcadores numerados (<curso-pontos>) --------------- */
+.pontos {
+  width: min(100%, 32.5rem);
+  margin: 2.5rem auto;
+}
+
+.pontos__area {
+  position: relative;
+}
+
+.pontos__imagem {
+  display: block;
+  width: 100%;
+}
+
+.pontos__marcador {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 2px solid var(--cor-branco);
+  border-radius: 50%;
+  background: var(--cor-rosa);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cor-branco);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.pontos__marcador:hover,
+.pontos__marcador:focus-visible {
+  background: var(--cor-rosa-forte);
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.termo__definicao .popover-header {
+  border: 0;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cor-azul-escuro);
+}
+
+/* ---- Cartão claro (pergunta única com borda) ------------------------ */
+.cartoes--claro {
+  grid-template-columns: minmax(0, 32rem);
+  max-width: 32rem;
+}
+
+.cartoes--claro .cartao {
+  min-height: 20rem;
+}
+
+.cartoes--claro .cartao__face {
+  border: 1px solid #b5b5b5;
+  border-radius: 0.2rem;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.12);
+}
+
+.cartoes--claro .cartao__frente,
+.cartoes--claro .cartao__verso {
+  background: var(--cor-branco);
+  color: var(--cor-azul-escuro);
+}
+
+.cartoes--claro .cartao__verso {
+  color: var(--cor-texto);
+  font-size: 1.05rem;
+}
+
+/* ---- Comparativo com foto (ex.: paradoxo de Moravec) ----------------
+   <div class="comparativo"> <figure class="comparativo__item">
+     <p class="figura__fonte">Fonte: …</p> <img …>
+     <figcaption class="comparativo__texto"> <p class="comparativo__titulo">…</p> <p>…</p> </figcaption>
+   </figure> … </div>                                                    */
+.comparativo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.25rem;
+  width: min(100%, 41rem);
+  margin: 2.5rem auto;
+}
+
+.comparativo__item {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.comparativo__item .figura__fonte {
+  margin: 0 0 0.25rem !important;
+}
+
+.comparativo__item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+}
+
+.comparativo__texto {
+  flex: 1;
+  padding: 1.25rem 1.25rem 1.5rem;
+  border: 1px solid var(--cor-borda-escura);
+  border-top: 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.conteudo .comparativo__titulo {
+  margin-bottom: 1.25rem;
+  color: var(--cor-azul);
+}
+
+.comparativo__texto > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Exemplo com ícone redondo e filete (aula 3) --------------------- */
+.midia--icone {
+  align-items: flex-start;
+  gap: 2rem;
+  width: min(100%, 37rem);
+  margin: 0 auto 2.5rem;
+}
+
+.midia--icone .midia__imagem {
+  box-sizing: content-box;
+  width: 3.75rem;
+  height: 3.75rem;
+  padding: 1rem;
+  border: 3px solid var(--cor-azul-escuro);
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.midia--icone > div {
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--cor-azul-escuro);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.midia--icone .midia__titulo {
+  font-weight: 400;
+  color: var(--cor-azul);
+}
+
+/* ---- Tokenização --------------------------------------------------- */
+.tokenizacao {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.conteudo .tokenizacao__frase {
+  margin-bottom: 1rem;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.45rem);
+  font-weight: var(--peso-titulo);
+  color: var(--cor-azul-escuro);
+}
+
+.conteudo .tokenizacao__seta {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  padding: 0.1rem 0.6rem;
+  border: 2px solid var(--cor-verde-claro);
+  border-radius: 0.25rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
+  font-weight: var(--peso-titulo);
+  color: var(--cor-verde-claro);
+}
+
+.tokenizacao__tokens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.tokenizacao__tokens li {
+  margin: 0 !important;
+  padding: 0.2rem 0.45rem;
+  background: var(--cor-azul);
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+  font-weight: var(--peso-titulo);
+  color: var(--cor-branco);
+}
+
+.tokenizacao__tokens li::before { content: "[ "; }
+.tokenizacao__tokens li::after { content: " ]"; }
+
+/* ---- Citação com aspas grandes -------------------------------------- */
+.citacao {
+  position: relative;
+  width: min(100%, 37rem);
+  margin: 1.5rem auto 2rem;
+  padding-left: 3.25rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.citacao::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.6rem;
+  left: 0;
+  font-family: Georgia, serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cor-rosa);
+}
+
+.citacao p {
+  margin: 0;
+}
+
+/* ---- Título de tabela com botão de download ------------------------- */
+.link-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 0.75rem;
+  font-size: 1.1rem;
+  color: var(--cor-azul);
+}
+
+.conteudo .link-download a,
+.conteudo .link-download span[aria-disabled] {
+  font-size: 1.25rem;
+  color: var(--cor-azul);
+}
+
+.link-download + curso-tabela .tabela-bloco {
+  margin-top: 0;
+}
+
+/* Número dentro de lista com setas: <li><span class="lista-setas__num">1.</span> …</li> */
+.lista-setas__num {
+  display: inline-block;
+  min-width: 2.25rem;
+}
+
+/* Texto provisório: conteúdo que não aparece no PDF do design */
+.conteudo .pendente {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+/* Tabela mais estreita e centralizada (ex.: "faz bem / faz mal") */
+curso-tabela.tabela-estreita .tabela-bloco {
+  width: min(100%, 33rem);
+  margin-inline: auto;
+}
+
+curso-tabela.tabela-estreita .tabela th {
+  text-align: center;
+}
+
+/* Célula vazia no canto do cabeçalho */
+.tabela thead td {
+  border: 0;
+  background: transparent;
+}
+
+/* Comparação Arena × LiveBench: rótulos regulares; linha "Eixo" em negrito */
+curso-tabela.tabela-comparacao .tabela tbody th {
+  font-weight: 400;
+}
+
+curso-tabela.tabela-comparacao .tabela tr.tabela__destaque :is(th, td) {
+  font-weight: 700;
+}
+
+/* Ranking: posição centralizada; números centralizados */
+curso-tabela.tabela-ranking .tabela tbody th,
+curso-tabela.tabela-ranking .tabela td:not(:nth-child(2)) {
+  text-align: center;
+}

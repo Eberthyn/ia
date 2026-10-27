@@ -1,0 +1,220 @@
+/* =====================================================================
+   HOME
+   ===================================================================== */
+.home {
+  color: var(--cor-texto);
+}
+
+.home__secao {
+  padding: 3rem 1.25rem;
+}
+
+.home__miolo {
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.home__titulo {
+  margin: 0 0 2rem;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem);
+  font-weight: var(--peso-titulo);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--cor-rosa);
+}
+
+.home__texto p {
+  margin-bottom: 1.25rem;
+}
+
+/* ---- Faixa com modalidade, carga horária e módulos ---------------- */
+.estrutura {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 1.75rem 1.25rem;
+  list-style: none;
+  background: var(--cor-azul-escuro);
+  font-family: var(--fonte-apoio);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--cor-branco);
+}
+
+.estrutura li {
+  width: 10.5rem;
+  padding: 0 1rem;
+}
+
+.estrutura li + li {
+  border-left: 1px solid var(--cor-branco);
+}
+
+.estrutura .bi {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--cor-amarelo);
+}
+
+/* ---- Objetivos ----------------------------------------------------- */
+.home__objetivos {
+  background: var(--cor-verde);
+  color: var(--cor-branco);
+}
+
+.home__objetivos .home__titulo {
+  color: inherit;
+}
+
+.home__objetivos ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* ---- Estrutura do curso (cards dos módulos) ------------------------ */
+.home__estrutura {
+  padding-top: 0;
+  background: var(--cor-azul-escuro);
+}
+
+.home__estrutura::before {
+  content: "";
+  display: block;
+  height: 8rem;
+  margin: 0 -1.25rem 2rem;
+  background: url("../img/faixa-pixels.png") repeat-x left top / auto 100%;
+}
+
+.home__estrutura .home__titulo {
+  color: var(--cor-branco);
+}
+
+.modulos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.75rem;
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.modulo-card {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.25rem;
+  border-radius: 0.25rem;
+  background: var(--cor-branco);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.25);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+.modulo-card__numero {
+  position: relative;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  background: var(--cor-salmao);
+  font-family: var(--fonte-titulo);
+  font-size: 0.95rem;
+  font-weight: var(--peso-titulo);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--cor-branco);
+}
+
+.modulo-card__etiqueta {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding: 0.1rem 0.6rem;
+  background: var(--cor-azul-escuro);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.modulo-card__titulo {
+  min-height: 6.25rem;
+  margin: 0;
+  padding: 1.25rem 0.75rem 1rem;
+  border-bottom: 1px solid var(--cor-borda-escura);
+  font-weight: 700;
+}
+
+.modulo-card__lista {
+  flex: 1;
+  margin: 0;
+  padding: 1.25rem 0.75rem 1.25rem 0.75rem;
+  list-style: none;
+  font-weight: 300;
+}
+
+.modulo-card__lista li::before {
+  content: "• ";
+}
+
+.modulo-card__lista strong {
+  font-weight: 700;
+}
+
+.modulo-card__botao {
+  margin: 0 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.2rem;
+  background: var(--cor-salmao);
+  font-weight: 700;
+  text-align: center;
+  color: var(--cor-branco);
+  text-decoration: none;
+}
+
+a.modulo-card__botao:hover {
+  background: var(--cor-rosa);
+  color: var(--cor-branco);
+}
+
+span.modulo-card__botao {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ---- Vídeo e botão "Começar" ---------------------------------------- */
+.home__video .video {
+  width: min(100%, 36.5rem);
+  margin: 0 auto;
+  background: #e4e4e4;
+}
+
+.home__video .video__vazio {
+  color: #4b4b4b;
+}
+
+.home__video {
+  padding-bottom: 0;
+}
+
+.home__video::after {
+  content: "";
+  display: block;
+  height: 7.5rem;
+  margin: 2.5rem -1.25rem 0;
+  background: url("../img/faixa-pixels.png") repeat-x left bottom / auto 100%;
+}
+
+.home .navegacao {
+  margin-top: 2.5rem;
+}
+
+.home .btn-avancar {
+  --bs-btn-bg: var(--cor-azul-escuro);
+  --bs-btn-border-color: var(--cor-azul-escuro);
+  --bs-btn-hover-bg: var(--cor-azul);
+  --bs-btn-hover-border-color: var(--cor-azul);
+}

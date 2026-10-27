@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+<body>
+  <curso-pagina>
+    <h1>Vivendo a era da Inteligência Artificial</h1>
+
+    <p>Quando o aplicativo do seu banco identifica uma transação suspeita, quando o seu aplicativo de mensagens transcreve um áudio que você recebeu da agente comunitária de saúde, quando o GPS recalcula a rota entre a UBS e um domicílio, ou quando um residente utiliza uma Inteligência Artificial para explicar um exame para um paciente em linguagem acessível, em todos esses momentos há Inteligência Artificial (IA) em operação.</p>
+
+    <curso-nota>
+      <p>Você provavelmente já usou Inteligência Artificial hoje, mesmo sem perceber.<br>Talvez até já tenha usado em uma decisão clínica.</p>
+    </curso-nota>
+
+    <p>A Inteligência Artificial já está presente no consultório.</p>
+
+    <curso-figura src="img/a1-consultorio.jpg" alt="Profissional de saúde de jaleco e estetoscópio consultando o celular no consultório" fonte="Magnific, (2026)"></curso-figura>
+
+    <p>A IA deixou de ser um tema reservado a engenheiros, ficcionistas ou setores de tecnologia de grandes empresas. Em pouco mais de uma década, ela atravessou a vida cotidiana e, mais recentemente, chegou ao consultório, ao prontuário, à gestão de unidades e à formação dos profissionais de saúde.</p>
+    <p>Antes de discutirmos como usar essas ferramentas com critério no SUS, precisamos compreender, de forma honesta e crítica, o que de fato é IA. Sem isso, corre-se o risco tanto de superestimá-la, esperando o que ela não pode entregar, quanto de subestimá-la, ignorando transformações importantes em curso.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Conhecer o que é IA não é uma curiosidade técnica, é uma competência profissional. Profissionais de saúde já utilizam essas ferramentas para resumir prontuários, traduzir bulas, redigir orientações de alta, apoiar decisões etc. E tomam decisões sobre quando confiar e quando desconfiar delas. Definir bem o objeto é o primeiro passo para um uso seguro e crítico.</p>
+    </curso-caixa>
+
+    <p>Antes de avançarmos, precisamos primeiro definir o que é inteligência.</p>
+
+    <h2>O que é inteligência?</h2>
+    <p>Definir Inteligência Artificial é mais difícil do que parece, e a razão é simples: não há, até hoje, uma definição consensual de “inteligência”. Nem entre filósofos, nem entre psicólogos, nem entre as ciências cognitivas.</p>
+    <p>Pense em um Agente Comunitário de Saúde experiente que percorre sua microárea há quinze anos. Em uma única manhã de trabalho ele percebe que uma idosa, normalmente comunicativa, está mais retraída; lembra-se de que uma família costuma faltar às consultas quando enfrenta dificuldades financeiras; adapta a visita porque encontra uma situação inesperada; orienta um cuidador; reorganiza o roteiro do dia; e, ao final, reflete sobre o que poderia ter feito de forma diferente em um atendimento.</p>
+    <p>Em nenhum momento alguém precisa dizer que ele está “usando sua inteligência”. Ainda assim, todas essas ações dependem dela. O que chamamos de inteligência reúne uma constelação de capacidades:</p>
+
+    <curso-figura larga src="img/a1-capacidades.webp" alt="Cérebro dividido em áreas coloridas, cada uma com uma capacidade da inteligência">
+      <curso-audiodescricao>
+        <p>Ilustração de um cérebro dividido em sete áreas coloridas. Cada área traz uma etiqueta: perceber o ambiente; refletir sobre o próprio pensamento; aprender com a experiência; resolver problemas novos; agir com flexibilidade diante do inesperado; planejar e antecipar consequências; comunicar-se.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Diante dessa complexidade, fica claro que definir “Inteligência Artificial” como “uma máquina que pensa como um humano” é, ao mesmo tempo, atraente e enganoso. Atraente porque dialoga com a ficção científica e com o senso comum. Enganoso, porque sugere uma equivalência que, na prática, não existe.</p>
+    <p>Assim, essa definição leva a discussão para um terreno especulativo, em vez de focar no que essas tecnologias efetivamente fazem. É por isso que os cientistas preferem definir a IA pelo que ela faz na prática, em vez de tentar adivinhar como ela funciona por dentro.</p>
+
+    <h2>A definição clássica da IA e os quatro caminhos possíveis</h2>
+    <p>A obra de referência mundial no campo (Russell; Norvig, 2021), organiza as definições de IA em uma matriz que cruza dois eixos:</p>
+    <ul class="lista-setas">
+      <li>Pensar x agir.</li>
+      <li>humanamente (imitar o que humanos fazem) x racionalmente (seguir o ideal de correção lógica/matemática).</li>
+    </ul>
+    <p>Clique nos quadrantes da matriz a seguir e entenda como uma IA cruza esses eixos.</p>
+
+    <curso-matriz colunas="Humanamente|Racionalmente" linhas="Pensar|Agir">
+      <curso-item titulo="Modelar a cognição humana"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Seguir as leis do raciocínio"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Imitar o comportamento humano"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Atuar como um agente racional"><p class="pendente">Texto deste quadrante não consta no PDF do design.</p></curso-item>
+    </curso-matriz>
+
+    <curso-nota>
+      <p>A escolha pela quarta abordagem (agir racionalmente) tem uma implicação importante, pois ela desidealiza a IA. Não se trata de construir uma “mente artificial” no sentido filosófico, mas de construir agentes que tomam boas decisões em ambientes com informação incompleta. Essa desidealização é especialmente útil na saúde, em que a expectativa não é substituir o juízo profissional, mas apoiá-lo.</p>
+    </curso-nota>
+
+    <p>Podemos chegar a uma definição operacional útil para os propósitos deste curso, definindo a Inteligência Artificial como o campo de estudo e construção de sistemas computacionais capazes de realizar tarefas que, se executadas por humanos, exigiriam algum tipo de capacidade cognitiva, como perceber, raciocinar, aprender, decidir ou comunicar-se.</p>
+    <p>Vamos destrinchar essa definição em cinco pontos. Clique nas setas para saber mais.</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Campo de estudo e construção de sistemas">
+        <p>A Inteligência Artificial é, antes de tudo, um campo do conhecimento, não um produto único. Engloba pesquisa teórica, métodos matemáticos, engenharia de software, ética aplicada e várias subáreas. Quando se diz “uma IA”, em rigor, refere-se a um sistema de IA específico, um modelo, um aplicativo, um serviço.</p>
+      </curso-item>
+      <curso-item titulo="Ponto 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Ponto 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Ponto 4"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Ponto 5"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <h2>O nascimento da IA</h2>
+    <p>A história da IA é frequentemente apresentada como uma sequência linear de êxitos técnicos, especialmente de máquinas x humanos. Porém, essa narrativa é incompleta.</p>
+
+    <curso-figura src="img/a1-mao-robotica.jpg" alt="Mão robótica com um cérebro formado por circuitos flutuando sobre a palma" fonte="Magnific, (2026)"></curso-figura>
+
+    <p>A IA cresceu em ciclos, com longos períodos de entusiasmo (chamados verões ou primaveras) intercalados por longos períodos de retração (os invernos da IA), em que financiamento, projetos e prestígio acadêmico minguaram. Conhecer esses ciclos é importante para:</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Calibrar expectativas">
+        <p>Quando se entende que houve, no passado, anúncios de “revoluções iminentes” que não se concretizaram, fica mais fácil distinguir, hoje, entre promessa e entrega.</p>
+      </curso-item>
+      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <curso-caixa tipo="refletir">
+      <p>Antes de seguir, pense: você consegue se lembrar de alguma tecnologia em saúde que, há cinco ou dez anos, foi anunciada como “revolucionária” e que hoje ocupa um lugar muito mais modesto do que se prometia? E, ao contrário: alguma que pareceu bobagem e hoje é indispensável?</p>
+    </curso-caixa>
+
+    <p>Você irá agora conhecer cerca de 80 anos da história da IA. Essa linha evolutiva destaca os principais marcos que explicam como a inteligência artificial chegou ao estágio em que se encontra hoje.</p>
+
+    <h3>1943 - 1955</h3>
+    <p>A IA surgiu mais de uma década antes de ser chamada assim, em meio a três grandes movimentos: o desenvolvimento dos primeiros computadores eletrônicos, o nascimento da cibernética e os primeiros modelos matemáticos da atividade neural.</p>
+
+    <curso-linha-tempo>
+      <curso-item ano="1943" titulo="O neurônio artificial" imagem="img/icones/linha-1943.webp">
+        <p>Warren McCulloch (neurofisiologista) e Walter Pitts (lógico) publicam <i>A logical calculus of the ideas immanent in nervous activity</i> (McCulloch; Pitts, 1943), propondo o primeiro modelo matemático de um neurônio. Esse trabalho é ancestral direto das redes neurais artificiais que sustentam toda a IA contemporânea, incluindo os atuais Grandes Modelos de Linguagem.</p>
+      </curso-item>
+      <curso-item ano="1948" titulo="A cibernética" imagem="img/icones/linha-1948.webp">
+        <p>Norbert Wiener publica <i>Cybernetics</i> (Wiener, 1948), propondo o estudo unificado de controle e comunicação em animais e máquinas. Embora a cibernética tenha tomado caminhos próprios, ela alimentou a ideia de que processos cognitivos poderiam ser estudados como processos de informação.</p>
+      </curso-item>
+      <curso-item ano="1950" titulo="O Teste de Turing" imagem="img/icones/linha-1950.webp">
+        <p>Alan Turing publica, na revista <i>Mind</i>, o artigo “Computing <i>Machinery and Intelligence</i>” (Turing, 1950), em que propõe deslocar a pergunta “máquinas podem pensar?” para uma pergunta operacional: “uma máquina conseguiria, em uma conversa por escrito, ser confundida com um humano?” Essa proposta, conhecida como jogo da imitação ou Teste de Turing, organizou o debate por décadas.</p>
+      </curso-item>
+    </curso-linha-tempo>
+
+    <p>Repare em uma simetria interessante: McCulloch, neurofisiologista, estava interessado em entender o cérebro com ferramentas da lógica. Wiener, matemático, estava interessado em pensar máquinas a partir de fenômenos biológicos (controle homeostático, retroalimentação).</p>
+    <p>Desde o início, portanto, a IA é um campo na fronteira entre saúde, biologia e computação, e não apenas um capítulo isolado da engenharia.</p>
+
+    <h3>1956 - 1973</h3>
+    <p>No verão de 1956, no Dartmouth College, em New Hampshire, nos Estados Unidos, ocorreu o encontro acadêmico que fundou oficialmente o campo da IA. A proposta havia sido escrita no ano anterior por John McCarthy, com a colaboração de Marvin Minsky, Nathaniel Rochester e Claude Shannon, quatro pesquisadores que viriam a ser figuras centrais da computação e da IA. Foi nesse documento que John McCarthy cunhou a expressão <i>Artificial Intelligence</i>.</p>
+    <p>A proposta original previa um trabalho de oito semanas, com cerca de dez participantes, e expressava uma confiança que, hoje, soa quase ingênua: a hipótese de que “qualquer aspecto da aprendizagem ou qualquer outra característica da inteligência poderia, em princípio, ser descrito de forma tão precisa que uma máquina poderia ser feita para simulá-lo”.</p>
+
+    <curso-figura src="img/a1-dartmouth.jpg" alt="Fotografia em preto e branco de sete homens sentados no gramado diante de um prédio" fonte="IEEE Spectrum">
+      <p class="figura__legenda--italico">Encontro dos idealizadores da Inteligência Artificial em 1956, no Dartmouth College. Na fileira de trás, da esquerda para a direita, estão Oliver Selfridge, Nathaniel Rochester, Marvin Minsky e John McCarthy. Na frente, à esquerda, está Ray Solomonoff; no centro, Peter Milner; à direita, Claude Shannon.</p>
+    </curso-figura>
+
+    <p>Ao lado dos quatro organizadores estiveram em Dartmouth nomes que fundariam linhas inteiras de pesquisa nas décadas seguintes, entre eles Herbert Simon e Allen Newell, vindos da Carnegie Mellon, que apresentaram um dos primeiros programas considerados de IA, o <i>Logic Theorist</i>.</p>
+    <p>Logo após Dartmouth, alguns dos próprios participantes anunciaram publicamente que em poucos anos haveria máquinas capazes de tradução automática perfeita, demonstração autônoma de teoremas matemáticos e raciocínio em linguagem natural. Porém, nada disso aconteceu no prazo previsto. Esse otimismo desmedido produziria, alguns anos depois, o primeiro grande desencanto com o campo.</p>
+    <p>Os primeiros 15 anos do campo foram marcados por financiamento generoso (especialmente do Departamento de Defesa norte-americano, via Agência de Projetos de Pesquisa Avançada de Defesa - DARPA), forte produção acadêmica e algumas demonstrações que impressionaram o mundo.</p>
+
+    <curso-linha-tempo>
+      <curso-item ano="1958" titulo="Perceptron" imagem="img/icones/linha-1958.webp">
+        <p>Frank Rosenblatt apresenta o Perceptron, o primeiro algoritmo de aprendizagem de uma rede neural artificial. A imprensa anunciou, com exagero, que se tratava de “uma máquina que aprende a falar, andar e se reproduzir”.</p>
+      </curso-item>
+      <curso-item ano="1965" titulo="DENDRAL" imagem="img/icones/linha-1965.webp">
+        <p>Em Stanford, Edward Feigenbaum, Bruce Buchanan e Joshua Lederberg iniciam o DENDRAL, considerado o primeiro sistema especialista, um programa que aplicava regras de química orgânica para identificar moléculas a partir de espectrometria de massa. DENDRAL inaugurou a ideia de que a IA poderia codificar o conhecimento de um especialista humano e aplicá-lo de forma sistemática.</p>
+      </curso-item>
+      <curso-item ano="1966" titulo="ELIZA" imagem="img/icones/linha-1966.webp">
+        <p>Joseph Weizenbaum, no MIT, cria o ELIZA, um programa de conversação que simulava uma psicoterapeuta rogeriana. ELIZA era tecnicamente simples, funcionava por regras de substituição de palavras, mas o impacto foi imenso. As pessoas, sabendo que se tratava de um programa, ainda assim se engajavam emocionalmente com ele. Esse fenômeno ficou conhecido como efeito ELIZA e segue sendo um alerta importante para o uso de chatbots em saúde mental.</p>
+      </curso-item>
+      <curso-item ano="1972" titulo="MYCIN" imagem="img/icones/linha-1972.webp">
+        <p>Edward Shortliffe, em Stanford, desenvolve o MYCIN, sistema especialista para apoiar decisões sobre antibioticoterapia em infecções bacterianas graves. MYCIN trabalhava com regras do tipo “se… então…” e com graus de certeza; em estudos comparativos teve desempenho equivalente ao de especialistas em doenças infecciosas. Foi o primeiro sistema de IA a demonstrar viabilidade técnica em uma tarefa clínica complexa, mas nunca chegou ao uso clínico de rotina, em parte por questões de responsabilidade médico-legal e de integração ao fluxo hospitalar.</p>
+      </curso-item>
+      <curso-item ano="1973" titulo="Relatório Lighthill" imagem="img/icones/linha-1973.webp">
+        <p>O governo britânico encomenda ao matemático Sir James Lighthill uma avaliação independente do campo da IA. O relatório, publicado em 1973, seria devastador, e abriria o “primeiro inverno” (1974 – 1980).</p>
+      </curso-item>
+    </curso-linha-tempo>
+
+    <h3>1974 - 1980</h3>
+    <p>O Relatório <i>Lighthill</i>, publicado em 1973, criticou duramente o campo, apontando que a IA havia produzido pouco progresso real diante de promessas grandiosas e que os principais problemas, como manipulação de linguagem natural, raciocínio em ambientes abertos e percepção visual, permaneciam essencialmente sem solução.</p>
+    <p>O relatório levou o governo do Reino Unido a cortar drasticamente o financiamento à pesquisa em IA. Nos Estados Unidos, a DARPA reduziu seu apoio a projetos considerados pouco aplicados. Assim, diversos laboratórios de IA foram desmontados ou redirecionados e esse período ficou conhecido como o primeiro inverno da IA.</p>
+    <p>Foi nessa época que se tornou evidente uma distância importante entre dois tipos de tarefa:</p>
+
+    <div class="comparativo">
+      <figure class="comparativo__item">
+        <p class="figura__fonte">Fonte: Magnific (2026)</p>
+        <img src="img/a1-xadrez.jpg" alt="Dois homens jogando xadrez" loading="lazy">
+        <figcaption class="comparativo__texto">
+          <p class="comparativo__titulo">Tarefas que pareciam difíceis para humanos, mostraram-se relativamente viáveis para os computadores da época.</p>
+          <p>Ex.: Jogar xadrez, demonstrar teoremas matemáticos ou resolver problemas lógicos formais</p>
+        </figcaption>
+      </figure>
+      <figure class="comparativo__item">
+        <p class="figura__fonte">Fonte: Magnific (2026)</p>
+        <img src="img/a1-robo-entrega.jpg" alt="Pequeno robô de entrega numa calçada movimentada" loading="lazy">
+        <figcaption class="comparativo__texto">
+          <p class="comparativo__titulo">Tarefas que pareciam triviais para humanos, mostraram-se extraordinariamente difíceis.</p>
+          <p>Ex.: Reconhecer um rosto em uma foto, entender uma frase ambígua ou andar sem tropeçar.</p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p>Esse paradoxo seria mais tarde batizado de <a>paradoxo de Moravec</a>. O primeiro “inverno” deixou uma lição que, para muitos pesquisadores, definiria o campo dali em diante, em que promessas sem entregas custam caro, não apenas financeiramente, mas para sua própria reputação.</p>
+
+    <h3>1980 - 1987</h3>
+    <p>Por volta de 1980, no início do segundo verão, a IA voltou a aquecer, agora com um produto concreto: os sistemas especialistas. A ideia, herdada do DENDRAL e do MYCIN, era simples e poderosa: codificar o conhecimento de um especialista humano em forma de regras lógicas e disponibilizá-lo para uso amplo.</p>
+
+    <curso-linha-tempo>
+      <curso-item ano="1970 - 1980" imagem="img/icones/linha-1970-1980.webp">
+        <curso-titulo>INTERNIST-I, CADUCEUS, DXplain</curso-titulo>
+        <p>São sistemas especialistas voltados ao diagnóstico em medicina interna, capazes de gerar hipóteses diagnósticas a partir de manifestações clínicas. O DXplain, desenvolvido a partir de 1986 no Massachusetts General Hospital, chegou a ser amplamente distribuído em hospitais-escola norte-americanos, e segue em uso, em versões atualizadas, até hoje.</p>
+      </curso-item>
+      <curso-item ano="1982" titulo="Projeto da Quinta Geração" imagem="img/icones/linha-1982.webp">
+        <p>O governo do Japão lançou um ambicioso programa de uma década para desenvolver “computadores da quinta geração” baseados em IA, com investimento estatal massivo. O programa mobilizou respostas defensivas de Estados Unidos e Europa, que aumentaram seus próprios investimentos.</p>
+      </curso-item>
+      <curso-item ano="1986" titulo="Backpropagation e a volta das redes neurais" imagem="img/icones/linha-1986.webp">
+        <p>Rumelhart, Hinton e Williams (1986) publicam, na revista <i>Nature</i>, um artigo demonstrando como treinar redes neurais com múltiplas camadas pelo método da retropropagação do erro (<i>backpropagation</i>). O artigo passa relativamente despercebido na época, mas se tornaria décadas depois, o alicerce técnico do Deep Learning.</p>
+      </curso-item>
+    </curso-linha-tempo>
+
+    <p>Um termo que aparece com frequência neste curso é “sistema especialista”, e merece atenção. Trata-se de um programa que combina uma base de conhecimento (regras escritas por especialistas humanos) com um mecanismo de inferência (lógica que aplica essas regras a um caso concreto). MYCIN, INTERNIST-I e DXplain são desse tipo. Eles representam o que, na taxonomia moderna, chamamos de IA simbólica ou IA clássica, em contraste com o aprendizado de máquina e o deep learning.</p>
+
+    <h3>1987 - 1993</h3>
+    <p>O segundo verão, embora produtivo, trazia uma fragilidade estrutural. Os sistemas especialistas dependiam de máquinas dedicadas e caras (as Lisp machines), exigiam atualização manual contínua das regras à medida que o conhecimento evoluía, e eram frágeis em situações que fugiam ligeiramente do escopo programado. A partir de 1987, vários fatores convergiram:</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Mercado de Lisp machines">
+        <p>O mercado de Lisp machines colapsou, à medida que computadores pessoais (especialmente da plataforma IBM PC) e estações Sun se tornaram baratos e suficientes para a maior parte das aplicações.</p>
+      </curso-item>
+      <curso-item titulo="Próximo slide"><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>A consequência foi um novo período de retração, com financiamentos cortados, laboratórios fechados e pesquisadores migrando para áreas vizinhas (estatística aplicada, processamento de sinais, robótica). Foi o segundo “inverno” da IA.</p>
+
+    <curso-caixa tipo="refletir">
+      <p>Em ambos os “invernos”, o problema não foi exatamente técnico: a IA continuou produzindo conhecimento sólido. O problema foi a incompatibilidade entre o que se prometia e o que se entregava.</p>
+      <p>Para o profissional de saúde de hoje, isso é um aviso útil. Ao avaliar uma nova ferramenta de IA, vale perguntar não apenas se “ela funciona?”, mas “o que se está prometendo, e em que prazo?”.</p>
+    </curso-caixa>
+
+    <h3>1993 - 2017</h3>
+    <p>Durante o segundo “inverno”, parte significativa da pesquisa em IA mudou de nome. Trabalhos antes rotulados como “IA” passaram a se apresentar como “aprendizado estatístico”, “reconhecimento de padrões”, “mineração de dados”, “informática biomédica”, em parte para escapar do estigma do termo. Esse período aparentemente discreto foi, na verdade, extraordinariamente fértil.</p>
+
+    <curso-linha-tempo>
+      <curso-item ano="1997" titulo="Deep Blue vs. Kasparov" imagem="img/icones/linha-1997.webp">
+        <p>O computador Deep Blue, da IBM, derrotou o campeão mundial de xadrez Garry Kasparov em uma partida oficial. Foi simbólico, mas fez pouco uso de “aprendizado”, era força computacional bruta aplicada a busca em árvore, com avaliação especializada de posições.</p>
+      </curso-item>
+      <curso-item ano="Anos 2000" titulo="A maturação do Aprendizado de Máquina" imagem="img/icones/linha-2000.webp">
+        <p>Algoritmos como de Machine Learning (Aprendizado de Máquina) se consolidaram. A área de bioinformática explodiu, com aplicações em genômica e proteômica. Em saúde, sistemas de alerta em prontuário eletrônico baseados em regras e em modelos estatísticos se difundiram silenciosamente.</p>
+      </curso-item>
+      <curso-item ano="2009" titulo="ImageNet" imagem="img/icones/linha-2009.webp">
+        <p>A pesquisadora Fei-Fei Li, em Stanford, lança o ImageNet, uma base com mais de 14 milhões de imagens rotuladas. ImageNet se tornaria o campo de batalha para o salto seguinte.</p>
+      </curso-item>
+      <curso-item ano="2012" titulo="AlexNet - o ponto de inflexão" imagem="img/icones/linha-2012.webp">
+        <p>Alex Krizhevsky, Ilya Sutskever e Geoffrey Hinton, da Universidade de Toronto, vencem o desafio ImageNet com uma rede neural profunda treinada em GPUs, com taxa de erro muito inferior à de todos os concorrentes baseados em métodos clássicos. A vitória é considerada o início da era do Deep Learning.</p>
+      </curso-item>
+      <curso-item ano="2016" titulo="AlphaGo" imagem="img/icones/linha-2016.webp">
+        <p>A DeepMind (subsidiária do Google) apresenta o AlphaGo, sistema baseado em aprendizado profundo e aprendizagem por reforço, que derrota o campeão mundial de Go (antigo jogo de tabuleiro, conhecido devido à sua profundidade), Lee Sedol. O Go era considerado, há décadas, inacessível à IA por força bruta. AlphaGo mostra que a combinação de redes neurais profundas com aprendizado por reforço alterou as fronteiras do possível.</p>
+      </curso-item>
+      <curso-item ano="2017" titulo="Attention Is All You Need" imagem="img/icones/linha-2017.webp">
+        <p>Pesquisadores do Google publicam o artigo que apresenta a arquitetura Transformer, baseada no mecanismo de atenção (Vaswani <i>et al.</i>, 2017). Sobre essa arquitetura serão construídos, nos cinco anos seguintes, todos os grandes modelos de linguagem que dominam a IA contemporânea.</p>
+      </curso-item>
+    </curso-linha-tempo>
+
+    <h3>2017 - PRESENTE</h3>
+    <p>Em 2017, a publicação do artigo “<i>Attention Is All You Need</i>” (Vaswani <i>et al.</i>, 2017), abriu a porta para uma sequência de avanços técnicos de ritmo inédito, dando início ao que chamamos de era da IA Generativa.</p>
+
+    <curso-linha-tempo>
+      <curso-item ano="2018" titulo="BERT e GPT-1" imagem="img/icones/linha-2018.webp">
+        <p>Os primeiros grandes modelos baseados em Transformer demonstram desempenho superior em tarefas de linguagem natural. Na saúde, o sistema IDx-DR, primeiro algoritmo autônomo de IA aprovado pelo FDA para detecção de retinopatia diabética em atenção primária, recebe autorização nos Estados Unidos no mesmo ano.</p>
+      </curso-item>
+      <curso-item ano="2020" titulo="GPT-3" imagem="img/icones/linha-2020.webp">
+        <p>Modelo da OpenAI com 175 bilhões de parâmetros (mais detalhes sobre parâmetros a seguir no curso), capaz de produzir textos em linguagem natural com qualidade que assusta a comunidade técnica, mas sem grande visibilidade pública.</p>
+      </curso-item>
+      <curso-item ano="30 nov" titulo="ChatGPT" imagem="img/icones/linha-2022.webp">
+        <p>A OpenAI lança publicamente uma interface gratuita para conversar com um modelo derivado do GPT-3.5. Em cinco dias, o serviço alcança um milhão de usuários; em dois meses, cem milhões. É a tecnologia digital de adoção mais rápida da história até então.</p>
+      </curso-item>
+      <curso-item ano="2023 - 2025" titulo="A explosão" imagem="img/icones/linha-2023-2025.webp">
+        <p>Em poucos meses, surgem versões competidoras: Claude (Anthropic), Gemini (Google), Llama (Meta, com pesos abertos), Le Chat (Mistral, na França), DeepSeek (China). Os modelos passam a aceitar imagens, áudio e vídeo (multimodalidade), conectam-se à web em tempo real e ganham capacidade de uso de ferramentas. Conselhos profissionais, agências regulatórias e universidades correm para se posicionar.</p>
+      </curso-item>
+      <curso-item ano="2023 - 2026" titulo="Resposta institucional brasileira" imagem="img/icones/linha-2023-2026.webp">
+        <p>O Conselho Federal de Medicina (CFM), a Agência Nacional de Saúde Suplementar (ANS), o Ministério da Saúde (MS) e a comunidade da Saúde Coletiva passam a debater regulação, segurança, equidade e LGPD aplicadas à IA em saúde. No Congresso Nacional tramita o Marco Legal da Inteligência Artificial, com discussões intensas sobre proteção de dados, transparência algorítmica e responsabilização. Surgem as primeiras experiências brasileiras de IA generativa integrada a fluxos de trabalho do SUS, sob iniciativas do Ministério da Saúde, da Fiocruz e de instituições estaduais.</p>
+      </curso-item>
+    </curso-linha-tempo>
+
+    <curso-caixa tipo="refletir">
+      <p>Você já parou para pensar em como a velocidade dos últimos anos tem um efeito perigoso, criando a sensação de que tudo está sempre prestes a mudar, e que qualquer aprendizado ficará obsoleto em meses? Isso é parcialmente verdade no nível das ferramentas (modelos mudam de versão com rapidez), mas é falso no nível dos conceitos fundamentais. Os princípios trabalhados neste curso (definir bem o objeto, saber para que serve, conhecer limites, proteger dados, manter o juízo profissional) são estáveis e não dependem de qual modelo está em “primeiro lugar” no momento.</p>
+    </curso-caixa>
+
+    <p>Como você viu, a IA existe como campo desde 1956, e se sistemas de IA já apoiavam decisões médicas nos anos 1970, a reflexão que devemos fazer agora é: <em>por que ela só passou a fazer parte da conversa cotidiana dos profissionais de saúde a partir de 2022 e 2023?</em></p>
+
+    <h2>Por que falar de IA agora?</h2>
+    <p>Embora a inteligência artificial exista há décadas, foi apenas nos últimos anos que ela passou a fazer parte da rotina e das discussões dos profissionais de saúde. Para entender essa mudança, é preciso olhar para um conjunto de transformações que ampliaram sua capacidade, seu acesso e sua presença nas instituições. A resposta tem, portanto, três camadas.</p>
+
+    <curso-circulos>
+      <curso-item titulo="Salto técnico"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Salto de acesso"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Salto institucional"><p class="pendente">Texto deste círculo não consta no PDF do design.</p></curso-item>
+    </curso-circulos>
+
+    <p>Até aqui, você percorreu cerca de 80 anos da história da IA. Antes de seguir adiante, vale consolidar três grandes aprendizados.</p>
+
+    <curso-carrossel>
+      <curso-item titulo="A IA tem ciclos, não uma marcha linear.">
+        <p>“Verões e invernos” se alternaram. Em todos os verões, houve promessas que não se cumpriram nos prazos anunciados. Em todos os invernos, a pesquisa subterrânea continuou e preparou o ciclo seguinte. Reconhecer esse padrão é o melhor antídoto tanto contra o entusiasmo ingênuo quanto contra o ceticismo apressado.</p>
+      </curso-item>
+      <curso-item titulo="Aprendizado 2"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+      <curso-item titulo="Aprendizado 3"><p class="pendente">Conteúdo deste slide não consta no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>Quando alguém te diz que “usou IA” para fazer algo, você sabe qual IA? E qual a diferença entre o sistema que detecta retinopatia diabética, o ChatGPT que escreveu o resumo da consulta e o alerta de interação medicamentosa do prontuário?</p>
+
+    <curso-figura src="img/a1-enfermeira-tablet.jpg" alt="Profissional de saúde sorrindo enquanto usa um tablet em sala de atendimento" fonte="Magnific, (2026)"></curso-figura>
+
+    <p>Então, por que é importante saber identificar o tipo de IA?</p>
+
+    <curso-carrossel>
+      <curso-item>
+        <p>Para entender notícias e propaganda. Reportagens e materiais de marketing misturam os termos como se fossem intercambiáveis. Quem distingue os tipos identifica rápido quando há promessa exagerada.</p>
+      </curso-item>
+      <curso-item><p class="pendente">Demais slides não constam no PDF do design.</p></curso-item>
+    </curso-carrossel>
+
+    <p>Pense em três situações distintas:</p>
+    <ul class="lista-setas">
+      <li>Um software que calcula automaticamente o risco cardiovascular de um paciente a partir dos dados do prontuário, seguindo o escore PREVENT.</li>
+      <li>Um sistema que aprendeu a detectar retinopatia diabética a partir de milhares de fotos de fundo de olho rotuladas.</li>
+      <li>Um chatbot que redige um plano terapêutico inicial para um paciente hipertenso.</li>
+    </ul>
+    <p>Os três foram chamados, em algum momento, de “IA”. Então, a seguir, vamos aprender como identificar e nomear cada um deles com precisão.</p>
+
+    <h2>Mitos sobre a Inteligência Artificial</h2>
+    <p>Para o SUS, esse é um momento importante, visto que as ferramentas chegam antes dos protocolos institucionais, antes da formação sistemática dos profissionais e antes do debate público amadurecer. Hoje, compreender bem o que é IA, é condição para que o sistema público se aproprie dessas tecnologias com soberania, segurança e foco na equidade.</p>
+    <p>Boa parte das dificuldades de uso da IA na saúde nasce de ideias equivocadas, repetidas em manchetes, redes sociais ou conversas de corredor. Antes de seguir adiante, vale derrubar cinco mitos especialmente prejudiciais.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="Mito 1 - “IA é uma só coisa.”">
+        <p>Não. “Inteligência Artificial” é um campo amplo, que inclui sistemas baseados em regras, algoritmos de aprendizado de máquina (estatística aplicada), redes neurais profundas, modelos generativos e muito mais (veremos a seguir ao longo do curso). Falar em “a IA” como se fosse um sujeito único é equivalente a falar em “a Medicina” sem distinguir entre Cardiologia, Medicina de família e comunidade, Endocrinologia etc.</p>
+      </curso-item>
+      <curso-item titulo="Mito 2 - “IA pensa.”">
+        <p>Não no sentido humano. Os sistemas atuais, inclusive os modelos de linguagem, não têm consciência, intenções, emoções nem compreensão no sentido fenomenológico. Eles produzem saídas estatisticamente plausíveis a partir de padrões aprendidos em grandes volumes de dados. O fato de uma resposta parecer pensada não significa que ela tenha sido pensada de fato.</p>
+      </curso-item>
+      <curso-item titulo="Mito 3 - “IA é sempre objetiva e neutra.”">
+        <p>Não. Sistemas de IA aprendem a partir de dados, e dados refletem a realidade (incluindo desigualdades, omissões e preconceitos). Modelos treinados em populações majoritariamente brancas e do Hemisfério Norte podem ter desempenho inferior em pacientes negros, indígenas ou periféricos. Em saúde, isso é questão de equidade, não apenas de acurácia técnica.</p>
+      </curso-item>
+      <curso-item titulo="Mito 4 - “IA vai substituir os profissionais de saúde.”">
+        <p>A evidência atual sugere algo diferente. A IA tende a substituir tarefas específicas (transcrição, redação preliminar, triagem inicial, busca em literatura), e não profissões inteiras. Profissionais que integram IA ao seu trabalho de forma crítica tendem a ampliar sua capacidade resolutiva. O risco real, no curto prazo, não é o desemprego em massa, mas a degradação da relação clínica quando ferramentas são usadas sem critério.</p>
+      </curso-item>
+      <curso-item titulo="Mito 5 - “IA é mágica.”">
+        <p>IA é matemática, código, energia elétrica, dados e trabalho humano. Por trás de cada chatbot, há infraestrutura computacional cara, custo ambiental significativo, milhares de pessoas treinando os modelos e decisões empresariais (muitas vezes pouco transparentes) sobre o que o sistema pode e não pode fazer. Tirar o véu de “magia” é parte da alfabetização digital crítica em saúde.</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Outra confusão frequente, especialmente em ambientes de saúde, é entre IA, algoritmos e estatística. Esclarecer essas relações é importante porque elas aparecem juntas no cotidiano profissional.</p>
+
+    <curso-figura larga src="img/a1-algoritmo-estatistica-ia.webp" alt="Três círculos concêntricos: Algoritmo por fora, Estatística no meio e Inteligência Artificial no centro">
+      <curso-audiodescricao>
+        <p>Diagrama de três círculos concêntricos. O círculo externo, azul-escuro, é Algoritmo. Dentro dele, o círculo do meio, azul, é Estatística. No centro, o círculo verde-claro é Inteligência Artificial.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Dizer que “IA é só estatística” é tão impreciso quanto dizer que “IA é mágica”. Há diferenças qualitativas relevantes, pois a capacidade de aprender representações complexas a partir de imagens brutas, por exemplo, é algo que a estatística tradicional não fazia, mas há continuidade. Reconhecer essa continuidade ajuda o profissional de saúde a confiar em seu repertório anterior.</p>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+</html>
