@@ -58,12 +58,12 @@
   padding-left: 1.25rem;
 }
 
-.lista-setas>li {
+.lista-setas > li {
   position: relative;
   padding-left: 2rem;
 }
 
-.lista-setas>li::before {
+.lista-setas > li::before {
   content: "\F138";
   /* bi-arrow-right */
   position: absolute;
@@ -144,7 +144,7 @@
 }
 
 /* A linha "Fonte" sobe para ficar na mesma altura da lupa */
-.figura__ampliar+.figura__fonte {
+.figura__ampliar + .figura__fonte {
   margin-top: -1.5rem !important;
 }
 
@@ -301,7 +301,7 @@
   margin: 2rem auto 2.5rem;
 }
 
-.acordeao__item+.acordeao__item {
+.acordeao__item + .acordeao__item {
   margin-top: 0.5rem;
 }
 
@@ -564,7 +564,7 @@
   padding: 1.5rem 1.75rem 1.75rem 2.1rem;
 }
 
-.caixa__corpo .lista-setas>li {
+.caixa__corpo .lista-setas > li {
   padding-left: 1.75rem;
 }
 
@@ -658,7 +658,7 @@
 }
 
 /* Subcabeçalho (segunda linha do cabeçalho) */
-.tabela thead tr+tr th,
+.tabela thead tr + tr th,
 .tabela th.tabela__sub {
   background: var(--cor-verde-escuro);
 }
@@ -670,7 +670,7 @@
   vertical-align: top;
 }
 
-.tabela td+td {
+.tabela td + td {
   border-left: 1px solid #5c5c5c;
 }
 
@@ -714,7 +714,7 @@
   flex-direction: column;
 }
 
-.colunas__coluna+.colunas__coluna .colunas__corpo {
+.colunas__coluna + .colunas__coluna .colunas__corpo {
   border-left: 1px solid var(--cor-borda);
 }
 
@@ -756,6 +756,7 @@
   --bs-popover-body-padding-y: 1rem;
   --bs-popover-body-color: var(--cor-texto);
   --bs-popover-font-size: 0.95rem;
+  font-family: var(--fonte-texto);
   line-height: 1.5;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
@@ -774,7 +775,7 @@
   padding-left: 1.25rem;
 }
 
-.termo__definicao .popover-body> :last-child {
+.termo__definicao .popover-body > :last-child {
   margin-bottom: 0;
 }
 
@@ -833,7 +834,7 @@
 }
 
 /* Seta entre as etapas */
-.etapas__item+.etapas__item::before {
+.etapas__item + .etapas__item::before {
   content: "\F138";
   /* bi-arrow-right */
   position: absolute;
@@ -861,7 +862,7 @@
     min-height: 0;
   }
 
-  .etapas__item+.etapas__item::before {
+  .etapas__item + .etapas__item::before {
     top: -1.75rem;
     left: 50%;
     transform: translateX(-50%) rotate(90deg);
@@ -1023,7 +1024,7 @@ curso-audiodescricao {
   color: var(--cor-branco);
 }
 
-.saiba-mais--fixo>.bi {
+.saiba-mais--fixo > .bi {
   grid-row: span 2;
   font-size: 1.5rem;
   line-height: 1;
@@ -1034,7 +1035,7 @@ curso-audiodescricao {
   font-weight: 700;
 }
 
-.saiba-mais__texto> :last-child {
+.saiba-mais__texto > :last-child {
   margin-bottom: 0;
 }
 
@@ -1059,7 +1060,7 @@ curso-audiodescricao {
   height: auto;
 }
 
-.midia> :last-child> :last-child {
+.midia > :last-child > :last-child {
   margin-bottom: 0;
 }
 
@@ -1202,7 +1203,7 @@ curso-audiodescricao {
   list-style: none;
 }
 
-.grade-icones>li {
+.grade-icones > li {
   padding: 1.75rem 1.25rem 1.5rem;
   border: 1px solid var(--cor-borda);
   border-radius: 0.375rem;
@@ -1220,12 +1221,12 @@ curso-audiodescricao {
   margin: 0 auto 1.25rem;
 }
 
-.grade-icones>li> :last-child {
+.grade-icones > li > :last-child {
   margin-bottom: 0;
 }
 
 /* Variante sem caixa, alinhada à esquerda (ex.: resultados do teste rápido) */
-.grade-icones--simples>li {
+.grade-icones--simples > li {
   padding: 0;
   border: 0;
   box-shadow: none;
@@ -1262,7 +1263,7 @@ curso-audiodescricao {
   color: var(--cor-verde-escuro);
 }
 
-.fluxo-passos>li+li::before {
+.fluxo-passos > li + li::before {
   content: "\F128";
   /* bi-arrow-down */
   display: block;
@@ -1294,7 +1295,7 @@ curso-audiodescricao {
   color: var(--cor-rosa);
 }
 
-.passo__titulo+p {
+.passo__titulo + p {
   margin: 0.25rem 0 0 !important;
 }
 
@@ -1309,7 +1310,7 @@ curso-audiodescricao {
    ===================================================================== */
 
 /* Na capa (fundo azul) as setas das listas ficam laranja-claro */
-[data-tema="capa"] .lista-setas>li::before {
+[data-tema="capa"] .lista-setas > li::before {
   color: var(--cor-laranja);
 }
 
@@ -1531,9 +1532,15 @@ curso-audiodescricao {
   color: var(--cor-branco);
 }
 
-.matriz__celula:nth-of-type(2) { background: var(--cor-azul-escuro); }
-.matriz__celula:nth-of-type(3) { background: var(--cor-verde); }
-.matriz__celula:nth-of-type(4) { background: var(--cor-verde-agua); }
+.matriz__celula:nth-of-type(2) {
+  background: var(--cor-azul-escuro);
+}
+.matriz__celula:nth-of-type(3) {
+  background: var(--cor-verde);
+}
+.matriz__celula:nth-of-type(4) {
+  background: var(--cor-verde-agua);
+}
 
 .matriz__celula .bi {
   font-size: 1.4rem;
@@ -1653,6 +1660,10 @@ curso-circulos {
   margin: 2.5rem auto;
 }
 
+.pontos--larga {
+  width: 100%;
+}
+
 .pontos__area {
   position: relative;
 }
@@ -1684,6 +1695,21 @@ curso-circulos {
 .pontos__marcador:focus-visible {
   background: var(--cor-rosa-forte);
   transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Região retangular invisível sobre a arte (ex.: rótulos do infográfico) */
+.pontos__regiao {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pontos__regiao:hover,
+.pontos__regiao:focus-visible {
+  box-shadow: 0 0 0 3px var(--cor-laranja);
 }
 
 .termo__definicao .popover-header {
@@ -1854,8 +1880,12 @@ curso-circulos {
   color: var(--cor-branco);
 }
 
-.tokenizacao__tokens li::before { content: "[ "; }
-.tokenizacao__tokens li::after { content: " ]"; }
+.tokenizacao__tokens li::before {
+  content: "[ ";
+}
+.tokenizacao__tokens li::after {
+  content: " ]";
+}
 
 /* ---- Citação com aspas grandes -------------------------------------- */
 .citacao {

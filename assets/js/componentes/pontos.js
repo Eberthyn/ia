@@ -1,17 +1,20 @@
 /* <curso-pontos src="img/tela.jpg" alt="..." titulo="..." fonte="...">
-     <curso-item x="30.8" y="70.4" titulo="Campo de mensagem"> …explicação (opcional)… </curso-item>
+     <curso-item x="70" y="4.8" largura="24.8" altura="5.6" titulo="Algoritmo"> … </curso-item>
      …
    </curso-pontos>
-   Imagem com marcadores numerados (x e y em % da imagem). Ao clicar, ao
-   passar o mouse ou focar com o teclado, a explicação aparece num balão.
-   Os números seguem a ordem dos itens. */
+   Imagem com áreas clicáveis (medidas em % da imagem). Ao clicar, ao passar
+   o mouse ou focar com o teclado, a explicação aparece num balão.
+   - Só x e y: marcador numerado centrado no ponto (os números seguem a ordem dos itens).
+   - Com largura e altura: região retangular invisível sobre a própria arte
+     (ex.: um rótulo do infográfico), sem número; x e y são o canto superior esquerdo. */
 (function () {
   const { Componente, definir, esc, lerItens, criar, fonteHtml } = window.Curso;
 
   definir('curso-pontos', class extends Componente {
     montar() {
       const itens = lerItens(this);
-      const figura = criar('figure', 'pontos');
+      const audiodescricao = this.querySelector(':scope > curso-audiodescricao');
+      const figura = criar('figure', `pontos ${this.hasAttribute('larga') ? 'pontos--larga' : ''}`);
       const titulo = this.attr('titulo');
       figura.innerHTML = `
         ${titulo ? `<figcaption class="figura__titulo">${esc(titulo)}</figcaption>` : ''}
@@ -22,21 +25,28 @@
       const area = figura.querySelector('.pontos__area');
 
       itens.forEach(({ titulo: nome, conteudo, item }, i) => {
-        const botao = criar('button', 'pontos__marcador');
+        const regiao = item.hasAttribute('largura') && item.hasAttribute('altura');
+        const rotulo = regiao ? nome : `${i + 1}. ${nome}`;
+        const botao = criar('button', regiao ? 'pontos__regiao' : 'pontos__marcador');
         botao.type = 'button';
-        botao.textContent = i + 1;
         botao.style.left = `${item.getAttribute('x')}%`;
         botao.style.top = `${item.getAttribute('y')}%`;
-        botao.setAttribute('aria-label', `${i + 1}: ${nome.replace(/<[^>]+>/g, '')}`);
+        if (regiao) {
+          botao.style.width = `${item.getAttribute('largura')}%`;
+          botao.style.height = `${item.getAttribute('altura')}%`;
+        } else {
+          botao.textContent = i + 1;
+        }
+        botao.setAttribute('aria-label', rotulo.replace(/<[^>]+>/g, ''));
         area.append(botao);
 
         // Com conteúdo: título no topo do balão e texto embaixo.
-        // Sem conteúdo: o balão mostra só "N. título".
+        // Sem conteúdo: o balão mostra só o título.
         const corpo = criar('div', '', conteudo);
         const temCorpo = corpo.textContent.trim() !== '';
         new bootstrap.Popover(botao, {
-          title: temCorpo ? `${i + 1}. ${nome}` : '',
-          content: temCorpo ? corpo.innerHTML : `${i + 1}. ${nome}`,
+          title: temCorpo ? rotulo : '',
+          content: temCorpo ? corpo.innerHTML : rotulo,
           html: true,
           trigger: 'hover focus',
           placement: 'auto',
@@ -44,7 +54,7 @@
         });
       });
 
-      this.replaceChildren(figura);
-    }
+      if (audiodescricao) figura.append(audiodescricao);
+      this.replaceChildren(figura);    }
   });
 })();
