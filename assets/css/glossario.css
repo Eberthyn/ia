@@ -1,0 +1,74 @@
+/* ---- Glossário ----------------------------------------------------------
+   Índice de letras no topo (letras sem termos ficam esmaecidas) e, para
+   cada letra, uma lista de definições <dl> com <dt> termo e <dd> definição. */
+.glossario__indice ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 2.5rem;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.glossario__indice li {
+  margin: 0 !important;
+}
+
+.glossario__indice :is(a, span) {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.25rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.conteudo .glossario__indice a {
+  background: var(--cor-azul);
+  color: var(--cor-branco);
+}
+
+.conteudo .glossario__indice a:hover,
+.conteudo .glossario__indice a:focus-visible {
+  background: var(--cor-rosa);
+}
+
+.glossario__indice span {
+  background: #eeeeee;
+  color: #9a9a9a;
+}
+
+.glossario__letra {
+  scroll-margin-top: 1rem;
+}
+
+.glossario__letra + .glossario__letra {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.glossario__letra h2 {
+  margin: 1.75rem 0 1rem;
+  color: var(--cor-rosa);
+}
+
+.glossario dl {
+  margin: 0 0 1.5rem;
+}
+
+.glossario dt {
+  font-weight: 800;
+  color: var(--cor-azul-escuro);
+}
+
+.glossario dd {
+  margin: 0.15rem 0 1.25rem;
+}
+
+.glossario dd > :last-child {
+  margin-bottom: 0;
+}
+
+.glossario dd p {
+  margin-bottom: 0.75rem;
+}

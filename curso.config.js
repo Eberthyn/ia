@@ -21,9 +21,9 @@ window.CURSO_CONFIG = {
   // Links extras: ficam no banner da home e no fim do menu lateral.
   // Sem "arquivo", aparecem como texto (página ainda não publicada).
   extras: [
-    { rotulo: "Referências", icone: "file-earmark-text-fill" },
-    { rotulo: "Créditos", icone: "list-ul" },
-    { rotulo: "Glossário", icone: "book-half" },
+    { rotulo: 'Referências', icone: 'file-earmark-text-fill', arquivo: 'referencias.html' },
+    { rotulo: 'Créditos', icone: 'list-ul', arquivo: 'creditos.html' },
+    { rotulo: 'Glossário', icone: 'book-half', arquivo: 'glossario.html' },
   ],
 
   // emBreve: true mostra a etiqueta "Em breve" no card do módulo na home.

@@ -6,20 +6,22 @@
    e em qual módulo está.
    tema: "capa" (fundo azul; padrão nas introduções e resumos) ou "aula" (fundo branco). */
 (function () {
-  const { Componente, definir, atual, config } = window.Curso;
+  const { Componente, definir, esc, atual, config } = window.Curso;
 
   definir('curso-pagina', class extends Componente {
     montar() {
       const conteudo = [...this.childNodes];
       const modulo = atual && atual.modulo ? atual.modulo.numero : '';
       const aula = atual && atual.tipo === 'aula' ? atual.numero : '';
+      // Páginas extras (Referências, Créditos, Glossário) usam o próprio nome na tarja
+      const tarja = atual && atual.tipo === 'extra' ? atual.rotulo : '';
       const tema = this.attr('tema', atual && ['intro', 'resumo'].includes(atual.tipo) ? 'capa' : 'aula');
 
       this.dataset.tema = tema;
       this.innerHTML = `
         <a class="visually-hidden-focusable pular" href="#conteudo">Pular para o conteúdo</a>
         <curso-topo></curso-topo>
-        <curso-banner modulo="${modulo}" aula="${aula}"></curso-banner>
+        <curso-banner modulo="${modulo}" aula="${aula}" tarja="${esc(tarja)}"></curso-banner>
         <div class="pagina">
           <curso-menu></curso-menu>
           <main class="pagina__principal" id="conteudo" tabindex="-1">

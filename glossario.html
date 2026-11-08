@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="assets/css/curso.css">
+</head>
+<body>
+  <curso-pagina>
+    <h1>Glossário</h1>
+
+    <div class="glossario">
+      <nav class="glossario__indice" aria-label="Letras do glossário">
+        <ol>
+          <li><a href="#letra-a">A</a></li>
+          <li><span aria-disabled="true">B</span></li>
+          <li><a href="#letra-c">C</a></li>
+          <li><a href="#letra-d">D</a></li>
+          <li><a href="#letra-e">E</a></li>
+          <li><span aria-disabled="true">F</span></li>
+          <li><span aria-disabled="true">G</span></li>
+          <li><span aria-disabled="true">H</span></li>
+          <li><a href="#letra-i">I</a></li>
+          <li><a href="#letra-j">J</a></li>
+          <li><span aria-disabled="true">K</span></li>
+          <li><a href="#letra-l">L</a></li>
+          <li><a href="#letra-m">M</a></li>
+          <li><span aria-disabled="true">N</span></li>
+          <li><span aria-disabled="true">O</span></li>
+          <li><a href="#letra-p">P</a></li>
+          <li><span aria-disabled="true">Q</span></li>
+          <li><a href="#letra-r">R</a></li>
+          <li><a href="#letra-s">S</a></li>
+          <li><a href="#letra-t">T</a></li>
+          <li><span aria-disabled="true">U</span></li>
+          <li><span aria-disabled="true">V</span></li>
+          <li><span aria-disabled="true">W</span></li>
+          <li><span aria-disabled="true">X</span></li>
+          <li><span aria-disabled="true">Y</span></li>
+          <li><span aria-disabled="true">Z</span></li>
+        </ol>
+      </nav>
+
+      <section class="glossario__letra" id="letra-a" aria-labelledby="titulo-letra-a">
+        <h2 id="titulo-letra-a">A</h2>
+        <dl>
+          <dt>Agente (de IA)</dt>
+          <dd>
+            <p>Sistema baseado em um modelo de linguagem que, além de conversar, executa ações por você, diretamente no computador ou na internet, como abrir arquivos, preencher documentos ou buscar informações. As skills são recurso típico dos agentes, embora alguns chatbots também as aceitem (ver skills).</p>
+          </dd>
+          <dt>Ajuste fino (<i>fine-tuning</i>)</dt>
+          <dd>
+            <p>Treinamento adicional, em escala menor, com dados curados, para especializar o modelo em uma tarefa ou domínio (jurídico, médico, atendimento ao cliente).</p>
+          </dd>
+          <dt>Alucinação</dt>
+          <dd>
+            <p>Saída fluente e confiante, porém factualmente errada.</p>
+          </dd>
+          <dt>Automelhoria (<i>self-refine</i>)</dt>
+          <dd>
+            <p>Procedimento em que o mesmo modelo gera uma resposta, critica essa resposta e a reescreve incorporando a própria crítica. Rende mais quando a crítica solicitada é específica.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-c" aria-labelledby="titulo-letra-c">
+        <h2 id="titulo-letra-c">C</h2>
+        <dl>
+          <dt>Cadeia de pensamento (<i>chain-of-thought</i>)</dt>
+          <dd>
+            <p>Técnica que pede ao modelo que detalhe o raciocínio em etapas antes da resposta final, por exemplo com a instrução "vamos pensar passo a passo". Mostrar o raciocínio não garante que ele esteja correto.</p>
+          </dd>
+          <dt>Cibercondria</dt>
+          <dd>
+            <p>Ansiedade induzida pela busca on-line por informações sobre saúde.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-d" aria-labelledby="titulo-letra-d">
+        <h2 id="titulo-letra-d">D</h2>
+        <dl>
+          <dt>Desidentificação</dt>
+          <dd>
+            <p><span class="pendente">Definição pendente</span></p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-e" aria-labelledby="titulo-letra-e">
+        <h2 id="titulo-letra-e">E</h2>
+        <dl>
+          <dt>Engenharia de prompt</dt>
+          <dd>
+            <p>Prática de formular deliberadamente o texto enviado ao modelo para orientar a resposta na direção do resultado desejado. Não torna o modelo confiável, mas o torna mais dirigível (ver Prompt e PaCTO).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-i" aria-labelledby="titulo-letra-i">
+        <h2 id="titulo-letra-i">I</h2>
+        <dl>
+          <dt>Inferência</dt>
+          <dd>
+            <p>É o que acontece quando você usa o modelo (rápida, feita a cada interação).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-j" aria-labelledby="titulo-letra-j">
+        <h2 id="titulo-letra-j">J</h2>
+        <dl>
+          <dt>Janela de contexto</dt>
+          <dd>
+            <p>Quantidade máxima de tokens que o modelo consegue "ver" de uma vez (entrada + saída). Modelos atuais variam de 8 mil a 2 milhões de tokens. Se o seu material excede a janela, partes serão ignoradas silenciosamente.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-l" aria-labelledby="titulo-letra-l">
+        <h2 id="titulo-letra-l">L</h2>
+        <dl>
+          <dt>LLM (<i>large language model</i>)</dt>
+          <dd>
+            <p>Modelo de linguagem que gera texto prevendo o próximo token a partir dos anteriores, token após token. Essa mecânica explica tanto a fluência do texto quanto a possibilidade de erro factual (ver Token e Alucinação).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-m" aria-labelledby="titulo-letra-m">
+        <h2 id="titulo-letra-m">M</h2>
+        <dl>
+          <dt>Markdown</dt>
+          <dd>
+            <p>Modo de formatar texto com poucos símbolos, em que uma cerquilha (#) marca um título, duas cerquilhas (##) marcam um subtítulo e dois asteriscos em volta de uma palavra a colocam em negrito. Em prompts longos, serve para separar cada parte sob um título próprio.</p>
+          </dd>
+          <dt>Meta-prompting</dt>
+          <dd>
+            <p>Uso de um prompt para gerar ou melhorar outro prompt: em vez de pedir que a IA execute a tarefa, pede-se que ela ajude a escrever o pedido. O prompt sugerido é ponto de partida e deve ser revisado antes do uso (ver Prompt).</p>
+          </dd>
+          <dt>Modelo aberto</dt>
+          <dd>
+            <p>Pesos do modelo disponíveis publicamente, podendo ser baixados e rodados localmente (ex.: Llama, Mistral, Qwen).</p>
+          </dd>
+          <dt>Modelo fechado</dt>
+          <dd>
+            <p>Acessível apenas via interface web ou API da empresa (ex.: GPT-4, Claude). Para o SUS, modelos abertos têm vantagens importantes em soberania e proteção de dados.</p>
+          </dd>
+          <dt>Multimodalidade</dt>
+          <dd>
+            <p>Capacidade do modelo de processar mais de um tipo de entrada (texto + imagem, texto + áudio). Modelos atuais como GPT, Claude e Gemini são multimodais.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-p" aria-labelledby="titulo-letra-p">
+        <h2 id="titulo-letra-p">P</h2>
+        <dl>
+          <dt>PaCTO</dt>
+          <dd>
+            <p>Método que organiza um prompt em quatro blocos — Papel, Contexto, Tarefa e Output —, cada um respondendo a uma pergunta que o modelo não teria como responder sozinho: de que ponto de vista e para quem escrever, o que precisa saber, o que deve fazer e como deve entregar (ver Engenharia de prompt).</p>
+          </dd>
+          <dt>Parâmetro</dt>
+          <dd>
+            <p>Cada um dos números internos da rede neural, ajustados durante o treinamento. Modelos atuais têm de bilhões a centenas de bilhões de parâmetros. Não confunda com prompt, pois parâmetros são internos ao modelo; prompts são a sua entrada.</p>
+          </dd>
+          <dt>Pré-treinamento</dt>
+          <dd>
+            <p>Primeira etapa de como o modelo aprende, com exposição massiva a texto bruto, para aprender a prever o próximo token.</p>
+          </dd>
+          <dt>Priming (preparação do conhecimento)</dt>
+          <dd>
+            <p>Procedimento em duas etapas: primeiro o modelo resume o que se sabe sobre o tema; depois, usa esse resumo para responder à pergunta específica. Na literatura em inglês, aparece como <i>generated knowledge prompting</i>.</p>
+          </dd>
+          <dt>Projetos</dt>
+          <dd>
+            <p>Recurso das ferramentas de IA que guarda instruções e arquivos para reaproveitá-los em todas as conversas criadas dentro dele; o nome varia conforme a ferramenta. Todo projeto tem três partes: um nome, um campo de instruções fixas e uma área para anexar arquivos (ver skills).</p>
+          </dd>
+          <dt>Prompt</dt>
+          <dd>
+            <p>O texto que você fornece ao modelo como entrada — incluindo pergunta, instruções e quaisquer documentos colados. Tudo o que você escreve e envia ao modelo: cada mensagem que você digita e confirma, seja uma pergunta de uma linha, seja um texto longo com instruções e um arquivo anexado. É o seu lado da conversa. A qualidade do prompt determina, em grande medida, a qualidade da saída (ver Engenharia de prompt).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-r" aria-labelledby="titulo-letra-r">
+        <h2 id="titulo-letra-r">R</h2>
+        <dl>
+          <dt>RLHF (<i>Reinforcement Learning from Human Feedback</i>)</dt>
+          <dd>
+            <p>Aprendizado por reforço com feedback humano. Etapa em que o modelo é ajustado para se aproximar das preferências de avaliadores humanos.</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-s" aria-labelledby="titulo-letra-s">
+        <h2 id="titulo-letra-s">S</h2>
+        <dl>
+          <dt>Skills</dt>
+          <dd>
+            <p>Procedimentos reutilizáveis que um agente de IA guarda e aciona sozinho quando a tarefa aparece, como formatar um relatório num padrão fixo. Costumam ser criadas pela própria IA a partir de uma conversa em que a tarefa deu certo: enquanto o projeto guarda o contexto, a skill guarda o método (ver Agente e Projetos).</p>
+          </dd>
+        </dl>
+      </section>
+
+      <section class="glossario__letra" id="letra-t" aria-labelledby="titulo-letra-t">
+        <h2 id="titulo-letra-t">T</h2>
+        <dl>
+          <dt>Temperatura</dt>
+          <dd>
+            <p>É o parâmetro que controla a "criatividade" da saída.</p>
+            <ul class="lista-setas">
+              <li>Temperatura baixa (ex.: 0,2) → respostas mais determinísticas, repetitivas, conservadoras.</li>
+              <li>Temperatura alta (ex.: 0,9) → respostas mais variadas, criativas, imprevisíveis.</li>
+            </ul>
+            <p>Para tarefas clínicas, em geral se prefere temperatura baixa.</p>
+          </dd>
+          <dt>Token</dt>
+          <dd>
+            <p>Unidade mínima de texto com que o modelo opera. Uma palavra curta é, em geral, um <i>token</i>; uma palavra longa pode ser dividida em vários.</p>
+          </dd>
+          <dt>Treinamento</dt>
+          <dd>
+            <p>É a fase em que o modelo aprende, ajustando parâmetros (cara, lenta, feita pela empresa que constrói o modelo).</p>
+          </dd>
+        </dl>
+      </section>
+
+    </div>
+  </curso-pagina>
+
+  <script src="assets/js/curso.js"></script>
+</body>
+</html>
