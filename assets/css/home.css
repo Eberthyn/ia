@@ -101,7 +101,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1.75rem;
-  max-width: 54rem;
+  max-width: 64rem;
   margin: 0 auto;
 }
 
@@ -112,7 +112,7 @@
   border-radius: 0.25rem;
   background: var(--cor-branco);
   box-shadow: 0 3px 8px rgb(0 0 0 / 0.25);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   line-height: 1.45;
   overflow: hidden;
 }
@@ -141,7 +141,7 @@
 }
 
 .modulo-card__titulo {
-  min-height: 6.25rem;
+  min-height: .25rem;
   margin: 0;
   padding: 1.25rem 0.75rem 1rem;
   border-bottom: 1px solid var(--cor-borda-escura);

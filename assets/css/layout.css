@@ -45,10 +45,10 @@
 .banner__miolo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  justify-content: center;
+  gap: 6rem;
   min-height: 17rem;
-  padding: 1rem 4rem 1rem 4.75rem;
+  padding: 1rem 2rem;
 }
 
 .banner__titulo {
@@ -101,7 +101,7 @@
 
 .banner--grande .banner__miolo {
   min-height: 30rem;
-  padding: 3rem 4rem 1rem 2.75rem;
+  padding: 3rem 4rem 1rem;
 }
 
 .banner--grande .banner__titulo {
@@ -251,7 +251,7 @@ curso-menu {
 }
 
 .menu {
-  --bs-offcanvas-width: 17rem;
+  --bs-offcanvas-width: 15rem;
   --bs-offcanvas-bg: var(--menu-fundo);
   --bs-offcanvas-color: var(--menu-texto);
   color: var(--menu-texto);

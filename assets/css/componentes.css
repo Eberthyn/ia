@@ -307,7 +307,6 @@
 
 .acordeao__cabecalho {
   margin: 0 !important;
-  font-size: 1.05rem !important;
   text-transform: none !important;
 }
 
@@ -337,7 +336,6 @@
 
 .acordeao__corpo {
   padding: 1rem 0 1rem;
-  font-size: 1.05rem;
   line-height: 1.6;
 }
 
