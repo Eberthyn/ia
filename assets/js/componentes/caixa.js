@@ -1,4 +1,4 @@
-/* <curso-caixa tipo="pratica|refletir|leitura|sabia|importante" [titulo="..."]> …conteúdo… </curso-caixa>
+/* <curso-caixa tipo="pratica|refletir|leitura|sabia|importante|cenario" [titulo="..."]> …conteúdo… </curso-caixa>
    Caixa com borda e aba no topo ("Na prática", "Para refletir",
    "Leitura Complementar"…), decorada com os pixels do tema. */
 (function () {
@@ -10,12 +10,13 @@
     leitura: { titulo: 'Leitura Complementar', icone: 'file-earmark-text' },
     sabia: { titulo: 'Você sabia?', icone: 'question-circle' },
     importante: { titulo: 'Importante', icone: 'exclamation-triangle' },
+    cenario: { titulo: 'Cenário', icone: 'book' },
   };
 
   definir('curso-caixa', class extends Componente {
     montar() {
       const tipo = TIPOS[this.attr('tipo')] || { titulo: 'Atenção', icone: 'info-circle' };
-      const caixa = criar('aside', 'caixa');
+      const caixa = criar('aside', `caixa caixa--${this.attr('tipo', 'padrao')}`);
       caixa.innerHTML = `
         <div class="caixa__cabecalho">
           <p class="caixa__titulo">${icone(this.attr('icone', tipo.icone))} ${esc(this.attr('titulo', tipo.titulo))}</p>

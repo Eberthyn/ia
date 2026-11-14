@@ -10,16 +10,15 @@
 window.CURSO_CONFIG = {
   // Banner: "Introdução à / INTELIGÊNCIA ARTIFICIAL / aplicada à saúde"
   titulo: {
-    chamada: "Introdução à",
-    destaque: ["Inteligência Artificial"],
-    complemento: "aplicada à saúde",
+    chamada: 'Introdução à',
+    destaque: ['Inteligência Artificial'],
+    complemento: 'aplicada à saúde',
   },
 
-  home: "index.html",
-  rotuloHome: "Apresentação do curso", // texto do botão "Voltar" na introdução do módulo 1
+  home: 'index.html',
+  rotuloHome: 'Apresentação do curso', // texto do botão "Voltar" na introdução do módulo 1
 
   // Links extras: ficam no banner da home e no fim do menu lateral.
-  // Sem "arquivo", aparecem como texto (página ainda não publicada).
   extras: [
     { rotulo: 'Referências', icone: 'file-earmark-text-fill', arquivo: 'referencias.html' },
     { rotulo: 'Créditos', icone: 'list-ul', arquivo: 'creditos.html' },
@@ -30,58 +29,48 @@ window.CURSO_CONFIG = {
   modulos: [
     {
       numero: 1,
-      titulo: "Introdução, Histórico da IA e Grandes Modelos de Linguagem",
-      introducao: { arquivo: "modulo1/introducao.html" },
+      titulo: 'Introdução, Histórico da IA e Grandes Modelos de Linguagem',
+      introducao: { arquivo: 'modulo1/introducao.html' },
       aulas: [
-        {
-          titulo: "Vivendo a era da Inteligência Artificial",
-          arquivo: "modulo1/aula1.html",
-        },
-        { titulo: "Categorias de IA", arquivo: "modulo1/aula2.html" },
-        {
-          titulo: "LLMs e os principais chatbots",
-          arquivo: "modulo1/aula3.html",
-        },
-        { titulo: "Chatbots", arquivo: "modulo1/aula4.html" },
+        { titulo: 'Vivendo a era da Inteligência Artificial', arquivo: 'modulo1/aula1.html' },
+        { titulo: 'Categorias de IA', arquivo: 'modulo1/aula2.html' },
+        { titulo: 'LLMs e os principais chatbots', arquivo: 'modulo1/aula3.html' },
+        { titulo: 'Chatbots', arquivo: 'modulo1/aula4.html' },
       ],
-      resumo: { arquivo: "modulo1/resumo.html" },
+      resumo: { arquivo: 'modulo1/resumo.html' },
     },
     {
       numero: 2,
-      titulo: "Engenharia de Prompt e Aplicações Práticas em Saúde",
-      emBreve: true,
-      introducao: {},
+      titulo: 'Engenharia de Prompt e Aplicações Práticas em Saúde',
+      introducao: { arquivo: 'modulo2/introducao.html' },
       aulas: [
-        { titulo: "Funcionamento dos LLMs e Engenharia de Prompt Básica" },
-        { titulo: "Engenharia de prompt avançada" },
-        { titulo: "Aplicações práticas da IA na rotina em saúde" },
+        { titulo: 'Funcionamento dos LLMs e Engenharia de Prompt Básica', arquivo: 'modulo2/aula1.html' },
+        { titulo: 'Engenharia de prompt avançada', arquivo: 'modulo2/aula2.html' },
+        { titulo: 'Aplicações práticas da IA na rotina em saúde', arquivo: 'modulo2/aula3.html' },
       ],
-      resumo: {},
+      resumo: { arquivo: 'modulo2/resumo.html' },
     },
     {
       numero: 3,
-      titulo: "Riscos, considerações éticas e legislação",
+      titulo: 'Riscos, considerações éticas e legislação',
       emBreve: true,
       introducao: {},
       aulas: [
-        { titulo: "Validação humana: o profissional como responsável final" },
-        { titulo: "Riscos, privacidade e marco regulatório brasileiro" },
-        {
-          titulo:
-            "Limitações da IA Generativa e situações de dano na prática clínica e na pesquisa",
-        },
+        { titulo: 'Validação humana: o profissional como responsável final' },
+        { titulo: 'Riscos, privacidade e marco regulatório brasileiro' },
+        { titulo: 'Limitações da IA Generativa e situações de dano na prática clínica e na pesquisa' },
       ],
       resumo: {},
     },
     {
       numero: 4,
-      titulo: "O uso da IA pelo paciente: como lidar na prática clínica",
+      titulo: 'O uso da IA pelo paciente: como lidar na prática clínica',
       emBreve: true,
       introducao: {},
       aulas: [
-        { titulo: "O paciente com a chegada da IA" },
-        { titulo: "Como conduzir a consulta na era da IA" },
-        { titulo: "Como orientar o paciente para um uso seguro da IA" },
+        { titulo: 'O paciente com a chegada da IA' },
+        { titulo: 'Como conduzir a consulta na era da IA' },
+        { titulo: 'Como orientar o paciente para um uso seguro da IA' },
       ],
       resumo: {},
     },

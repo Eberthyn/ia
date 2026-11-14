@@ -43,6 +43,7 @@
     'assets/js/componentes/caixa.js',
     'assets/js/componentes/nota.js',
     'assets/js/componentes/saiba-mais.js',
+    'assets/js/componentes/revelar.js',
     'assets/js/componentes/tabela.js',
     'assets/js/componentes/colunas.js',
     'assets/js/componentes/termo.js',

@@ -1976,3 +1976,135 @@ curso-tabela.tabela-ranking .tabela tbody th,
 curso-tabela.tabela-ranking .tabela td:not(:nth-child(2)) {
   text-align: center;
 }
+
+/* =====================================================================
+   MÓDULO 2
+   ===================================================================== */
+
+/* ---- Caixa "Cenário" (borda pontilhada, aba centralizada) ------------ */
+.caixa--cenario {
+  position: relative;
+  width: min(100%, 36rem);
+  margin: 3.5rem auto 2.5rem;
+  border: 2px dotted var(--cor-azul);
+  box-shadow: none;
+}
+
+.caixa--cenario .caixa__cabecalho {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: auto;
+  padding: 0;
+  background: none;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.caixa--cenario .caixa__titulo {
+  padding: 0.35rem 0.9rem;
+}
+
+.caixa--cenario .caixa__corpo {
+  padding: 2.5rem 1.5rem 1.5rem 1.75rem;
+}
+
+.conteudo .cenario__titulo {
+  font-weight: 800;
+  color: var(--cor-azul);
+}
+
+/* ---- Revelar ("O que faltou?") ---------------------------------------- */
+.revelar {
+  margin: 1.5rem 0 0;
+}
+
+.revelar__botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background: var(--cor-azul-escuro);
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: left;
+  color: var(--cor-branco);
+}
+
+.revelar__botao .bi {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.revelar__botao:not(.collapsed) .bi {
+  transform: rotate(180deg);
+}
+
+.revelar__corpo {
+  padding: 1rem 0.25rem 0;
+}
+
+.revelar__corpo>:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Quadro tracejado (tarefa de exemplo) ----------------------------- */
+.conteudo .quadro-tracejado {
+  width: min(100%, 32rem);
+  margin: 1.5rem auto 2rem;
+  padding: 0.6rem 1rem;
+  border: 1px dashed var(--cor-salmao);
+  font-weight: 800;
+  color: var(--cor-rosa);
+}
+
+/* ---- Lista com itens espaçados (modelo de prompt em markdown) --------- */
+.lista-setas--espacada>li+li {
+  margin-top: 1.25rem;
+}
+
+.modelo-prompt {
+  margin-left: 1rem !important;
+}
+
+/* Carrossel com lista com marcadores (exemplos de prompt) */
+.carrossel ul {
+  margin: 0 0 0.5rem;
+  padding-left: 1.25rem;
+}
+
+/* Listas comuns dentro de caixas (cenário, na prática…) */
+.caixa__corpo ul:not(.lista-setas),
+.caixa__corpo ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.caixa__corpo li+li {
+  margin-top: 0.4rem;
+}
+
+.caixa__corpo li>ul:not(.lista-setas) {
+  margin: 0.4rem 0 0;
+}
+
+/* Tabela dentro do cenário: compacta, ocupa a largura da caixa */
+curso-tabela.tabela-cenario .tabela-bloco {
+  margin: 0 0 1.5rem;
+}
+
+curso-tabela.tabela-cenario .tabela {
+  font-size: 0.9rem;
+}
+
+curso-tabela.tabela-cenario .tabela :is(th, td) {
+  padding: 0.5rem 0.6rem;
+}
+
+.conteudo :is(.carrossel, .caixa__corpo) p:has(+ ul) {
+  margin-bottom: 0.4rem;
+}

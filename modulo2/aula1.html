@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+
+<body>
+  <curso-pagina>
+    <h1>Funcionamento dos LLMs e Engenharia de Prompt Básica</h1>
+
+    <p>Um modelo de linguagem — também chamado de LLM, sigla em inglês para <i>Large Language Model</i> — faz, no fundo,
+      uma única coisa: prevê a próxima palavra. Mais precisamente, prevê o próximo token, a unidade mínima de texto com
+      que o modelo trabalha, em geral uma palavra, parte de uma palavra ou um sinal de pontuação.</p>
+    <p>Veja como acontece o funcionamento:</p>
+
+    <curso-figura src="img/a1-predicao-proximo-token.webp"
+      alt="Três etapas numeradas da predição de próximo token, descritas a seguir.">
+      <curso-audiodescricao>
+        <p>Infográfico em três etapas numeradas. 1: o modelo recebe um texto de entrada e calcula, entre todas as
+          palavras possíveis, qual é a mais provável de vir em seguida, segundo os padrões que aprendeu no treinamento.
+          2: escolhe uma palavra, acrescenta-a ao texto e repete o cálculo para a próxima, agora considerando tudo o que
+          já foi escrito, inclusive a palavra que ele mesmo acabou de gerar. 3: o processo segue palavra após palavra
+          até a resposta ficar completa.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Esse mecanismo é o que se chama de geração autorregressiva, e Roustan e Bastardot (2025) descrevem com precisão
+      sua implicação para a prática clínica: como o modelo gera cada token a partir dos que vieram antes, palavra após
+      palavra, a exatidão factual não é o forte do sistema: a precisão, quando ocorre, é apenas inferida de uma alta
+      probabilidade de predição. Assim, dois desdobramentos decorrem disso. Clique nas abas para saber mais.</p>
+
+    <curso-abas>
+      <curso-item titulo="O primeiro">
+        <p>O modelo não consulta uma base de fatos para decidir o que dizer; ele estima probabilidades de linguagem, e a
+          palavra estatisticamente mais provável nem sempre é a palavra verdadeira.</p>
+      </curso-item>
+      <curso-item titulo="O segundo">
+        <p>O modelo não consulta uma base de fatos para decidir o que dizer; ele estima probabilidades de linguagem, e a
+          palavra estatisticamente mais provável nem sempre é a palavra verdadeira.</p>
+      </curso-item>
+    </curso-abas>
+
+    <p>Da mecânica de predição decorre o princípio que sustenta tudo o que esta aula vai ensinar. Como o modelo gera
+      cada palavra com base em tudo o que veio antes, o texto que você escreve no início da conversa orienta toda a
+      sequência que vem depois.</p>
+    <p>Pense em uma trilha que se abre em leque. Quando o modelo recebe o seu pedido, há um número enorme de respostas
+      possíveis. As primeiras palavras que ele gera estreitam o leque e, a partir delas, certas continuações ficam
+      prováveis e outras são praticamente descartadas. E o que faz o modelo gerar essas primeiras palavras é o seu
+      prompt. Mudar uma palavra do pedido, fornecer ou omitir um dado, alterar a ordem da frase, tudo isso desloca o
+      ponto de partida e, com ele, todo o resto.</p>
+    <p>É por isso que dois profissionais que perguntam “a mesma coisa” de maneiras diferentes recebem respostas
+      diferentes. Não é capricho da máquina, é consequência direta de como ela funciona. Disso decorre o ponto central
+      desta aula: se a forma como escrevemos influencia a resposta, aprender a escrever os pedidos que fazemos aos
+      modelos é uma forma de obter melhores resultados.</p>
+
+    <h2>A fragilidade de um modelo de linguagem “puro”</h2>
+    <p>Chamamos de modelo “puro” um LLM usado sozinho, com todos os recursos de apoio desligados. Esses recursos, que a
+      ferramenta liga ou desliga para você, são de três tipos: dois vêm de fora do modelo (a busca e as ferramentas, às
+      vezes chamados pelos termos técnicos <i>scaffolding</i> ou <i>harness</i>) e um é o próprio modelo trabalhando por
+      mais tempo (o raciocínio estendido):</p>
+
+    <curso-figura larga src="img/a1-recursos-de-apoio.webp"
+      alt="Os três recursos de apoio de um modelo de linguagem, descritos a seguir.">
+      <curso-audiodescricao>
+        <p>Três setas numeradas em sequência. 1, Busca na internet: em vez de apenas prever palavras, o modelo consulta
+          páginas da web e baseia a resposta em fontes externas. 2, Raciocínio estendido: o modelo gera, antes da
+          resposta oficial, um rascunho interno de pensamento, gastando tokens “pensando” em vez de já responder “de
+          cara”, o que aumenta a chance de um bom resultado em tarefas que exigem lógica. 3, Ferramentas de capacidades
+          gerais: são ferramentas que acoplam capacidades gerais, como executar um cálculo matemático ou ler um arquivo
+          enviado.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Um modelo “puro” não tem nada disso. Ele só prevê o próximo token a partir do que aprendeu no treinamento e do
+      que está escrito na conversa. E o treinamento tem uma data de corte: o que aconteceu depois dela só chega ao
+      modelo se você o colocar no prompt. Meskó (2023) descreve esse conjunto de limitações como intrínseco ao uso de
+      LLMs: corte de conhecimento, ausência de acesso a dados em tempo real e a necessidade de verificar cada resposta
+      com um profissional qualificado.</p>
+
+    <h2>Por que ele alucina com confiança</h2>
+    <p>Quando um modelo de linguagem gera uma informação falsa ou inventada e a apresenta como se fosse verdadeira, sem
+      qualquer ressalva sobre a incerteza, dizemos que ele alucina.</p>
+
+    <curso-nota>
+      <p>A alucinação não é um defeito ocasional a ser corrigido na próxima versão. Ela decorre da própria mecânica de
+        predição: se a sequência de palavras mais provável não corresponde a um fato real, o modelo a produz mesmo
+        assim, porque produzir a sequência provável é tudo o que ele faz.</p>
+    </curso-nota>
+
+    <p>O agravante está no tom. Roustan e Bastardot (2025) chamam a atenção para um ponto central: o modelo soa
+      igualmente confiante quando acerta e quando erra. E não sinaliza ao usuário a diferença entre “isto eu sei” e
+      “isto eu inventei” e a resposta não vem acompanhada de nenhum aviso sobre o quanto é confiável. A fluência da
+      resposta — frases bem construídas, vocabulário adequado, estrutura organizada — não é evidência de correção. É
+      evidência apenas de que o modelo é bom em linguagem.</p>
+    <p>A demonstração a seguir torna esse comportamento visível. Você pode tentar reproduzi-la sozinho, em um chatbot
+      gratuito em que consiga desligar a busca. O resultado varia com a ferramenta e a versão, pois alguns modelos
+      recentes respondem que não sabem.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">O modelo que inventa com confiança: o teste “Que Rei Sou Eu?”</p>
+      <p>Você se lembra da novela Que rei sou eu, de 1989? Escrita por Cassiano Gabus Mendes, a novela trata de um tema
+        antigo, pouco presente na internet e quase somente em português.</p>
+      <p>Use um modelo de linguagem com o modo busca e o modo raciocínio desligados: como o tema é antigo e tem poucas
+        referências, essa combinação deixa o modelo sem material estatístico abundante.</p>
+      <p>Faça a seguinte pergunta: pergunte qual é o nome do irmão de um personagem que, na novela, não tem irmão.</p>
+      <p>Muitas vezes, o modelo responde sem hesitar: inventa um irmão, dá-lhe um nome, atribui-lhe um ator e descreve a
+        “relação entre os dois” com riqueza de detalhes.</p>
+      <p>Repetida a mesma pergunta, a resposta muda: surge outro nome, outro ator, outra descrição. A cada tentativa,
+        uma fabricação diferente — é a marca do processo probabilístico.</p>
+      <p>Ativado o modo busca e repetida a pergunta, a resposta melhora de imediato: o modelo consulta páginas reais e
+        informa, corretamente, que não há registro de irmão para aquele personagem.</p>
+      <p>Antes de seguir em frente, você consegue identificar a falha? Clique na seta para entender melhor.</p>
+      <curso-revelar titulo="O que faltou?">
+        <p>Sem busca, o modelo não tinha como saber a resposta e, ainda assim, não disse “não sei”.
+          Previu a continuação mais plausível para a frase “o irmão dele é…” e a apresentou com a mesma segurança de uma
+          informação verdadeira.</p>
+        <p>Em uma pergunta sobre uma novela, o erro é inofensivo. A mesma falha, em uma pergunta sobre dose de
+          medicamento ou conduta clínica, não seria.</p>
+      </curso-revelar>
+    </curso-caixa>
+
+    <p>A demonstração ensina duas coisas. A primeira é que a confiança aparente de uma resposta não diz nada sobre a
+      veracidade dela. A segunda é que existem maneiras de reduzir a alucinação, e a busca é uma delas. No entanto, a
+      busca resolve apenas o problema do acesso à informação. Ela não garante que o modelo entenda o que você quer, nem
+      que entregue a resposta no formato de que você precisa.</p>
+
+    <curso-nota titulo="Resposta fluente não é resposta confiável">
+      <p>O cérebro humano tende a associar texto bem escrito a conteúdo bem fundamentado. No entanto, com modelos de
+        linguagem, essa associação é uma armadilha. O modelo escreve bem por construção — essa é sua única competência
+        garantida. Uma alucinação e um fato verdadeiro chegam até você com a mesma elegância de frase. Por isso, nunca
+        use o tom, a organização ou a segurança de uma resposta como indicador de que ela está correta. Quem julga a
+        correção é você.</p>
+    </curso-nota>
+
+    <h2>Engenharia de prompt</h2>
+    <p>Prompt é tudo o que você escreve e envia ao modelo. Cada mensagem que você digita e confirma é um prompt, seja
+      uma pergunta de uma linha, seja um texto longo com instruções detalhadas e um arquivo anexado. O prompt é o seu
+      lado da conversa.</p>
+
+    <curso-nota>
+      <p>A engenharia de prompt é a prática de formular esse texto de forma deliberada, para orientar a sequência de
+        palavras do modelo na direção do resultado que você quer.</p>
+    </curso-nota>
+
+    <p>White <i>et al.</i> (2023) propõem uma imagem útil: escrever um bom prompt é uma forma de “programar” o modelo em
+      linguagem natural, não com código, mas com instruções claras. Meskó (2023) acrescenta o ponto que torna este
+      módulo possível: trata-se de uma habilidade profissional, que pode ser aprendida por qualquer pessoa, sem nenhum
+      conhecimento técnico ou de programação. Liu <i>et al.</i> (2025), em um tutorial voltado a clínicos, resumem por
+      que o esforço compensa: a qualidade da resposta de um modelo depende fortemente da qualidade do prompt, e pequenas
+      mudanças na formulação produzem grandes variações no resultado.</p>
+    <p>Há uma frustração comum que essa prática ajuda a resolver. Muitas vezes o profissional recebe do modelo algo que
+      não queria e conclui que a ferramenta é ruim. O problema costuma ser outro: o pedido não deixou claro o que se
+      queria. O modelo não lê a sua mente. Ele não sabe quem é você, qual é o contexto, para quem a resposta se destina
+      ou em que formato ela deve sair, a menos que você diga. <strong>Engenharia de prompt é, em boa medida, a
+        disciplina de dizer o que se quer com clareza e contexto.</strong></p>
+
+    <curso-caixa tipo="leitura">
+      <p>Para aprofundar o tema indicamos dois tutoriais em acesso aberto de engenharia de prompt para a saúde que são
+        especialmente úteis:</p>
+      <p>Meskó (2023), <a href="https://www.jmir.org/2023/1/e50638" target="_blank" rel="noopener"><strong><em>Prompt
+              Engineering as an Important Emerging Skill for Medical
+              Professionals</em></strong></a> — uma introdução acessível, que trata a engenharia de prompt como
+        competência profissional;</p>
+      <p>Liu <i>et al.</i> (2025), <a href="https://www.jmir.org/2025/1/e72644" target="_blank"
+          rel="noopener"><strong><em>Prompt Engineering in Clinical Practice: Tutorial for
+              Clinicians</em></strong></a> — um tutorial mais aplicado, com exemplos clínicos e um quadro de técnicas
+        por tipo de tarefa.</p>
+    </curso-caixa>
+
+    <h2>O método PaCTO</h2>
+    <p>A engenharia de prompt fica mais simples quando se tem um método. O método que você irá conhecer agora chama-se
+      PaCTO, acrônimo que reúne os quatro blocos de um prompt bem estruturado:</p>
+
+    <curso-figura larga src="img/a1-metodo-pacto.webp"
+      alt="Linha com quatro círculos coloridos: Pa (Papel), C (Contexto), T (Tarefa) e O (Output)."></curso-figura>
+
+    <p>A ordem importa e cada bloco prepara o terreno para o seguinte. O PaCTO não é uma invenção isolada. White <i>et
+        al.</i> (2023) catalogam padrões de prompt cujos nomes correspondem a esses blocos: o padrão Persona equivale ao
+      Papel, o Context Manager ao Contexto e o Template ao Output. Liu <i>et al.</i> (2025) chegam aos mesmos
+      componentes em chave clínica, ao orientar o profissional a definir a tarefa, o público e o formato da saída e a
+      fornecer contexto relevante.</p>
+    <p>Meskó (2023) chega de forma independente aos mesmos blocos, ao recomendar que se peça ao modelo para assumir um
+      papel, que se descreva o cenário e o contexto e que se identifique o objetivo do pedido.</p>
+    <p>O PaCTO organiza essas peças de forma mnemônica, em uma sequência fácil de lembrar. A tabela a seguir resume os
+      quatro blocos e a pergunta que cada um responde:</p>
+
+    <curso-tabela listrada>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Bloco</th>
+            <th scope="col">O que é</th>
+            <th scope="col">Pergunta-guia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Papel</th>
+            <td>A persona ou especialidade que o modelo deve assumir.</td>
+            <td>Quem o modelo deve “ser” para responder bem?</td>
+          </tr>
+          <tr>
+            <th scope="row">Contexto</th>
+            <td>As informações de fundo: situação, público, materiais.</td>
+            <td>O que o modelo precisa saber antes de começar?</td>
+          </tr>
+          <tr>
+            <th scope="row">Tarefa</th>
+            <td>A descrição do que fazer, com passos numerados se houver sequência.</td>
+            <td>O que, exatamente, o modelo deve fazer?</td>
+          </tr>
+          <tr>
+            <th scope="row">Output</th>
+            <td>Formato, extensão, tom e estilo da resposta.</td>
+            <td>Como a resposta deve sair?</td>
+          </tr>
+        </tbody>
+      </table>
+    </curso-tabela>
+
+    <h3>Pa - papel</h3>
+    <p>O primeiro bloco atribui ao modelo um papel: “Você é um especialista em…”, “Você é um profissional experiente
+      em…”. A instrução parece simples e tem efeito real, mas não exatamente o que se costuma imaginar.</p>
+    <p>O modelo foi treinado em texto sobre quase tudo: economia, esporte, astrofísica, fisiologia, direito. Quando ele
+      recebe seu pedido, não sabe de antemão a qual campo do conhecimento a conversa pertence. Ao começar o prompt
+      definindo um papel, você estreita o leque logo na primeira palavra: o modelo passa a gerar tokens já orientado
+      para o vocabulário, o tom, o nível de detalhe e as prioridades daquele campo, por exemplo mais cautela ou mais
+      objetividade.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Pedir a um modelo que “aja como um farmacêutico clínico” desloca toda a resposta para o registro da farmácia
+        clínica, antes mesmo de você dizer qual é a tarefa.</p>
+    </curso-caixa>
+
+    <p>O papel deve ser específico o bastante para ser útil. “Você é um profissional de saúde” orienta pouco. “Você é um
+      enfermeiro experiente em educação em saúde na atenção primária” orienta muito.</p>
+    <p>O que o papel não faz é tornar o modelo mais competente. Estudos que testaram mais de uma centena de papéis, em
+      diferentes modelos e tarefas, não encontraram ganho consistente de acerto ao acrescentar uma persona ao pedido: o
+      efeito costuma ser nulo ou pequeno, varia de um modelo para outro, e detalhes irrelevantes da persona chegam a
+      derrubar o desempenho (Zheng <i>et al.</i>, 2024; Luz de Araujo <i>et al.</i>, 2025). Escrever “você é um
+      enfermeiro experiente em educação em saúde” faz a resposta sair na linguagem certa, mas não faz o modelo saber
+      mais enfermagem. A exatidão depende do Contexto que você fornece e da conferência que você faz.</p>
+
+    <curso-nota titulo="O papel pode mudar a conduta sugerida.">
+      <p>Em temas clínicos, o papel pode mudar não só a forma da resposta, mas também a conduta que ela sugere. Com os
+        mesmos dados de cada caso, papéis de médico com estilos de decisão diferentes levaram modelos de linguagem a
+        recomendar condutas diferentes (Klang <i>et al.</i>, 2026). Use o Papel para definir perspectiva e público,
+        nunca como garantia de qualidade.</p>
+    </curso-nota>
+
+    <h3>C - contexto</h3>
+    <p>O segundo bloco fornece ao modelo as informações de fundo. É, em geral, o bloco mais longo e o mais
+      negligenciado. Aqui você descreve a situação: quem é você, onde atua, qual é o problema, quem é o público da
+      resposta, quais materiais estão disponíveis.</p>
+    <p>A regra prática é generosa: forneça todo o contexto que você tiver paciência de escrever. O modelo não tem acesso
+      à sua realidade. Ele não sabe que o paciente é idoso, que a unidade fica em zona rural, que o material será lido
+      em voz alta. <strong>Cada informação que você omite é uma informação que o modelo vai preencher com uma suposição
+        genérica</strong>, e suposições genéricas são a origem de boa parte das respostas que “não servem”.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>O contexto também é a seção na qual você aponta para materiais externos. Se anexou um arquivo, diga-o no
+        prompt: “em anexo, o protocolo clínico que serve de base”. Se há um documento de referência, indique-o.</p>
+    </curso-caixa>
+
+    <p>O modelo só pode usar o que você torna disponível, e usa melhor o que você sinaliza.</p>
+
+    <h3>T - tarefa</h3>
+    <p>O terceiro bloco descreve o que o modelo deve fazer. Depois de estabelecer quem ele é e o que sabe, você diz qual
+      é o trabalho: “resuma”, “elabore”, “compare”, “reescreva”.</p>
+    <p>Quando a tarefa tem várias etapas, numere-as. A numeração comunica ao modelo que existe uma sequência e reduz a
+      chance de uma etapa ser esquecida ou fundida a outra.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Um pedido como <strong><em>“1. liste os exames necessários; 2. explique o preparo de cada um; 3. organize por
+            ordem de coleta”</em></strong> é mais confiável do que a mesma instrução escrita em um parágrafo corrido.
+      </p>
+    </curso-caixa>
+
+    <p>A tarefa deve ser concreta e verificável. <strong><em>“Ajude com a orientação do paciente”</em></strong> é vago.
+      <strong><em>“Escreva uma orientação de preparo para o exame, cobrindo jejum, alimentação e o que levar no
+          dia”</em></strong> é uma tarefa que o modelo pode executar e que você pode conferir.
+    </p>
+
+    <h3>O - output</h3>
+    <p>O quarto bloco descreve o formato da saída: como você quer que a resposta seja entregue. Extensão (número de
+      palavras, de linhas, de parágrafos), estrutura (lista numerada, tabela, texto corrido), tom (formal, acessível,
+      técnico) e estilo (um relatório, um e-mail, um material para o paciente).</p>
+    <p>O Output é o bloco que separa uma resposta “tecnicamente certa, mas inútil” de uma resposta aproveitável. Um
+      modelo pode produzir uma orientação clínica correta em quinze parágrafos densos quando você precisava de uma lista
+      de cinco passos em linguagem simples. O conteúdo estava certo; o formato, não. Dizer o formato desde o início
+      evita o retrabalho.</p>
+
+    <curso-figura larga src="img/a1-pacto-exemplo.webp" alt="Exemplo do PaCTO em quatro setas, descrito a seguir.">
+      <curso-audiodescricao>
+        <p>Quatro setas em sequência, cada uma com um balão de exemplo. Papel — Quem a IA deve ser? Você é um enfermeiro
+          de uma Unidade Básica de Saúde (UBS). Contexto — Qual é a situação? A UBS realizará uma ação educativa sobre
+          prevenção da dengue para a comunidade. Tarefa — O que ela deve fazer? Elabore um roteiro para uma fala de
+          cinco minutos. Output — Como deve responder? Resposta em tópicos, com linguagem simples e acessível.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>A imagem geral é a de uma conversa com um colega competente, mas que acabou de chegar e não conhece o seu
+      trabalho. Você lhe diz qual é a sua especialidade (Papel), explica a situação e o paciente (Contexto), pede o que
+      precisa (Tarefa) e combina como quer receber o resultado (Output). O modelo responde melhor pela mesma razão que
+      esse colega responderia: porque você lhe deu o que ele precisava para ajudar.</p>
+    <p>O quadro a seguir mostra o PaCTO em forma de modelo reutilizável. Ele está escrito em
+      <curso-termo titulo="Markdown"><strong>markdown</strong><curso-definicao>O markdown é um modo de formatar texto
+          com poucos símbolos, usado em prompts mais estruturados.</curso-definicao></curso-termo>,
+      uma forma simples de organizar texto com títulos, que você irá conhecer. Por ora, basta saber que os símbolos #
+      apenas marcam os títulos dos blocos.
+    </p>
+
+    <ul class="lista-setas lista-setas--espacada modelo-prompt">
+      <li><strong># Papel</strong><br>Você é [especialista ou profissional] em [área de atuação].</li>
+      <li><strong># Contexto</strong><br>[Quem é você, onde atua, qual é a situação, quem é o público da resposta e
+        quais materiais estão anexados ou disponíveis.]</li>
+      <li><strong># Tarefa</strong><br>[O que o modelo deve fazer. Se houver uma sequência de etapas, numere-as:]<br>1.
+        …<br>2. …<br>3. …</li>
+      <li><strong># Output</strong><br>[Formato, extensão, tom e estilo da resposta desejada.]</li>
+    </ul>
+
+    <h2>Utilizando o método PaCTO para criar um prompt estruturado</h2>
+    <p>Para ver a diferença que o método produz, compare dois pedidos para a mesma tarefa:</p>
+    <p class="quadro-tracejado">Orientar um paciente sobre o preparo de uma ultrassonografia de abdome.</p>
+    <p>O primeiro é o pedido que a maioria das pessoas escreveria por reflexo: <i>como preparar para ultrassom de
+        abdome?</i></p>
+    <p>O modelo responde a esse prompt. A resposta vem em linguagem técnica, dirigida a um leitor genérico, e pode
+      misturar recomendações de exames diferentes, porque o preparo varia e o pedido não disse de qual ultrassonografia
+      se trata nem para quem a orientação se destina. O resultado é tecnicamente plausível e operacionalmente pouco
+      útil.</p>
+    <p>O segundo pedido aplica o PaCTO:</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Papel">
+        <p>Você é um profissional de saúde experiente em comunicação com pacientes na atenção primária.</p>
+      </curso-item>
+      <curso-item titulo="Contexto">
+        <p>Atendo em uma Unidade de Saúde da Família. Preciso orientar um paciente de 70 anos, com
+          baixa escolaridade e dificuldade de leitura, que fará uma ultrassonografia de abdome total daqui a uma semana.
+          Ele mora longe da unidade e tem pouco acesso à internet.</p>
+      </curso-item>
+      <curso-item titulo="Tarefa">
+        <p>Escreva uma orientação de preparo para esse exame. Inclua:</p>
+        <ol>
+          <li>O tempo de jejum necessário.</li>
+          <li>O que ele pode e o que não pode comer e beber antes.</li>
+          <li>A recomendação sobre a bexiga.</li>
+          <li>O que levar no dia do exame.</li>
+        </ol>
+      </curso-item>
+      <curso-item titulo="Output">
+        <p>Use frases curtas e linguagem simples, sem termos técnicos. Organize como uma lista de passos numerados, em
+          no máximo 150 palavras. O texto deve poder ser lido em voz alta para o paciente.</p>
+      </curso-item>
+    </curso-carrossel>
+
+    <p>A resposta a esse segundo prompt é específica, ordenada e adequada ao paciente real: passos curtos, vocabulário
+      acessível, foco no que aquela pessoa precisa fazer. O conteúdo clínico não mudou. O que mudou foi a quantidade de
+      direção que o modelo recebeu. Se o serviço que fará o exame tiver instruções próprias de preparo, anexe-as e peça
+      ao modelo que as adapte ao paciente, em vez de gerá-las, pois sobra menos coisa para conferir.</p>
+    <p>Liu <i>et al.</i> (2025) descrevem exatamente esse contraste: um pedido vago e sua versão rica em contexto
+      clínico produzem respostas de qualidade muito diferente.</p>
+
+    <h2>Refinando o prompt: restrições e exemplos</h2>
+    <p>O PaCTO entrega um prompt bem estruturado. Dois recursos adicionais permitem refiná-lo, ajustando o comportamento
+      do modelo com mais precisão: as restrições e os exemplos.</p>
+
+    <h3>Restrições e regras</h3>
+    <p>Restrições são instruções sobre limites, ou seja, o que o modelo pode e o que não pode fazer. Elas costumam
+      entrar no bloco Tarefa ou no bloco <i>Output</i> (ou podem constituir um novo bloco antes de <i>Output</i>), e
+      tornam explícito aquilo que, sem menção, ficaria a critério do modelo.</p>
+    <p>Uma restrição diz o que evitar: <i>“não use termos técnicos”, “não inclua dosagens de medicamentos”, “não invente
+        dados que não estejam no contexto fornecido”</i>. Outra diz o que priorizar: <i>“prefira exemplos da atenção
+        primária”, “mantenha um tom acolhedor”</i>. Uma terceira registra ressalvas: <i>“se a informação não estiver no
+        material anexado, sinalize isso em vez de completar por conta própria.”</i></p>
+    <p>Restrições são úteis justamente porque o modelo, sem elas, segue o caminho estatisticamente mais provável, que
+      pode não ser o que você quer. Pedir “não inclua dosagens” a um modelo que tende a incluí-las é uma forma simples
+      de evitar uma resposta inadequada antes que ela seja gerada.</p>
+
+    <h3>Técnica few-shot</h3>
+    <p>A segunda forma de refinamento é mostrar ao modelo um ou mais exemplos do resultado esperado. Quando o prompt não
+      traz exemplo algum, fala-se em <i>zero-shot:</i> o modelo trabalha apenas com a instrução. Quando o prompt traz um
+      exemplo, é <i>one-shot</i>; quando traz alguns, <i>few-shot</i>.</p>
+    <p>A técnica funciona por um fenômeno chamado aprendizagem em contexto (<i>in-context learning</i>), descrito por
+      Brown <i>et al.</i> (2020): ao receber alguns pares de entrada e saída, o modelo identifica o padrão e o reproduz
+      para um novo caso, sem nenhum ajuste interno, apenas a partir dos exemplos presentes no prompt.</p>
+    <p>É a forma mais direta de comunicar um formato: em vez de descrevê-lo, você o demonstra. Meskó (2023) e Liu <i>et
+        al.</i> (2025) recomendam o uso de <i>one-shot</i> e <i>few-shot</i> justamente para padronizar o formato de
+      saídas em tarefas clínicas repetitivas.</p>
+    <p>O prompt a seguir ilustra a técnica. A tarefa é resumir um atendimento em um formato fixo de três campos. Em vez
+      de descrever o formato, o prompt mostra dois exemplos e pede que o terceiro caso siga o mesmo padrão.</p>
+    <p>Você é um profissional de saúde experiente. Resuma cada atendimento no formato fixo a seguir. Siga exatamente o
+      padrão dos exemplos.</p>
+
+    <curso-carrossel>
+      <curso-item titulo="Exemplo 1">
+        <p>Atendimento: paciente refere dor de garganta há dois dias, sem febre. Orientado repouso e hidratação.
+          Retornar se houver febre ou piora.</p>
+        <p>Resumo:</p>
+        <ul>
+          <li>Queixa: dor de garganta, 2 dias, sem febre.</li>
+          <li>Conduta: repouso e hidratação.</li>
+          <li>Sinal de alerta para retorno: febre ou piora.</li>
+        </ul>
+      </curso-item>
+      <curso-item titulo="Exemplo 2">
+        <p>Atendimento: paciente com cefaleia leve, associada a privação de sono. Orientada higiene do sono. Retornar se
+          houver cefaleia intensa ou sintomas neurológicos.</p>
+        <p>Resumo:</p>
+        <ul>
+          <li>Queixa: cefaleia leve, associada a privação de sono.</li>
+          <li>Conduta: orientação de higiene do sono.</li>
+          <li>Sinal de alerta para retorno: cefaleia intensa ou sintomas neurológicos.</li>
+        </ul>
+      </curso-item>
+    </curso-carrossel>
+
+    <p>Agora resuma este atendimento, no mesmo formato:</p>
+    <p><i>Atendimento: paciente com tosse seca há cinco dias, sem febre e sem falta de ar. Orientada hidratação e
+        observação. Retornar se febre, falta de ar ou tosse com secreção.</i></p>
+    <p>O modelo responde reproduzindo a estrutura de três campos — Queixa, Conduta, Sinal de alerta para retorno — para
+      o novo atendimento. Ninguém precisou descrever a estrutura: os exemplos a comunicaram. Os atendimentos do exemplo
+      são curtos para caber na tela; na rotina, a técnica rende quando a anotação original é longa e o resumo
+      padronizado poupa leitura.</p>
+
+    <curso-nota>
+      <p>Em tarefas repetitivas, como padronizar resumos ou organizar registros, o <i>few-shot</i> economiza explicação
+        e aumenta a consistência das saídas.</p>
+    </curso-nota>
+
+    <h3>Regra dos 10 a 20%</h3>
+    <p>Até aqui, você conheceu o PaCTO, as restrições e os exemplos. Resta a pergunta de julgamento: usar tudo isso,
+      sempre? A resposta é “não”, e saber quando não usar é tão importante quanto saber o método.</p>
+    <p>A maior parte dos prompts do dia a dia são pedidos rápidos. Uma pergunta pontual, uma definição, uma conversão de
+      unidade, uma dúvida simples: pela nossa estimativa, algo como 80% a 90% das interações do dia a dia (uma regra
+      prática, não uma medida).</p>
+    <p>Para esses casos, a pergunta direta, sem estrutura, é adequada e eficiente. Liu <i>et al.</i> (2025) descrevem o
+      <i>zero-shot</i> — a pergunta direta, sem exemplos — como a abordagem apropriada para consultas rápidas e gerais.
+      Montar um PaCTO completo para perguntar “o que significa a sigla RENAME?” seria desperdício de esforço.
+    </p>
+    <p>O método compensa nos 10% a 20% restantes: as tarefas que têm pelo menos uma destas três características:</p>
+    <ul class="lista-setas">
+      <li>São complexas: envolvem várias etapas ou exigem cuidado.</li>
+      <li>São específicas: dependem de um contexto que o modelo não tem como adivinhar.</li>
+      <li>São repetitivas: você vai refazê-las muitas vezes, e um prompt bem montado pode ser reaproveitado.</li>
+    </ul>
+    <p>Elaborar um material educativo para um perfil determinado de paciente, redigir o rascunho de um documento,
+      padronizar um tipo de resumo: nesses casos, o tempo investido em estruturar o prompt retorna em qualidade e em
+      retrabalho evitado.</p>
+
+    <curso-caixa tipo="refletir">
+      <p>A engenharia de prompt não torna o modelo confiável; torna-o mais dirigível. São coisas diferentes.</p>
+      <p>Um prompt bem construído aumenta a chance de a resposta ser útil e adequada ao que você precisava, mas não
+        garante que ela seja verdadeira. O modelo prevê palavras prováveis, e o provável nem sempre é o correto.</p>
+      <p>Então, se eu sei dirigir melhor a conversa, de quem passa a ser a responsabilidade pelo destino dela?</p>
+    </curso-caixa>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+
+</html>

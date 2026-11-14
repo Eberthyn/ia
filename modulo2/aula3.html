@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+
+<body>
+  <curso-pagina>
+    <h1>Aplicações práticas da IA na rotina em saúde</h1>
+
+    <p>Tudo o que um modelo de linguagem gera para uso clínico deve ser tratado como um rascunho preliminar. Liu <i>et
+        al.</i> (2025) formulam o ponto de forma direta: a saída inicial de um LLM deve ser vista como um rascunho que
+      requer avaliação estruturada e refinamento antes de qualquer uso. O profissional revisa, corrige e assume a
+      autoria do que sai. A IA adianta o trabalho; não o conclui.</p>
+    <p>Esse princípio se apoia firmemente em evidência: Bracken <i>et al.</i> (2025), em revisão sistemática de onze
+      estudos sobre sistemas de documentação clínica apoiados por IA, encontraram que a qualidade do texto gerado varia
+      de forma considerável entre estudos e tipos de documento, e que os sistemas produzem alucinações — informação
+      fabricada apresentada como fato — em parte dos casos. Os autores concluem que a variabilidade da qualidade
+      compromete os ganhos de eficiência, e que a avaliação contínua da saída é condição para uso seguro. Em outras
+      palavras: o que a IA produz é útil e pode poupar tempo, mas não é confiável o bastante para dispensar a
+      conferência.</p>
+    <p>O princípio “rascunho, não versão final” deixa de ser recomendação e passa a ser exigência. A consequência
+      prática atravessa as três aplicações. Em cada uma delas, o fluxo é o mesmo: <strong>a IA gera, o profissional
+        confere, o profissional assina</strong>.</p>
+    <p>A diferença entre os usos está em o que se confere e contra o que se confere — e é isso que vamos compreender a
+      seguir.</p>
+
+    <h2>Aplicação 1: Transcrição estruturada de exames</h2>
+    <p>A primeira aplicação resolve um problema corriqueiro e silencioso: o tempo gasto para organizar resultados de
+      exames que chegam em formatos variados — um PDF de laboratório, uma foto de papel, um texto colado de um sistema
+      antigo. Cada fonte tem seu layout, sua ordem, suas unidades. Reunir tudo em um formato único e legível é trabalho
+      repetitivo, e é exatamente o tipo de tarefa em que a IA rende.</p>
+
+    <h3>O problema: resultados dispersos e sem padrão</h3>
+    <p>Um paciente com uma condição crônica acumula exames ao longo do tempo. Os resultados vêm de laboratórios
+      diferentes, cada um com sua apresentação. Comparar a evolução de um parâmetro — a creatinina nos últimos seis
+      meses, por exemplo — exige garimpar valores espalhados por documentos heterogêneos. A informação existe, mas está
+      dispersa, e a dispersão consome o tempo da consulta.</p>
+    <p>A IA pode receber esses resultados e devolvê-los em um formato que você define: uma tabela com os campos que
+      interessam, na ordem que faz sentido, com as unidades de cada laudo. O ganho não está em a IA “ler” o exame — está
+      em ela reorganizar, sob comando, o que você já tem.</p>
+    <p>A chave desta aplicação é o bloco <i>Output</i> do PaCTO. Aqui, o <i>Output</i>, mais do que um “formato de
+      texto”, é um esquema de saída — a especificação exata dos campos e da ordem que a tabela deve conter. Você
+      descreve o molde, o modelo o preenche com os dados fornecidos.</p>
+    <p>Esse procedimento tem nome na literatura: White <i>et al.</i> (2023), em seu catálogo de padrões de prompt,
+      descrevem o padrão <i>Template</i>: o usuário fornece um molde com lacunas e instrui o modelo a encaixar o
+      conteúdo nesse molde, preservando a estrutura. Definir o esquema de saída de uma transcrição de exame é aplicar
+      esse padrão a uma tarefa clínica.</p>
+    <p>Quanto mais explícito o esquema, melhor o resultado. Liu <i>et al.</i> (2025) elevam a explicitação e a
+      especificidade a princípio central da engenharia de prompt clínica: um pedido vago produz saída vaga.</p>
+    <p>Um esquema bem especificado declara, por exemplo: uma coluna para o nome do parâmetro, uma para o valor, uma para
+      a unidade, uma para o intervalo de referência e uma para a data; a ordem dos parâmetros; o que fazer quando um
+      dado não constar na fonte (deixar em branco, nunca inventar).</p>
+
+    <curso-caixa tipo="cenario">
+      <p><span class="cenario__titulo">Esquema definido no prompt (Output):</span><br>
+        <i>“Organize os resultados a seguir em uma tabela com as colunas: Exame | Resultado | Unidade | Valor de
+          referência | Data. Mantenha a ordem em que aparecem. Quando um campo não constar no material, deixe-o vazio —
+          não preencha por estimativa.”</i>
+      </p>
+      <p><strong>Entrada (colada pelo profissional, já sem identificação):</strong></p>
+      <p><strong>HEMOGRAMA</strong><br>
+        Hemoglobina: 12,1 g/dL (referência: 12,0 a 15,5 g/dL).<br>
+        Hematócrito: 36,8% (referência: 36 a 46%).<br>
+        Leucócitos: 7.200/mm³ (referência: 4.000 a 11.000/mm³).<br>
+        Plaquetas: 245.000/mm³ (referência: 150.000 a 450.000/mm³).</p>
+      <p><strong>BIOQUÍMICA</strong><br>
+        Glicemia de jejum: 132 mg/dL (referência: 70 a 99 mg/dL).<br>
+        Creatinina: 1,4 mg/dL (referência: 0,5 a 1,1 mg/dL).<br>
+        Ureia: 52 mg/dL.</p>
+      <p>Data da coleta: 12/03.</p>
+      <p><strong>Saída</strong></p>
+      <curso-tabela class="tabela-cenario">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Exame</th>
+              <th scope="col">Resultado</th>
+              <th scope="col">Unidade</th>
+              <th scope="col">Valor de referência</th>
+              <th scope="col">Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Hemoglobina</th>
+              <td>12,1</td>
+              <td>g/dL</td>
+              <td>12,0 a 15,5</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Hematócrito</th>
+              <td>36,8</td>
+              <td>%</td>
+              <td>36 a 46</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Leucócitos</th>
+              <td>7.200</td>
+              <td>/mm³</td>
+              <td>4.000 a 11.000</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Plaquetas</th>
+              <td>245.000</td>
+              <td>/mm³</td>
+              <td>150.000 a 450.000</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Glicemia de jejum</th>
+              <td>132</td>
+              <td>mg/dL</td>
+              <td>70 a 99</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Creatinina</th>
+              <td>1,4</td>
+              <td>mg/dL</td>
+              <td>0,5 a 1,1</td>
+              <td>12/03</td>
+            </tr>
+            <tr>
+              <th scope="row">Ureia</th>
+              <td>52</td>
+              <td>mg/dL</td>
+              <td></td>
+              <td>12/03</td>
+            </tr>
+          </tbody>
+        </table>
+      </curso-tabela>
+      <p>Repare na ureia: o laudo não trazia referência, e a tabela deixou o campo vazio em vez de inventar um valor.
+      </p>
+      <p><strong>O que a IA fez:</strong> não interpretou os resultados nem sugeriu condutas — apenas reorganizou, no
+        molde pedido, o que recebeu. A leitura clínica continua sendo do profissional.</p>
+    </curso-caixa>
+
+    <p>Há um cuidado que precede esta aplicação e todas as outras: os dados que identificam o paciente não devem ser
+      inseridos no modelo.</p>
+    <p>Repare que, no exemplo anterior, a entrada foi descrita como “já sem identificação”. Para transcrever um exame, a
+      IA precisa dos valores, das unidades e das datas — não do nome, do número do prontuário ou do CPF de quem fez o
+      exame. <strong>Remover o que identifica, antes de colar, não prejudica a tarefa e é a principal proteção do
+        paciente.</strong> Identificar não é só o nome: uma data exata, um endereço, uma condição rara ou uma combinação
+      de detalhes também pode revelar quem é a pessoa. Antes de enviar, pergunte-se se alguém conseguiria reconhecê-la
+      pelo que está escrito; se sim, retire ou generalize (por exemplo, a idade em vez da data de nascimento). Existem
+      legislações para garantir a privacidade de dados, e você irá conhecer mais sobre o tema nos próximos módulos.</p>
+    <p>Antes de colar, pense em como os resultados vão chegar à ferramenta, porque cada caminho pede um cuidado próprio:
+    </p>
+    <ul class="lista-setas">
+      <li>Laudo digital com texto, como o PDF enviado pelo laboratório ou o resultado exibido em um sistema: é o caminho
+        mais simples. Copie o texto, apague o que identifica o paciente e cole na conversa.</li>
+      <li>Laudo em papel, ou PDF que é só imagem: se a ferramenta aceita imagens, fotografe apenas os trechos com os
+        resultados e as datas, enquadrando a foto de modo que nenhum dado que identifique o paciente apareça nela (no
+        computador, uma captura de tela recortada faz o mesmo). Esse caminho compensa quando os resultados estão
+        concentrados em poucas páginas; fotografar vinte páginas para reunir vinte resultados não poupa tempo. Depois de
+        usar, apague as fotos do aparelho.</li>
+      <li>Muitas páginas com poucos resultados cada: ditar os valores pode ser mais rápido do que fotografar ou digitar.
+        Use o recurso de ditado do celular ou da própria ferramenta. Diga o exame, o valor, a unidade e a data, e nunca
+        o nome do paciente.</li>
+    </ul>
+    <p>Nos três caminhos, a conferência item a item contra o laudo original continua obrigatória, e pesa ainda mais
+      quando a ferramenta leu uma foto ou transcreveu um ditado, porque um número pode ser lido ou ouvido errado.
+      Digitar todos os resultados à mão só para a IA organizá-los raramente compensa: é justamente o trabalho que a
+      aplicação deveria poupar.</p>
+    <p>A tabela sai na própria conversa. Para levá-la ao prontuário ou a um documento de acompanhamento, copie, cole e
+      confira se a formatação se manteve. Se o destino só aceita texto simples, peça esse formato no Output (por
+      exemplo, uma linha por exame).</p>
+
+    <h2>Aplicação 2: Rascunhos de documentos clínicos</h2>
+    <p>A segunda aplicação é a que a literatura mais estudou e a que melhor ilustra, ao mesmo tempo, o ganho e o risco
+      da IA na rotina. Relatórios (para benefícios, perícias ou a escola) e encaminhamentos: documentos que tomam tempo,
+      seguem uma estrutura previsível e se repetem.</p>
+    <p>É terreno fértil para a IA — e terreno em que o princípio do rascunho precisa ser levado a sério. Cada tipo de
+      documento tem uma estrutura própria. Um encaminhamento precisa de identificação do serviço de destino, motivo,
+      resumo do quadro e a pergunta clínica que se quer responder. Um relatório para fins de benefício tem elementos
+      formais distintos.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Em vez de redigir cada documento do zero, vale construir um template de prompt por tipo — um prompt PaCTO
+        reutilizável, em que o Papel e o Output ficam fixos e só o Contexto do caso muda a cada uso.</p>
+      <p>O lugar natural desse template é um projeto: as partes fixas ficam nas instruções do projeto, e o caso de cada
+        paciente vai na conversa, uma conversa nova para cada paciente. Algumas ferramentas deixam as conversas de um
+        mesmo projeto consultarem umas às outras, ou guardam uma memória do usuário entre conversas; se a sua tiver esse
+        recurso, desligue-o neste projeto. Ainda assim, confira se nada de outro caso entrou no rascunho.</p>
+      <p>Vale incluir nas instruções um pedido para que o modelo liste, ao fim de cada rascunho, os dados que esse tipo
+        de documento deveria ter e que não estavam no material colado. Essa lista mostra as lacunas das suas anotações;
+        não mostra o que o rascunho deixou de fora delas — isso só a conferência item a item revela.</p>
+    </curso-caixa>
+
+    <p>A evidência sobre o ganho é consistente. Bracken <i>et al.</i> (2025) encontraram que, em todos os estudos que
+      mediram tempo de documentação, o uso de IA reduziu esse tempo. O maior ganho apareceu justamente nos casos
+      clínicos mais complexos — em um dos estudos, a economia chegou a cerca de um terço do tempo no caso mais complexo
+      da amostra.</p>
+    <p>E essa redução tem consequência além do relógio: como a sobrecarga de documentação é um dos principais fatores
+      associados ao esgotamento profissional, os autores observam que a diminuição da carga documental se associa a
+      melhores indicadores de burnout. <strong>Aliviar a burocracia devolve tempo ao cuidado.</strong></p>
+    <p>A mesma revisão que documenta o ganho documenta o limite — e os dois andam juntos. Bracken <i>et al.</i> (2025)
+      registram que a qualidade dos documentos gerados variou entre os estudos e que foram identificadas alucinações,
+      com taxas que a literatura situa entre 3% e 28%. Mais revelador para a prática: no estudo da revisão que
+      classificou os erros, as omissões — informação que deveria constar e foi deixada de fora — foram 86% do total,
+      muito à frente dos acréscimos e dos fatos incorretos.</p>
+    <p>Esse achado tem uma implicação direta sobre como conferir. O erro mais traiçoeiro da IA em documentos clínicos
+      não é escrever algo errado de forma evidente; é deixar de escrever algo que importava. E uma omissão é mais
+      difícil de notar do que um erro explícito: o texto parece completo, lê-se bem, nada salta aos olhos — exceto o que
+      não está lá. Por isso a conferência de um documento gerado por IA não pode ser uma leitura passiva à procura de
+      erros visíveis. Tem de ser uma conferência item a item contra a fonte: cada dado que deveria constar foi conferido
+      como presente? O quadro do paciente está completo, ou a versão fluente escondeu uma lacuna?</p>
+    <p>Isso muda o modo de revisar. Perceba que um dado errado tende a chamar atenção, mas um dado ausente, não.</p>
+
+    <curso-nota>
+      <p>O texto omisso é fluente, coerente e aparentemente completo. Conferir, aqui, não é reler à espera de um erro
+        óbvio: é checar, contra a fonte e contra o que você sabe do caso, se tudo o que deveria estar presente está
+        presente. Antes de assinar, pergunte-se o que faltou — não apenas o que está errado.</p>
+      <p>O documento gerado pela IA é um rascunho. A versão final é a que o profissional revisa e assina. E a
+        responsabilidade pelo conteúdo é integralmente de quem assina — a assinatura não certifica que a IA acertou,
+        certifica que o profissional conferiu.</p>
+    </curso-nota>
+
+    <p>O exemplo a seguir mostra o ciclo completo.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Uma médica de uma unidade básica precisa encaminhar uma paciente fictícia à
+        cardiologia.</p>
+      <p>Ela cola no chatbot as anotações das últimas consultas, copiadas do prontuário e sem dados que a identifiquem,
+        e pede um rascunho de encaminhamento no formato habitual do serviço.</p>
+      <p>A IA devolve um texto bem estruturado e de leitura fácil. Na conferência item a item, a médica nota o que
+        faltou: o rascunho registrou a hipertensão e a dispneia, mas omitiu os episódios de dor torácica que motivaram o
+        encaminhamento e não incluiu a pergunta clínica dirigida ao especialista.</p>
+      <p>Eram, justamente, omissões — o tipo de erro que mais apareceu no estudo citado. A médica acrescenta a dor
+        torácica, formula a pergunta ao cardiologista, ajusta um termo e então assina.</p>
+      <p>Você consegue identificar o que aconteceu? Clique na seta para entender melhor.</p>
+      <curso-revelar titulo="O que o exemplo mostra?">
+        <p>A IA produziu um rascunho competente e poupou a redação inicial; a conferência ativa, atenta
+          ao que poderia ter ficado de fora, transformou o rascunho em documento. O ganho de tempo foi real; a revisão,
+          indispensável.</p>
+      </curso-revelar>
+    </curso-caixa>
+
+    <h2>Aplicação 3: Materiais educativos personalizados</h2>
+    <p>A terceira aplicação é a que melhor explora uma capacidade própria dos modelos de linguagem: ajustar a forma de
+      dizer uma mesma coisa a interlocutores diferentes. Orientar um paciente sobre sua condição é parte central do
+      cuidado, e a eficácia dessa orientação depende de ela ser compreendida por aquele paciente, com seu letramento,
+      sua idade, seu contexto de vida.</p>
+    <p>Roustan e Bastardot (2025) reconhecem, entre os usos promissores do LLM em saúde, <strong>a capacidade de adaptar
+        a informação ao nível de compreensão do paciente</strong>, com potencial de melhorar a educação terapêutica e a
+      adesão ao tratamento. Um mesmo conteúdo clínico — o que é a hipertensão, por que tratar, como tomar a medicação —
+      pode ser reescrito para um adolescente, para uma pessoa idosa com baixa escolaridade, para alguém com formação
+      superior. A IA faz essa adaptação de registro com facilidade, quando você diz para quem está escrevendo.</p>
+    <p>Liu <i>et al.</i> (2025) descrevem o <i>one-shot prompting</i> — fornecer um único exemplo que serve de molde —
+      como especialmente útil para gerar material de educação do paciente. O exemplo que os autores apresentam é
+      exatamente este: mostra-se ao modelo uma explicação curta e acessível de uma condição (“diabetes é uma condição em
+      que o corpo tem dificuldade de controlar o açúcar no sangue…”) e pede-se que ele explique outra condição no mesmo
+      estilo. O exemplo fixa o tom, a extensão e o nível de linguagem; o modelo replica esse padrão para o novo
+      conteúdo.</p>
+    <p>Personalizar vai além de simplificar o vocabulário. Um bom material educativo considera a idade, a condição
+      clínica, a escolaridade e o contexto de vida de quem vai lê-lo. As mesmas orientações sobre alimentação valem
+      pouco se ignoram o que o paciente tem acesso a comprar; as recomendações de atividade física precisam caber na
+      realidade de quem as recebe. Quando você fornece esse contexto no prompt, o material muda de fato — não apenas no
+      vocabulário, mas no conteúdo do que se recomenda.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Uma enfermeira precisa de material educativo sobre controle glicêmico para dois
+        pacientes fictícios com diabetes.</p>
+      <ul>
+        <li>Paciente A: adolescente de 15 anos, recém-diagnosticado com diabetes tipo 1, estudante, com bom acesso à
+          informação.</li>
+        <li>Paciente B: pessoa de 68 anos com diabetes tipo 2, baixa escolaridade, mora em área com acesso irregular a
+          alimentos frescos.</li>
+      </ul>
+      <p>Ela parte do mesmo tema e fornece à IA, para cada caso, o perfil do paciente, pedindo o material no estilo de
+        um exemplo acessível que anexa. Os dois materiais saem diferentes: o do adolescente fala em autonomia, contagem
+        de carboidratos e convívio social; o da pessoa idosa usa frases curtas, exemplos com alimentos do cotidiano
+        local e destaca os sinais de alerta logo no início.</p>
+      <p><strong>A comparação deixa claro o que a personalização produz:</strong> não dois textos com palavras
+        diferentes, mas duas abordagens adequadas a duas realidades, clínicas e de vida.</p>
+      <p><strong>O que continua com a enfermeira:</strong> conferir se cada material está factualmente correto e viável
+        para aquele paciente.</p>
+    </curso-caixa>
+
+    <p>O risco específico desta aplicação não é o tom — é o conteúdo. Um material que soa acessível e bem escrito pode
+      conter uma informação de saúde incorreta, e a fluência mascara o erro. Liu <i>et al.</i> (2025) recomendam, como
+      prática geral, verificar as saídas do modelo confrontando-as com diretrizes e bases confiáveis.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Você pode fazer ainda melhor!</p>
+      <ol>
+        <li>Crie um projeto na ferramenta que você usa e anexe a ele as diretrizes canônicas do seu serviço:
+          <ul>
+            <li>O protocolo do Ministério da Saúde.</li>
+            <li>A nota técnica da secretaria.</li>
+            <li>O capítulo do caderno de atenção básica que trata do tema.</li>
+          </ul>
+        </li>
+        <li>Nas instruções fixas do projeto, deixe explícito que as informações devem sair desses documentos, e não do
+          conhecimento geral do modelo.</li>
+        <li>Antes de entregar o material aos pacientes, confira se cada afirmação de saúde está correta e, quando o
+          material indicar fontes para o paciente consultar, certifique-se de que são fontes confiáveis, acessíveis e…
+          existentes!</li>
+      </ol>
+      <p>A adaptação da linguagem é trabalho que a IA faz bem; a garantia da exatidão é responsabilidade de quem
+        entrega.</p>
+    </curso-caixa>
+
+    <p>As três aplicações vistas nesta aula compartilham o mesmo fluxo: a IA gera, o profissional confere, o
+      profissional assina. Elas diferem no que se confere (completude na transcrição, omissões no rascunho clínico,
+      exatidão factual no material educativo), mas convergem na mesma regra: nenhuma saída do modelo segue adiante sem
+      passar pelo julgamento de quem responde por ela.</p>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+
+</html>

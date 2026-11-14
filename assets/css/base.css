@@ -16,7 +16,7 @@ curso-pagina, curso-topo, curso-banner, curso-menu, curso-trilha, curso-navegaca
 curso-rodape, curso-figura, curso-destaque, curso-video, curso-modulos,
 curso-acordeao, curso-abas, curso-carrossel, curso-cartoes, curso-caixa, curso-nota,
 curso-saiba-mais, curso-tabela, curso-colunas, curso-etapas, curso-fases,
-curso-linha-tempo, curso-matriz, curso-circulos, curso-pontos {
+curso-linha-tempo, curso-matriz, curso-circulos, curso-pontos, curso-revelar {
   display: block;
 }
 

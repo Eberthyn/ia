@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="../assets/css/curso.css">
+</head>
+
+<body>
+  <curso-pagina>
+    <h1>Engenharia de prompt avançada</h1>
+
+    <p>Até aqui compreendemos que um prompt bem estruturado responde a quatro perguntas que o modelo, sozinho, não teria
+      como responder: quem ele deve ser (Papel), o que precisa saber (Contexto), o que deve fazer (Tarefa) e como deve
+      entregar (Output). Para a maior parte das tarefas que pedem estrutura, o PaCTO resolve.</p>
+    <p>Algumas tarefas, porém, pedem mais. Quando o pedido envolve várias etapas de raciocínio, quando a primeira
+      resposta vem incompleta e precisa ser lapidada, quando o assunto é delicado e convém saber o quanto a IA está
+      segura do que afirma — nesses casos, o PaCTO é o ponto de partida, não a chegada. Existem técnicas mais
+      apropriadas para isso.</p>
+    <p>Liu <i>et al.</i> (2025) organizam essas técnicas em uma tabela de aplicação clínica, indicando para cada uma a
+      força e a limitação. As técnicas se dividem em duas famílias, e vale a pena guardar a distinção desde já:</p>
+    <ul class="lista-setas">
+      <li>A primeira reúne técnicas que melhoram uma resposta difícil: fazer o modelo raciocinar passo a passo, pedir
+        que ele critique e melhore o próprio trabalho, ativar o conhecimento relevante antes da pergunta e checar o grau
+        de confiança da resposta.</li>
+      <li>A segunda reúne técnicas que organizam o trabalho ao longo do tempo: usar a própria IA para escrever prompts,
+        estruturar pedidos complexos em markdown, guardar contexto em projetos, transformar tarefas repetidas em skills
+        e cuidar da janela de contexto.</li>
+    </ul>
+    <p>O fio que atravessa as duas continua sendo: por mais sofisticada que seja a técnica, quem responde pela decisão
+      tomada com o apoio da IA é o profissional.</p>
+
+    <curso-caixa tipo="leitura">
+      <p>Para aprofundar o tema, indicamos como leitura complementar:</p>
+      <p>Schulhoff <i>et al.</i> (2024), <a href="https://arxiv.org/abs/2406.06608" target="_blank"
+          rel="noopener"><em>The Prompt Report — survey</em></a> sistemático que cataloga 58 técnicas de prompt em uma
+        taxonomia organizada, útil para quem quer um mapa completo da área.</p>
+    </curso-caixa>
+
+    <h2>Cadeia de pensamento (CoT)</h2>
+    <p>A primeira técnica avançada responde a uma situação comum: a tarefa exige raciocínio em várias etapas, e o
+      modelo, deixado à própria sorte, salta direto para uma conclusão. O resultado costuma ser uma resposta que parece
+      pronta, mas pulou passos e errou em algum deles.</p>
+    <p>A cadeia de pensamento — em inglês, <i>chain-of-thought</i>, abreviada CoT — é a técnica de pedir ao modelo que
+      detalhe o raciocínio antes de dar a resposta final, em vez de entregar a conclusão de imediato. Wei <i>et al.</i>
+      (2022), que introduziram a técnica, mostram que pedir uma sequência de passos intermediários melhora de forma
+      marcante o desempenho em tarefas de raciocínio complexo.</p>
+    <p>O ganho é tanto maior quanto mais difícil é o problema; em tarefas simples, de um único passo, ele é pequeno ou
+      nulo. O modelo gera texto palavra após palavra, e cada palavra que ele escreve passa a fazer parte do contexto da
+      próxima.</p>
+    <p>Quando o modelo escreve o raciocínio antes da resposta, ele constrói para si mesmo um caminho de passos menores,
+      cada um deles mais fácil de acertar do que o salto direto para a conclusão. É a mesma lógica de dividir um projeto
+      complexo, como “organizar a festa”, em tarefas concretas menores (“Ligar ao bufê para pedir orçamento”,
+      “selecionar no site da banda as músicas que ela vai cantar” etc.). Ou seja: projeto executado em etapas claras em
+      vez de "de cabeça". <strong>Decompor reduz o erro e fornece clareza, tanto a nós quanto aos modelos.</strong></p>
+    <p>Há uma segunda vantagem, decisiva para a saúde. Wei <i>et al.</i> (2022) chamam o raciocínio explícito de uma
+      "janela interpretável": como o modelo mostra os passos, você pode conferir em que etapa o raciocínio falhou, em
+      vez de receber apenas um veredito sem justificativa. Uma resposta que expõe seu caminho é uma resposta que você
+      pode conferir, com uma ressalva: o raciocínio escrito é uma explicação que o modelo produz, e não um retrato fiel
+      de como ele chegou à resposta. Serve para conferir as afirmações e as etapas, não para saber o que de fato pesou
+      na conclusão.</p>
+
+    <curso-nota>
+      <p>Praticamente todos os modelos comerciais, em maio de 2026, já possuíam algum mecanismo de raciocínio embutido,
+        que pode ser ligado ou desligado. Alguns modelos até mesmo permitem ao usuário escolher o nível de esforço
+        desejado.</p>
+      <p>Dependendo do modelo, caso você opte por usar algum nível de raciocínio nativo, é recomendado não usar técnicas
+        de CoT no prompt.</p>
+      <p>Se a sua ferramenta tiver um modo de raciocínio e ele estiver ligado, em geral dispense o “pense passo a
+        passo”. Na dúvida, consulte a página de ajuda da ferramenta.</p>
+    </curso-nota>
+
+    <p>Acionar a cadeia de pensamento é simples. Kojima <i>et al.</i> (2022) demonstraram que basta acrescentar ao
+      pedido uma instrução curta — “vamos pensar passo a passo” — para que o modelo passe a explicitar o raciocínio, sem
+      precisar de nenhum exemplo. O efeito é grande: em um conjunto de problemas aritméticos, o acréscimo dessa única
+      frase elevou o acerto de 17,7% para 78,7%; em outro, de 10,4% para 40,7%. A mesma instrução funciona em tarefas de
+      naturezas diferentes, o que a torna um recurso geral e fácil de lembrar.</p>
+    <p>Na prática clínica, a cadeia de pensamento se aplica bem ao raciocínio diagnóstico. Liu <i>et al.</i> (2025)
+      ilustram o uso pedindo ao modelo que, diante de uma queixa, primeiro exclua as condições graves (por exemplo,
+      síndrome coronariana e embolia pulmonar diante de uma dor torácica) e só depois considere as causas secundárias,
+      detalhando para cada hipótese os achados e os exames pertinentes. A instrução de raciocinar por etapas reproduz,
+      no pedido, a disciplina do diagnóstico diferencial.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Uma equipe de Saúde da Família precisa planejar uma ação de educação em saúde sobre
+        prevenção de dengue para o bairro.</p>
+      <p>No primeiro pedido, a profissional escreve apenas: <strong><em>“monte uma ação de educação em saúde sobre
+            dengue.”</em></strong></p>
+      <p>O modelo devolve uma lista genérica de atividades, sem ordem clara e sem considerar o público ou os recursos da
+        equipe.</p>
+      <p>No segundo pedido, ela acrescenta ao fim: <strong><em>“Pense passo a passo: primeiro, identifique o público e o
+            objetivo da ação; depois, levante os pontos-chave da prevenção; em seguida, proponha as atividades em ordem;
+            por fim, indique os recursos necessários e como avaliar o resultado.”</em></strong></p>
+      <p>A resposta muda de qualidade: cada etapa decorre da anterior, as atividades se conectam ao objetivo e o
+        conjunto vira um plano executável.</p>
+      <p>Antes de seguir em frente, você consegue identificar o que mudou? Clique na seta para entender melhor.</p>
+      <curso-revelar titulo="O que faltou?">
+        <p>Na segunda versão, o modelo construiu o raciocínio antes de propor, e cada passo intermediário sustentou o
+          seguinte.</p>
+      </curso-revelar>
+    </curso-caixa>
+
+    <p>A cadeia de pensamento tem um limite que precisa ficar claro: mostrar o raciocínio não garante que ele esteja
+      correto. Wei <i>et al.</i> (2022) registram explicitamente que a cadeia de passos pode levar tanto a respostas
+      certas quanto a respostas erradas: o modelo é capaz de produzir um encadeamento fluente e logicamente
+      bem-apresentado que, ainda assim, parte de uma premissa falsa ou comete um erro no meio do caminho.</p>
+    <p>A janela interpretável ajuda você a encontrar o erro, mas não o impede. Quem confere o raciocínio é você.</p>
+
+    <h2>O ciclo de automelhoria</h2>
+    <p>A segunda técnica parte de uma constatação simples: <strong>a primeira resposta de um modelo raramente é a melhor
+        que ele consegue dar</strong>. Assim como um profissional revisa o próprio rascunho antes de entregá-lo, o
+      modelo pode ser levado a revisar e a aprimorar a própria saída.</p>
+    <p>O ciclo de automelhoria, descrito por Madaan <i>et al.</i> (2023) sob o nome de Self-Refine, funciona em três
+      passos com o mesmo modelo:</p>
+
+    <curso-figura larga src="img/a2-ciclo-automelhoria.webp"
+      alt="Ciclo de automelhoria em três passos, descrito a seguir.">
+      <curso-audiodescricao>
+        <p>Três círculos ligados por setas. 1, Gerar uma primeira resposta: a primeira resposta de um modelo raramente é
+          a melhor. 2, Criticar essa resposta: é solicitado a criticar essa resposta, apontando pontos fracos. 3,
+          Reescrever: incorporando a própria crítica. Uma seta volta do passo 3 ao passo 1, com a legenda “O ciclo pode
+          se repetir”.</p>
+      </curso-audiodescricao>
+    </curso-figura>
+
+    <p>Madaan <i>et al.</i> (2023) verificaram que esse procedimento melhora a qualidade das respostas em uma ampla gama
+      de tarefas, com ganho médio da ordem de 20 pontos percentuais no desempenho das sete tarefas testadas (de diálogo
+      a problemas de matemática), sem nenhum treinamento adicional do modelo — apenas pela forma de conduzir a conversa.
+    </p>
+
+    <curso-caixa tipo="pratica">
+      <p>Você não precisa montar nada complicado. Depois de receber uma resposta, peça: “Identifique os três pontos mais
+        fracos desta resposta e reescreva-a corrigindo-os.” O modelo costuma apontar lacunas que você mesmo notaria em
+        uma segunda leitura — uma informação que faltou, um trecho confuso, uma recomendação vaga — e devolve uma versão
+        melhor.</p>
+    </curso-caixa>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Elaborar uma orientação por escrito para um paciente sobre o uso correto de insulina.
+      </p>
+      <p>No primeiro pedido, a resposta inicial: texto correto, mas longo, com termos técnicos (“hipoglicemia”, “rodízio
+        de sítios de aplicação”) e sem destacar os sinais de alerta.</p>
+      <p>Crítica pedida ao modelo: <strong>“Aponte os pontos fracos para um paciente com baixa escolaridade.”</strong>
+      </p>
+      <p>O modelo responde que o vocabulário é técnico demais, que os sinais de alerta estão diluídos no meio do texto e
+        que faltam exemplos concretos.</p>
+      <p><strong>Reescrita:</strong> frases curtas, “açúcar baixo no sangue” no lugar de “hipoglicemia”, os sinais de
+        alerta em destaque no início e um exemplo prático de como alternar o local da aplicação.</p>
+      <p>A cada rodada, a orientação ficou mais adequada ao paciente real.</p>
+    </curso-caixa>
+
+    <p>Duas observações tornam o ciclo confiável:</p>
+    <ul class="lista-setas">
+      <li><strong>O feedback precisa ser específico e acionável.</strong> Madaan <i>et al.</i> (2023) mostram que uma
+        crítica genérica (“melhore o texto”) rende muito menos do que uma crítica que aponta o problema concreto e
+        sugere a correção (“o terceiro parágrafo usa termos técnicos; substitua-os por linguagem simples”). Quando você
+        dirige a automelhoria, dirija-a para um alvo.</li>
+      <li><strong>O ganho diminui a cada rodada.</strong> As primeiras iterações trazem as maiores melhorias; depois de
+        três ou quatro, o retorno costuma ser pequeno. Não vale iterar indefinidamente.</li>
+    </ul>
+    <p>Obviamente, a automelhoria depende de o modelo conseguir identificar o próprio erro — e nem sempre ele consegue.
+      Madaan <i>et al.</i> (2023) observaram que, em tarefas de raciocínio matemático, o modelo muitas vezes avalia a
+      própria resposta errada como “tudo certo” e, por isso, não a corrige.</p>
+
+    <curso-nota>
+      <p>A revisão da máquina não substitui a revisão do profissional; apenas adianta parte do trabalho.</p>
+    </curso-nota>
+
+    <p>Em outras palavras: a IA pode revisar bem o que sabe revisar, mas um erro que ela não reconhece como erro
+      sobrevive ao ciclo.</p>
+
+    <h2>Preparar e verificar a resposta</h2>
+    <p>Vamos conhecer agora duas técnicas que atuam nas pontas do raciocínio do modelo: uma antes da pergunta principal,
+      para ativar o conhecimento certo; outra depois da resposta, para medir o quanto a IA está segura dela.</p>
+
+    <h3>Priming: ativar o conhecimento antes de perguntar</h3>
+    <p>Quando a pergunta principal é específica e exige fundamentação, vale fazer antes uma pergunta ampla sobre o tema,
+      para que o modelo organize o conhecimento relevante antes de aplicá-lo ao caso. Liu <i>et al.</i> (2025) chamam
+      esse procedimento de duas etapas de <i>generated knowledge prompting</i> (em tradução livre, “preparação do
+      conhecimento”); neste curso, vamos chamá-lo de priming: na primeira etapa, pede-se ao modelo que resuma o que se
+      sabe sobre o tema; na segunda, pede-se que use esse resumo para responder à pergunta específica.</p>
+    <p>O ganho, segundo os autores, é uma resposta mais fundamentada e mais completa. O motivo se liga, mais uma vez, à
+      mecânica vista anteriormente. Ao resumir primeiro o conhecimento geral, o modelo coloca esse material no início da
+      conversa; e, como o início orienta o que vem depois, a resposta específica passa a ser gerada já apoiada nesse
+      fundamento, em vez de partir do zero.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>Antes de pedir <i>“quais cuidados com os pés devo orientar a uma pessoa com diabetes e neuropatia periférica,
+          para fazer em casa?”</i>, peça “resuma os principais riscos para os pés de uma pessoa com diabetes e
+        neuropatia periférica”; depois, faça a pergunta específica. A resposta tende a cobrir mais e a esquecer menos.
+      </p>
+    </curso-caixa>
+
+    <h3>Verificação de confiança</h3>
+    <p>Uma das fragilidades centrais dos modelos de linguagem é que eles soam igualmente seguros quando acertam e quando
+      erram. Roustan e Bastardot (2025) sublinham o ponto: por padrão, o modelo não informa ao usuário o quanto a
+      própria resposta é confiável — a saída não vem acompanhada de nenhum sinal sobre sua confiabilidade. Existe,
+      porém, uma forma de pedir esse sinal.</p>
+    <p>A verificação de confiança consiste em solicitar ao modelo que atribua um nível de confiança a cada afirmação que
+      faz — de “praticamente certo” a “especulativo”, por exemplo, ou em uma escala numérica. A técnica tem dois usos. O
+      primeiro é tornar visível o que, sem o pedido, fica oculto: as afirmações que o modelo marca como pouco confiáveis
+      são candidatas naturais à conferência em fonte externa, ao lado das que causariam mais dano se estivessem erradas,
+      qualquer que seja a marca. O segundo vai na direção que Liu <i>et al.</i> (2025) apontam para os sistemas
+      clínicos: medidas técnicas de incerteza, calculadas pelo próprio sistema, podem acionar a revisão humana quando a
+      confiança é baixa. A verificação pedida no prompt é a versão caseira, e bem menos confiável, dessa ideia.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Pedido: <em>“Responda à pergunta a seguir e, ao lado de cada afirmação, indique seu
+          nível de confiança como [alto], [médio] ou [especulativo].”</em></p>
+      <p>Pergunta: orientações gerais de hidratação para um idoso em dia quente.</p>
+      <p>Trecho da resposta:</p>
+      <ul>
+        <li>“Idosos têm menor percepção de sede e desidratam mais facilmente. [alto]”</li>
+        <li>“Recomenda-se oferecer líquidos em intervalos regulares, mesmo sem sede relatada. [alto]”</li>
+        <li>“Uma meta aproximada seria em torno de 1,5 a 2 litros por dia, ajustada à condição clínica. [médio]”</li>
+        <li>“Se a pessoa tiver insuficiência cardíaca, o volume pode precisar de restrição — confirme com a equipe.
+          [especulativo]”</li>
+      </ul>
+      <p>A marcação não torna a resposta verdadeira, mas mostra em que o modelo está menos seguro e dirige a
+        conferência.</p>
+    </curso-caixa>
+
+    <p>Cabe uma ressalva, e ela é importante o bastante para entrar em destaque. O nível de confiança é autodeclarado
+      pelo modelo, não uma medida objetiva. Schulhoff <i>et al.</i> (2024), em ampla revisão sobre o tema, registram que
+      os modelos tendem a ser excessivamente confiantes ao expressar a própria certeza em palavras, e que a eficácia
+      dessa autoavaliação ainda é objeto de debate. Use a verificação de confiança como um alerta que orienta para onde
+      olhar, não como um selo de garantia.</p>
+
+    <curso-caixa tipo="refletir">
+      <p>Três das técnicas vistas até aqui — cadeia de pensamento, automelhoria e verificação de confiança — têm algo em
+        comum: <strong>cada uma promete tornar a resposta mais confiável, e nenhuma elimina a necessidade de você
+          conferir.</strong></p>
+      <ul>
+        <li>A cadeia de pensamento mostra o raciocínio, mas o raciocínio pode estar errado.</li>
+        <li>A automelhoria corrige o que o modelo reconhece como erro, mas não o que ele não reconhece.</li>
+        <li>A verificação de confiança sinaliza a incerteza, mas a sinalização é a opinião do próprio modelo sobre si.
+        </li>
+      </ul>
+      <p><strong>Então, se as técnicas avançadas aumentam a chance de acerto sem garanti-lo, o que muda na sua
+          responsabilidade ao usá-las?</strong></p>
+    </curso-caixa>
+
+    <h2>A IA como assistente de prompt</h2>
+    <p>Há uma técnica que inverte o papel da IA: em vez de pedir que ela execute a tarefa, você pede que ela ajude a
+      escrever o pedido. Schulhoff <i>et al.</i> (2024) e Liu <i>et al.</i> (2025) descrevem esse procedimento como
+      meta-prompting — usar um prompt para gerar ou melhorar outro prompt.</p>
+
+    <curso-caixa tipo="pratica">
+      <p>O uso mais simples é descrever o objetivo em linguagem livre e pedir o prompt estruturado: <i>“Quero orientar
+          pacientes sobre preparo de exames de forma padronizada. Escreva para mim um prompt estruturado em quatro
+          blocos, com os títulos # Papel, # Contexto, # Tarefa e # Output, que eu possa reutilizar.”</i></p>
+    </curso-caixa>
+
+    <p>O modelo devolve um prompt organizado, que você ajusta e guarda. O segundo uso é pedir que o modelo melhore um
+      prompt que você já tem: <i>“Avalie o prompt abaixo e sugira uma versão mais clara e completa.”</i> Schulhoff <i>et
+        al.</i> (2024) registram que a forma mais elementar de meta-prompting é literalmente essa: uma instrução do tipo
+      “melhore o seguinte prompt”.</p>
+    <p>A técnica é especialmente útil para quem está começando, porque <strong>ensina pelo exemplo</strong>: ao ver como
+      a IA estrutura um bom prompt, você aprende a estruturar os seus. E porque resolve o bloqueio da página em branco —
+      é mais fácil corrigir um rascunho do que partir do zero.</p>
+
+    <curso-caixa tipo="cenario">
+      <p class="cenario__titulo">Pedido em linguagem livre: <em>“Sou enfermeira na atenção primária. Preciso de um
+          prompt para gerar, sempre no mesmo padrão, um resumo de consulta com queixa, conduta e sinais de alerta para
+          retorno. Escreva esse prompt para mim.”</em></p>
+      <p>O modelo devolve um prompt completo, organizado nos mesmos blocos do PaCTO — Papel (“você é um profissional de
+        saúde experiente”), Contexto, Tarefa (os três campos a preencher) e Output (formato fixo, linguagem objetiva) —,
+        pronto para ser salvo e reutilizado a cada consulta.</p>
+      <p>Em vez de a enfermeira redigir o prompt do zero, ela parte de um rascunho competente e o refina.</p>
+    </curso-caixa>
+
+    <p>Uma ressalva vale também aqui: o prompt sugerido pela IA é um ponto de partida, não um produto final. Ele pode
+      conter suposições que não correspondem à sua realidade — um papel mal calibrado, um campo desnecessário. Leia e
+      ajuste antes de adotar.</p>
+
+    <h2>Organizando prompts complexos: markdown, projetos, skills e a janela de contexto</h2>
+    <p>As técnicas anteriores melhoram respostas pontuais. Agora, você vai aprender a organizar o trabalho quando os
+      prompts ficam longos e quando a mesma tarefa se repete muitas vezes — situação frequente na rotina assistencial.
+    </p>
+
+    <h3>Markdown</h3>
+    <p>Quando um prompt cresce — vários blocos, instruções numeradas, materiais de referência —, ele precisa de
+      estrutura visível, e a forma mais simples de dar essa estrutura é o markdown.</p>
+    <p>Markdown é um modo de formatar texto com poucos símbolos: uma cerquilha (#) marca um título; duas cerquilhas
+      (##), um subtítulo; dois asteriscos em volta de uma palavra a colocam em negrito.</p>
+    <p>O ponto prático é o seguinte: ao escrever um prompt complexo, separe cada parte sob um título em markdown — #
+      Papel, # Contexto, # Tarefa, # Regras, # Output — e o modelo entenderá que cada título abre uma seção distinta.
+    </p>
+    <p>A hierarquia que organiza o texto para o leitor humano também organiza o pedido para a máquina. Liu <i>et al.</i>
+      (2025) recomendam, na mesma direção, modelar o contexto clínico em camadas (por exemplo, queixa principal → sinais
+      vitais → exames), uma estruturação que o markdown torna fácil de escrever.</p>
+
+    <h3>Projetos e Skills</h3>
+    <p>A maioria das ferramentas de IA hoje permite criar projetos — espaços que guardam instruções e arquivos de forma
+      persistente, reaproveitados em todas as conversas dentro deles. Em muitas ferramentas o recurso se chama mesmo
+      projeto; em outras, recebe outro nome, mas a função é a mesma. Neste curso, chamamos de projeto esse recurso, seja
+      qual for o nome que ele tenha na ferramenta que você usa.</p>
+    <p>Em vez de reescrever o mesmo contexto a cada conversa, você o configura uma vez. Um projeto tem três utilidades:
+    </p>
+    <ul class="lista-setas">
+      <li><span class="lista-setas__num"><strong>1.</strong></span> Organiza as conversas de um mesmo trabalho.</li>
+      <li><span class="lista-setas__num"><strong>2.</strong></span> Guarda instruções persistentes, como o prompt
+        estruturado que você montaria toda vez.</li>
+      <li><span class="lista-setas__num"><strong>3.</strong></span> Aceita arquivos de contexto ou exemplo — um
+        protocolo clínico, um modelo de relatório.</li>
+    </ul>
+    <p>Aqui um exemplo vale muito: anexe um bom exemplar do documento que você quer e as saídas seguintes tenderão a
+      imitá-lo. A capacidade varia bastante de uma ferramenta para outra e muda a cada atualização: algumas aceitam
+      poucos arquivos por projeto, outras comportam volumes bem maiores. Antes de organizar um trabalho que dependa de
+      muitos anexos, confira o limite vigente na ferramenta que você usa.</p>
+    <p>De modo geral, todo projeto tem três partes, de fácil reconhecimento quando você o abre na tela: um nome, um
+      campo de instruções fixas e uma área para anexar arquivos. O projeto está para as conversas com o chatbot assim
+      como uma pasta no computador está para os arquivos. Ou seja: você consegue “guardar” várias conversas em um único
+      projeto (e, nesse caso, todas elas lerão os mesmos arquivos anexados e compartilharão as mesmas instruções gerais
+      do projeto, como explicaremos a seguir).</p>
+    <p>Agora é a sua vez de criar um projeto! Os passos a seguir funcionam em qualquer ferramenta, mesmo depois que a
+      interface mudar. Clique nas setas para saber mais.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="1. Descubra como o recurso se chama na sua ferramenta.">
+        <p>Na dúvida, pergunte ao próprio modelo, em uma conversa nova. A pergunta a seguir funciona em qualquer
+          ferramenta e continua útil mesmo se as interfaces mudarem:</p>
+        <p>Você tem algum recurso para guardar instruções e arquivos que valham para várias conversas, como um projeto?
+          Se tiver, diga como ele se chama aqui, onde encontro esse recurso na tela e como criar um, passo a passo. Se
+          não tiver, diga qual é a alternativa mais próxima.</p>
+        <p>O modelo nem sempre conhece a versão mais recente da própria interface. Se a resposta não bater com o que
+          você vê na tela, consulte a página de ajuda da ferramenta.</p>
+      </curso-item>
+      <curso-item titulo="2. Crie o projeto e dê a ele um nome de tarefa.">
+        <p>Um nome que descreve a tarefa, e não o assunto, ajuda você a achar o projeto certo depois: “Orientações de
+          preparo de exames” diz mais do que “Exames”.</p>
+      </curso-item>
+      <curso-item titulo="3. Escreva as instruções fixas em markdown, nos blocos do PaCTO.">
+        <p>No campo de instruções do projeto, cole o modelo do PaCTO e preencha cada bloco: # Papel, # Contexto, #
+          Tarefa, # Output. Se a tarefa tiver limites que valem sempre, acrescente um bloco # Regras antes do Output
+          (“não incluir dosagens”, “não afirmar nada que não esteja nos arquivos anexados”).</p>
+        <p>Essas instruções passam a valer para todas as conversas dentro do projeto.</p>
+        <p>Observação: no projeto, o bloco # Tarefa descreve o tipo de tarefa que se repete (por exemplo, redigir
+          orientações de preparo de exames).</p>
+        <p>O pedido de cada dia (qual exame, para qual paciente fictício) vai na própria conversa. Escreva nas
+          instruções do projeto apenas o que vale para qualquer conversa iniciada nele.</p>
+      </curso-item>
+      <curso-item titulo="4. Anexe os arquivos e diga para que serve cada um.">
+        <p>Anexe dois tipos e explicite o que são e para que servem no bloco #Contexto:</p>
+        <ul>
+          <li>Referência: o que o modelo deve seguir. Um protocolo, uma nota técnica, o material do seu serviço.</li>
+          <li>Exemplo: o que o modelo deve imitar. Um documento seu que ficou bom e que fixa o formato, a extensão e o
+            tom.</li>
+        </ul>
+        <p>Uma frase basta: “O arquivo A é o protocolo que serve de base; o arquivo B é um exemplo do formato que eu
+          quero.” Antes de anexar, retire dos arquivos tudo o que identifique pacientes: nome, documento, endereço, data
+          de nascimento.</p>
+        <p>Observação: nem todo tipo de arquivo é aceito como anexo. Se um arquivo não subir, salve-o em PDF ou em texto
+          pelo próprio programa em que ele foi feito, ou pergunte ao modelo quais formatos ele aceita.</p>
+      </curso-item>
+      <curso-item titulo="5. Peça a tarefa e confira.">
+        <p>Com o contexto guardado, o pedido do dia a dia fica curto: “Adapte o material anexado para uma orientação de
+          preparo, mantendo a estrutura do exemplo.” Você não repete quem você é, onde atua nem qual é o formato, porque
+          isso já está no projeto.</p>
+        <p>Leia a resposta contra os arquivos anexados. Se encontrar um erro que tende a se repetir, corrija nas
+          instruções do projeto, e não só naquela resposta.</p>
+        <p>Tente executar pelo menos duas tarefas no âmbito do projeto recém-criado para entender e fixar melhor.</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Lembre-se que o projeto guarda o contexto e o markdown organiza o pedido, sendo assim, você explica uma vez e,
+      depois, pede em uma linha.</p>
+    <p>Mais recentes, as skills dão um passo além. Se o projeto guarda o contexto que permanece, a skill empacota um
+      procedimento repetível — um passo a passo que a IA aciona sozinha quando a tarefa aparece (formatar um relatório
+      em um padrão fixo, extrair dados seguindo um protocolo). É o método pronto para reutilizar, acionado só quando a
+      tarefa pede — e é nessa direção que caminham as principais novidades do campo.</p>
+    <p>Em outras palavras, uma skill é uma “receita de bolo”. Imagine que um agente de IA pudesse fazer um bolo de
+      verdade. Você pede um <i>“bolo de cenoura com recheio de chocolate igual ao que a minha avó fazia”</i>. O agente
+      não conhece o bolo da sua avó, então a primeira tentativa sai diferente do que você esperava.</p>
+    <p>Você prova e corrige: “menos açúcar na massa”, “o recheio mais cremoso”, “a cobertura por cima, e não por
+      dentro”. A cada correção, o agente faz uma nova tentativa, e cada uma fica um pouco mais perto do bolo da sua avó.
+    </p>
+    <p>Quando uma das tentativas finalmente acerta, você diz ao agente: “É exatamente assim que eu quero. Transforme
+      essa última tentativa em uma receita, com todas as correções que eu fiz, para que você faça exatamente assim
+      sempre que eu pedir este bolo”.</p>
+    <p>Uma skill funciona mais ou menos dessa forma: ao pedir para criá-la, o agente ainda terá, na própria conversa, o
+      histórico do que foi tentado, do que deu certo e do que não deu. Dessa forma, ele registrará tudo em uma skill,
+      para que futuras instâncias repitam o que deu certo sem que precisem achar novamente o caminho exitoso por meio de
+      “tentativa e erro”. Por isso, peça a skill enquanto a conversa ainda está no ponto, antes que ela fique longa
+      demais.</p>
+
+    <curso-nota>
+      <p>A skill é um recurso típico dos agentes (ou seja, sistemas de IA baseados em LLM que podem executar ações por
+        você diretamente, no seu computador ou na internet), mas alguns chatbots também a aceitam.</p>
+    </curso-nota>
+
+    <p>Você não precisa escrever uma skill do zero, nem saber programar. Quando a tarefa se repetir, transforme-a em
+      skill. Esse é o caminho mais simples: executar bem uma vez a tarefa e pedir ao próprio agente que a transforme em
+      procedimento. Os passos a seguir ensinam a transformar uma tarefa em skill. Clique nas setas para saber mais.</p>
+
+    <curso-acordeao independente>
+      <curso-item titulo="1. Faça a tarefa bem uma vez, conversando.">
+        <p>Escolha algo que se repete na sua rotina: resumir consultas sempre nos mesmos campos, organizar resultados de
+          exames, redigir encaminhamentos.</p>
+        <p>Converse normalmente e corrija até o resultado ficar como você quer. Cada correção que você fizer (“não
+          inclua o que não está nas anotações”, “coloque a conduta antes dos sinais de alerta”) vai virar uma regra da
+          skill. Use casos fictícios ou textos sem nada que identifique o paciente.</p>
+      </curso-item>
+      <curso-item titulo="2. Peça ao agente que transforme a conversa em procedimento.">
+        <p>Ainda na mesma conversa, escreva:</p>
+        <p><i>Transforme o que fizemos nesta conversa em uma skill ou algum outro tipo de procedimento reutilizável para
+            execuções subsequentes desta mesma tarefa. Inclua toda e qualquer informação ou contexto que seja útil para
+            garantir a realização com a mesma qualidade obtida na última tentativa, inclusive as correções que eu fiz,
+            escritas como regras. Escreva em markdown. Registre o procedimento e as regras gerais da tarefa; não guarde
+            os dados clínicos dos casos usados nesta conversa e, se precisar de um exemplo, use um caso fictício.</i>
+        </p>
+        <p>Em vez de redigir o procedimento, você revisa o que o agente redigiu. Copie e guarde esse texto: se a skill
+          precisar ser instalada à mão (passo 3), é ele que você vai usar.</p>
+      </curso-item>
+      <curso-item titulo="3. Confira se a skill ficou “instalada”.">
+        <p>Muitos agentes, ao criar uma skill, já a salvam no lugar certo e a deixam pronta para uso, ou seja,
+          “instalada”: dali em diante, o agente a reconhece sozinho sempre que a tarefa aparecer. Nem todos fazem isso,
+          e cada ferramenta guarda skills de um jeito, que muda depressa. Por isso, confirme.</p>
+        <p>Abra uma conversa nova, para que a pergunta não se misture com o trabalho da tarefa, e pergunte:</p>
+        <p><i>Você tem algum recurso para guardar procedimentos reutilizáveis, às vezes chamado de skill? Se tiver,
+            verifique se já existe uma skill instalada para [descreva a tarefa]. Se não existir, explique como instalar
+            uma a partir de um texto em markdown que eu já tenho e como acioná-la depois. Se você não tiver esse
+            recurso, diga qual é a melhor alternativa.</i></p>
+        <p>Se a ferramenta não tiver skills, ou se instalá-la exigir passos técnicos, cole o procedimento nas instruções
+          fixas de um projeto: o efeito prático é parecido.</p>
+      </curso-item>
+      <curso-item titulo="4. Teste em um caso novo e corrija o procedimento, não a resposta.">
+        <p>Use a skill em uma nova tarefa semelhante. Se ela estiver instalada, o agente costuma reconhecer sozinho que
+          existe uma skill para aquela tarefa; se não reconhecer, cite-a no pedido (“use a skill de resumo de
+          consulta”). Depois, avalie o resultado.</p>
+        <p>Caso não esteja satisfeito, explique ao agente o que não ficou bom. Peça a ele para refazer até alcançar o
+          resultado desejado. Assim que ele o fizer, reflita: <i>a diferença na execução se deve a alguma peculiaridade
+            do seu último pedido? Ou é generalizável para qualquer nova tarefa regida por essa skill?</i></p>
+        <p>Em seguida, peça ao agente para atualizar a skill, tomando o cuidado de avisá-lo se a diferença de resultado
+          é geral ou se é específica. Caso seja específica, informe ao agente o que foi diferente: você deu a ele um
+          arquivo com uma extensão diferente? Havia alguma diferença no conteúdo que você repassou a ele desta vez?</p>
+      </curso-item>
+    </curso-acordeao>
+
+    <p>Lembre-se de que a skill repete o procedimento, mas não garante o acerto. A leitura crítica antes de usar
+      continua sendo sua.</p>
+    <p>Elaboramos um modelo de prompt estruturado em Markdown para tarefas complexas, que reúne os blocos do PaCTO, uma
+      seção de regras e um espaço para indicar os arquivos anexados ao projeto. O material está disponível para
+      <strong><span class="pendente" title="Arquivo para download ainda não disponível"><u>download</u></span></strong>.
+    </p>
+
+    <h3>Higiene de contexto</h3>
+    <p>Toda ferramenta de IA tem uma janela de contexto: o espaço de texto que o modelo consegue considerar de uma vez.
+      Esse espaço é finito. Conversas muito longas começam a degradar a qualidade da resposta — o modelo passa a “perder
+      de vista” o que foi dito no início, ou a misturar assuntos de trechos distantes.</p>
+    <p>A higiene de contexto é o cuidado de gerenciar esse espaço. Na prática, três hábitos bastam. Quando uma conversa
+      fica longa e confusa, abra uma nova em vez de insistir na antiga.</p>
+    <p>Antes de migrar, peça ao modelo um resumo do que foi tratado e leve esse resumo para a conversa nova, preservando
+      o essencial sem o acúmulo. Confira esse resumo antes de levá-lo: ele também é uma saída do modelo e pode ter
+      deixado algo de fora. Quando o essencial cabe em poucas linhas, escrevê-lo você mesmo é mais seguro. E mantenha
+      uma conversa por assunto: misturar tarefas diferentes na mesma janela é a forma mais rápida de poluir o contexto.
+      Saber quando recomeçar é parte de usar bem a ferramenta.</p>
+  </curso-pagina>
+
+  <script src="../assets/js/curso.js"></script>
+</body>
+
+</html>
