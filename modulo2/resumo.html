@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="stylesheet" href="../assets/css/curso.css">
 </head>
+
 <body>
   <curso-pagina>
     <h1>Resumo do módulo</h1>
 
     <p>Você chegou ao final do segundo módulo. Vamos agora recordar os principais tópicos abordados:</p>
     <ul class="lista-setas">
-      <li>Vimos que um modelo de linguagem prevê o próximo token, palavra após palavra, e por isso o texto que você escreve no início dirige toda a sequência que vem depois. A consequência dessa mecânica: usado “puro”, sem busca, sem raciocínio estendido e sem ferramentas, o modelo alucina, e alucina com a mesma fluência confiante de quando acerta. E chegou à resposta prática: se a forma do pedido determina o resultado, então formular bem o pedido é uma competência que vale a pena ter.</li>
-      <li>Conhecemos o método PaCTO, que organiza um prompt em quatro blocos — Papel, Contexto, Tarefa e Output —, cada um respondendo a uma pergunta que o modelo, sozinho, não teria como responder. Restrições e exemplos refinam o resultado: as primeiras delimitam o que o modelo pode fazer; os segundos demonstram, em vez de descrever, o padrão esperado. E o julgamento sobre quando aplicar tudo isso segue a regra dos 10 a 20%: o esforço se justifica nas tarefas complexas, específicas ou repetitivas, não nos pedidos rápidos do cotidiano.</li>
-      <li>Conhecemos técnicas que melhoram uma resposta difícil — a cadeia de pensamento, que faz o modelo raciocinar passo a passo e abre uma janela para conferir, etapa por etapa, o raciocínio apresentado; o ciclo de automelhoria, em que o modelo critica e reescreve a própria saída; o <i>priming</i>, que ativa o conhecimento relevante antes da pergunta; e a verificação de confiança, que torna visível o quanto o modelo se declara seguro. E técnicas que organizam o trabalho ao longo do tempo — usar a IA como assistente de prompt, estruturar pedidos em markdown, guardar contexto em projetos, transformar tarefas repetidas em skills e cuidar da janela de contexto.</li>
-      <li>Vimos que na transcrição de exames, a chave é o esquema de saída — o padrão <i>Template</i> de White <i>et al.</i> (2023) aplicado a campos e ordem —, e o ganho é reorganizar, sem esforço, o que estava disperso. Nos rascunhos de documentos clínicos, a evidência de Bracken <i>et al.</i> (2025) mostra ganho real de tempo, maior nos casos complexos, ao lado de um limite incontornável: a qualidade varia e a omissão, o erro mais difícil de notar, foi o mais frequente no estudo que classificou os erros, o que torna a conferência item a item obrigatória antes da assinatura.</li>
-      <li>Nos materiais educativos, a IA adapta o registro a cada paciente — com o <i>one-shot</i> de Liu <i>et al.</i> (2025) e a capacidade de personalização que Roustan e Bastardot (2025) reconhecem —, desde que o profissional garanta a exatidão factual do que entrega.</li>
-      <li>É importante destacar que a IA produz rascunhos, não versões finais, e que a responsabilidade pelo resultado é sempre do profissional que assina. A reconciliação dos três usos é esta: variam no que fazem e no que se confere, mas convergem no mesmo fluxo gerar → conferir → assinar.</li>
+      <li>Vimos que um modelo de linguagem prevê o próximo token, palavra após palavra, e por isso o texto que você
+        escreve no início dirige toda a sequência que vem depois. A consequência dessa mecânica: usado “puro”, sem
+        busca, sem raciocínio estendido e sem ferramentas, o modelo alucina, e alucina com a mesma fluência confiante de
+        quando acerta. E chegou à resposta prática: se a forma do pedido determina o resultado, então formular bem o
+        pedido é uma competência que vale a pena ter.</li>
+      <li>Conhecemos o método PaCTO, que organiza um prompt em quatro blocos — Papel, Contexto, Tarefa e Output —, cada
+        um respondendo a uma pergunta que o modelo, sozinho, não teria como responder. Restrições e exemplos refinam o
+        resultado: as primeiras delimitam o que o modelo pode fazer; os segundos demonstram, em vez de descrever, o
+        padrão esperado. E o julgamento sobre quando aplicar tudo isso segue a regra dos 10 a 20%: o esforço se
+        justifica nas tarefas complexas, específicas ou repetitivas, não nos pedidos rápidos do cotidiano.</li>
+      <li>Conhecemos técnicas que melhoram uma resposta difícil — a cadeia de pensamento, que faz o modelo raciocinar
+        passo a passo e abre uma janela para conferir, etapa por etapa, o raciocínio apresentado; o ciclo de
+        automelhoria, em que o modelo critica e reescreve a própria saída; o <i>priming</i>, que ativa o conhecimento
+        relevante antes da pergunta; e a verificação de confiança, que torna visível o quanto o modelo se declara
+        seguro. E técnicas que organizam o trabalho ao longo do tempo — usar a IA como assistente de prompt, estruturar
+        pedidos em markdown, guardar contexto em projetos, transformar tarefas repetidas em skills e cuidar da janela de
+        contexto.</li>
+      <li>Vimos que na transcrição de exames, a chave é o esquema de saída — o padrão <i>Template</i> de White <i>et
+          al.</i> (2023) aplicado a campos e ordem —, e o ganho é reorganizar, sem esforço, o que estava disperso. Nos
+        rascunhos de documentos clínicos, a evidência de Bracken <i>et al.</i> (2025) mostra ganho real de tempo, maior
+        nos casos complexos, ao lado de um limite incontornável: a qualidade varia e a omissão, o erro mais difícil de
+        notar, foi o mais frequente no estudo que classificou os erros, o que torna a conferência item a item
+        obrigatória antes da assinatura.</li>
+      <li>Nos materiais educativos, a IA adapta o registro a cada paciente — com o <i>one-shot</i> de Liu <i>et al.</i>
+        (2025) e a capacidade de personalização que Roustan e Bastardot (2025) reconhecem —, desde que o profissional
+        garanta a exatidão factual do que entrega.</li>
+      <li>É importante destacar que a IA produz rascunhos, não versões finais, e que a responsabilidade pelo resultado é
+        sempre do profissional que assina. A reconciliação dos três usos é esta: variam no que fazem e no que se
+        confere, mas convergem no mesmo fluxo gerar → conferir → assinar.</li>
     </ul>
   </curso-pagina>
 
   <script src="../assets/js/curso.js"></script>
 </body>
+
 </html>
